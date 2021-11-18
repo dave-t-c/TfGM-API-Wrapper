@@ -29,7 +29,7 @@ namespace TfGM_API_Wrapper
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo {Title = "TfGM_API_Wrapper", Version = "v1"});
+                c.SwaggerDoc("v1", new OpenApiInfo {Title = "TfGM API Wrapper", Version = "v1"});
             });
         }
 
