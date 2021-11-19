@@ -10,7 +10,7 @@ namespace TfGM_API_Wrapper.Models
             public string StationName { get; set; }
             public string Tlaref { get; set; }
             public ArrayList Ids { get; set; }
-            public string NaptanId { get; set; }
+            public string AtcoCode { get; set; }
             public double Latitude { get; set; }
             public double Longitude { get; set; }
             public string Street { get; set; }
