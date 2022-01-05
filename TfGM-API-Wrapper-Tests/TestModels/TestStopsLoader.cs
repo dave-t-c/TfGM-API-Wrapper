@@ -33,5 +33,20 @@ namespace TfGM_API_Wrapper_Tests.TestModels
             StopLoader testStopLoader = new StopLoader(_validStopLoaderPath);
             Assert.AreEqual(1, testStopLoader.ImportStops().Count);
         }
+
+        /// <summary>
+        /// Create a stop loader using null.
+        /// This should throw an argument exception
+        /// </summary>
+        [Test]
+        public void TestNullStopLoader()
+        {
+            Assert.Throws(Is.TypeOf<ArgumentNullException>().And
+                    .Message.EqualTo("Value cannot be null. (Parameter 'stopsPath')"),
+                delegate
+                {
+                    StopLoader stopLoader = new StopLoader(null);
+                });
+        }
     }
 }

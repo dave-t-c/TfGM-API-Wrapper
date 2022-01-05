@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using Newtonsoft.Json;
@@ -18,7 +19,7 @@ namespace TfGM_API_Wrapper.Models
         /// <param name="stopsPath">Path from current base directory to Stops resources file.</param>
         public StopLoader(string stopsPath)
         {
-            _stopsPath = stopsPath;
+            _stopsPath = stopsPath ?? throw new ArgumentNullException(nameof(stopsPath));
         }
         
         /// <summary>
