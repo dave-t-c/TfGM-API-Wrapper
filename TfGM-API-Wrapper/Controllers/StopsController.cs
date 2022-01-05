@@ -1,10 +1,6 @@
 using System.Collections.Generic;
-using System.IO;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 using TfGM_API_Wrapper.Models;
-
-using static System.AppDomain;
 
 namespace TfGM_API_Wrapper.Controllers
 {
@@ -23,22 +19,13 @@ namespace TfGM_API_Wrapper.Controllers
         [HttpGet]
         public IActionResult GetAllStops()
         {
-            if (_stops == null)
-            {
-                ImportStops();
-            }
+            if (_stops != null) return Ok(_stops);
+            
+            var stopLoader = new StopLoader("Resources/Stops.json");
+            _stops = stopLoader.ImportStops();
             return Ok(_stops);
         }
 
-        /// <summary>
-        /// Imports the Stops from the Stops resources file.
-        /// The results from this are then returned with a GET to '/api/stops'.
-        /// </summary>
-        private void ImportStops()
-        {
-            using var reader = new StreamReader(CurrentDomain.BaseDirectory + "Resources/Stops.json");
-            var jsonString = reader.ReadToEnd();
-            _stops = JsonConvert.DeserializeObject<List<Stop>>(jsonString);
-        }
+        
     }
 }
