@@ -16,5 +16,6 @@ namespace TfGM_API_Wrapper.Models
             public string Street { get; set; }
             public string RoadCrossing { get; set; }
             public string Line { get; set; }
+            public string StopZone { get; set; }
     }
 }
