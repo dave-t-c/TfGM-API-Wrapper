@@ -20,6 +20,11 @@ namespace TfGM_API_Wrapper.Models
         public StopLoader(string stopsPath)
         {
             _stopsPath = stopsPath ?? throw new ArgumentNullException(nameof(stopsPath));
+            _stopsPath = CurrentDomain.BaseDirectory + _stopsPath;
+            if (!File.Exists(_stopsPath))
+            {
+                throw new FileNotFoundException("Could not find file " + stopsPath);
+            }
         }
         
         /// <summary>
@@ -29,7 +34,7 @@ namespace TfGM_API_Wrapper.Models
          
         public List<Stop> ImportStops()
         {
-            using var reader = new StreamReader(CurrentDomain.BaseDirectory + _stopsPath);
+            using var reader = new StreamReader(_stopsPath);
             var jsonString = reader.ReadToEnd();
             return JsonConvert.DeserializeObject<List<Stop>>(jsonString);
         }

@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using NUnit.Framework;
 using TfGM_API_Wrapper.Models;
 using static System.AppDomain;
@@ -13,6 +14,7 @@ namespace TfGM_API_Wrapper_Tests.TestModels
     {
         
         private string _validStopLoaderPath = "";
+        private string _invalidStopLoaderPath = "";
         
         [SetUp]
         public void Setup()
@@ -20,6 +22,7 @@ namespace TfGM_API_Wrapper_Tests.TestModels
             //The links for the resources folder is three directories up due to where
             //the tests are run from.
             _validStopLoaderPath = "../../../Resources/ValidStopLoader.json";
+            _invalidStopLoaderPath = "../../../Resources/NonExistentFile.json";
         }
 
         /// <summary>
@@ -47,6 +50,22 @@ namespace TfGM_API_Wrapper_Tests.TestModels
                 {
                     StopLoader stopLoader = new StopLoader(null);
                 });
+        }
+
+        /// <summary>
+        /// Create a StopLoader using a file path that does not exist.
+        /// This should throw a FileNotFoundException
+        /// </summary>
+        [Test]
+        public void TestNonExistentFileStopLoader()
+        {
+            Assert.Throws(Is.TypeOf<FileNotFoundException>().And
+                .Message.EqualTo("Could not find file ../../../Resources/NonExistentFile.json"),
+            delegate
+            {
+                StopLoader stopLoader = new StopLoader(_invalidStopLoaderPath);
+                stopLoader.ImportStops();
+            });
         }
     }
 }
