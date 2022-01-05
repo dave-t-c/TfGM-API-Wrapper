@@ -19,8 +19,4 @@
       <ProjectReference Include="..\TfGM-API-Wrapper\TfGM-API-Wrapper.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="TestControllers" />
-    </ItemGroup>
-
 </Project>
