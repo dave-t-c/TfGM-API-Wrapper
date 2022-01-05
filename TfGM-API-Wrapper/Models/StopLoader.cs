@@ -10,7 +10,7 @@ namespace TfGM_API_Wrapper.Models
     /// </summary>
     public class StopLoader
     {
-        private string _stopsPath;
+        private readonly string _stopsPath;
     
         /// <summary>
         /// Create a new StopLoader Object, which can import the required Stops.
@@ -28,7 +28,7 @@ namespace TfGM_API_Wrapper.Models
          
         public List<Stop> ImportStops()
         {
-            using var reader = new StreamReader(CurrentDomain.BaseDirectory + "Resources/Stops.json");
+            using var reader = new StreamReader(CurrentDomain.BaseDirectory + _stopsPath);
             var jsonString = reader.ReadToEnd();
             return JsonConvert.DeserializeObject<List<Stop>>(jsonString);
         }
