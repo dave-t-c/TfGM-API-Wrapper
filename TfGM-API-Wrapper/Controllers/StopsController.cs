@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using TfGM_API_Wrapper.Models;
 
 namespace TfGM_API_Wrapper.Controllers
@@ -12,20 +13,13 @@ namespace TfGM_API_Wrapper.Controllers
         private const string DefaultStopsPath = "Resources/Stops.json";
 
         /// <summary>
-        /// Constructor used service started, called when configuring service.
-        /// </summary>
-        public StopsController()
-        {
-            StopLoader stopLoader = new StopLoader(DefaultStopsPath);
-            _stops = stopLoader.ImportStops();
-        }
-
-        /// <summary>
-        /// Allows for custom stops path file location.
+        /// Controller Constructor that allows for custom stops path file location.
         /// This can be used for testing the controller.
+        /// Default = Default location for stop data file. This should ideally be
+        /// extracted to the properties file.
         /// </summary>
-        /// <param name="stopsPath">Path for Stop data, relative the the base directory.</param>
-        public StopsController(string stopsPath)
+        /// <param name="stopsPath">Path for Stop data, relative to the the base directory.</param>
+        public StopsController(string stopsPath = "Resources/Stops.json")
         {
             StopLoader stopLoader = new StopLoader(stopsPath);
             _stops = stopLoader.ImportStops();
