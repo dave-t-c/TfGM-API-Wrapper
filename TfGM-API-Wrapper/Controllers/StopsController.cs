@@ -8,7 +8,28 @@ namespace TfGM_API_Wrapper.Controllers
     [ApiController]
     public class StopsController : Controller
     {
-        private List<Stop> _stops;
+        private readonly List<Stop> _stops;
+        private const string DefaultStopsPath = "Resources/Stops.json";
+
+        /// <summary>
+        /// Constructor used service started, called when configuring service.
+        /// </summary>
+        public StopsController()
+        {
+            StopLoader stopLoader = new StopLoader(DefaultStopsPath);
+            _stops = stopLoader.ImportStops();
+        }
+
+        /// <summary>
+        /// Allows for custom stops path file location.
+        /// This can be used for testing the controller.
+        /// </summary>
+        /// <param name="stopsPath">Path for Stop data, relative the the base directory.</param>
+        public StopsController(string stopsPath)
+        {
+            StopLoader stopLoader = new StopLoader(stopsPath);
+            _stops = stopLoader.ImportStops();
+        }
         
         /// <summary>
         /// Returns a JSON List of all Stops.
@@ -19,10 +40,6 @@ namespace TfGM_API_Wrapper.Controllers
         [HttpGet]
         public IActionResult GetAllStops()
         {
-            if (_stops != null) return Ok(_stops);
-            
-            var stopLoader = new StopLoader("Resources/Stops.json");
-            _stops = stopLoader.ImportStops();
             return Ok(_stops);
         }
 
