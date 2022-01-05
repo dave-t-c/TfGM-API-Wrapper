@@ -1,8 +1,8 @@
 using NUnit.Framework;
-
-namespace TfGM_API_Wrapper_Tests
+using TfGM_API_Wrapper.Models;
+namespace TfGM_API_Wrapper_Tests.TestModels
 {
-    public class Tests
+    public class TestStopsLoader
     {
         [SetUp]
         public void Setup()
