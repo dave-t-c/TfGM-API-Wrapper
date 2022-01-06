@@ -62,6 +62,23 @@ namespace TfGM_API_Wrapper_Tests.TestControllers
             Assert.IsNotNull(okResult);
             Assert.AreEqual(200, okResult.StatusCode);
         }
+
+        /// <summary>
+        /// Test the length of the returned Stops list.
+        /// This should be 1, as there is only a single Stop in the
+        /// StopLoader file.
+        /// </summary>
+        [Test]
+        public void TestGetExpectedStopsCount()
+        {
+            IActionResult result = _testStopController.GetAllStops();
+            Assert.IsNotNull(result);
+
+            var okResult = result as OkObjectResult;
+            Assert.IsNotNull(okResult);
+            List<Stop> retrievedStops = okResult.Value as List<Stop>;
+            Assert.AreEqual(1, retrievedStops.Count);
+        }
         
     }
 }
