@@ -21,6 +21,7 @@ namespace TfGM_API_Wrapper.Models
         {
             _stopsPath = stopsPath ?? throw new ArgumentNullException(nameof(stopsPath));
             _stopsPath = CurrentDomain.BaseDirectory + _stopsPath;
+            Console.WriteLine(_stopsPath);
             if (!File.Exists(_stopsPath))
             {
                 throw new FileNotFoundException("Could not find file " + stopsPath);
