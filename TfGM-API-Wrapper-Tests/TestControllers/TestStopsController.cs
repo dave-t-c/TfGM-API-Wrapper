@@ -14,11 +14,13 @@ namespace TfGM_API_Wrapper_Tests.TestControllers
     {
         private const string ValidStopLoaderPath = "../../../Resources/ValidStopLoader.json";
         private StopsController? _testStopController;
+        private StopsController? _defaultTestStopController;
         
         [SetUp]
         public void Setup()
         {
             _testStopController = new StopsController(ValidStopLoaderPath);
+            _defaultTestStopController = new StopsController();
         }
 
         /// <summary>
@@ -45,5 +47,21 @@ namespace TfGM_API_Wrapper_Tests.TestControllers
             Assert.IsNotNull(okResult);
             Assert.AreEqual(200, okResult.StatusCode);
         }
+
+        /// <summary>
+        /// Test configuration used to ensure correct return code
+        /// is given.
+        /// </summary>
+        [Test]
+        public void TestGetExpectedResultCodeDefaultConstructor()
+        {
+            IActionResult result = _defaultTestStopController.GetAllStops();
+            Assert.IsNotNull(result);
+
+            var okResult = result as OkObjectResult;
+            Assert.IsNotNull(okResult);
+            Assert.AreEqual(200, okResult.StatusCode);
+        }
+        
     }
 }
