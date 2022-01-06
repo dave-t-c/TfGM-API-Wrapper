@@ -7,5 +7,7 @@ namespace TfGM_API_Wrapper.Models
     public class ResourcesConfig
     {
         public string StopResourcePath { get; set; }
+        public string StationNamesToTlarefsPath { get; set; }
+        public string TlarefsToIdsPath { get; set; }
     }
 }
