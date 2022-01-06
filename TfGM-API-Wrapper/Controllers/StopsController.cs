@@ -11,7 +11,6 @@ namespace TfGM_API_Wrapper.Controllers
     public class StopsController : Controller
     {
         private readonly List<Stop> _stops;
-        private const string DefaultStopsPath = "Resources/Stops.json";
 
         /// <summary>
         /// Controller Constructor that allows for custom stops path file location.
@@ -23,7 +22,7 @@ namespace TfGM_API_Wrapper.Controllers
         /// <param name="config">ResourcesConfig - Configuration for resources location</param>
         public StopsController(IOptions<ResourcesConfig> config)
         {
-            StopLoader stopLoader = new StopLoader(config.Value.StopResourcePath);
+            StopLoader stopLoader = new StopLoader(config.Value);
             _stops = stopLoader.ImportStops();
         }
         

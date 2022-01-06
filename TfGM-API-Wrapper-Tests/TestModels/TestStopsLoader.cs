@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using Microsoft.Extensions.Options;
 using NUnit.Framework;
 using TfGM_API_Wrapper.Models;
 using static System.AppDomain;
@@ -12,17 +13,24 @@ namespace TfGM_API_Wrapper_Tests.TestModels
     /// </summary>
     public class TestStopsLoader
     {
-        
-        private string _validStopLoaderPath = "";
-        private string _invalidStopLoaderPath = "";
-        
+        private ResourcesConfig? _validResourcesConfig;
+        private ResourcesConfig? _invalidResourcesConfig;
+
         [SetUp]
         public void Setup()
         {
             //The links for the resources folder is three directories up due to where
             //the tests are run from.
-            _validStopLoaderPath = "../../../Resources/ValidStopLoader.json";
-            _invalidStopLoaderPath = "../../../Resources/NonExistentFile.json";
+            _validResourcesConfig = new ResourcesConfig
+            {
+                StopResourcePath = "../../../Resources/ValidStopLoader.json"
+            };
+            
+            _invalidResourcesConfig = new ResourcesConfig
+            {
+                StopResourcePath = "../../../Resources/NonExistentFile.json"
+            };
+
         }
 
         /// <summary>
@@ -33,7 +41,7 @@ namespace TfGM_API_Wrapper_Tests.TestModels
         [Test]
         public void TestValidStopLoader()
         {
-            StopLoader testStopLoader = new StopLoader(_validStopLoaderPath);
+            StopLoader testStopLoader = new StopLoader(_validResourcesConfig);
             Assert.AreEqual(1, testStopLoader.ImportStops().Count);
         }
 
@@ -45,7 +53,7 @@ namespace TfGM_API_Wrapper_Tests.TestModels
         public void TestNullStopLoader()
         {
             Assert.Throws(Is.TypeOf<ArgumentNullException>().And
-                    .Message.EqualTo("Value cannot be null. (Parameter 'stopsPath')"),
+                    .Message.EqualTo("Value cannot be null. (Parameter 'resourcesConfig')"),
                 delegate
                 {
                     StopLoader stopLoader = new StopLoader(null);
@@ -60,10 +68,11 @@ namespace TfGM_API_Wrapper_Tests.TestModels
         public void TestNonExistentFileStopLoader()
         {
             Assert.Throws(Is.TypeOf<FileNotFoundException>().And
-                .Message.EqualTo("Could not find file ../../../Resources/NonExistentFile.json"),
+                .Message.Contains("Could not find file")
+                .And.Message.Contains("../../../Resources/NonExistentFile.json"),
             delegate
             {
-                StopLoader stopLoader = new StopLoader(_invalidStopLoaderPath);
+                StopLoader stopLoader = new StopLoader(_invalidResourcesConfig);
                 stopLoader.ImportStops();
             });
         }

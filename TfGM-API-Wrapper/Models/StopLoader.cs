@@ -11,19 +11,20 @@ namespace TfGM_API_Wrapper.Models
     /// </summary>
     public class StopLoader
     {
-        private readonly string _stopsPath;
-    
+        private readonly ResourcesConfig _resourcesConfig;
+
         /// <summary>
         /// Create a new StopLoader Object, which can import the required Stops.
         /// </summary>
-        /// <param name="stopsPath">Path from current base directory to Stops resources file.</param>
-        public StopLoader(string stopsPath)
+        /// <param name="resourcesConfig"></param>
+        public StopLoader(ResourcesConfig resourcesConfig)
         {
-            _stopsPath = stopsPath ?? throw new ArgumentNullException(nameof(stopsPath));
-            _stopsPath = CurrentDomain.BaseDirectory + _stopsPath;
-            if (!File.Exists(_stopsPath))
+            _resourcesConfig = resourcesConfig ?? throw new ArgumentNullException(nameof(resourcesConfig));
+            //_stopsPath = resourcesConfig.StopResourcePath ?? throw new ArgumentNullException(nameof(stopsPath));
+            _resourcesConfig.StopResourcePath = CurrentDomain.BaseDirectory + resourcesConfig.StopResourcePath;
+            if (!File.Exists(_resourcesConfig.StopResourcePath))
             {
-                throw new FileNotFoundException("Could not find file " + stopsPath);
+                throw new FileNotFoundException("Could not find file " + _resourcesConfig.StopResourcePath);
             }
         }
         
@@ -34,9 +35,11 @@ namespace TfGM_API_Wrapper.Models
          
         public List<Stop> ImportStops()
         {
-            using var reader = new StreamReader(_stopsPath);
+            using var reader = new StreamReader(_resourcesConfig.StopResourcePath);
             var jsonString = reader.ReadToEnd();
             return JsonConvert.DeserializeObject<List<Stop>>(jsonString);
         }
+        
+        
     }
 }
