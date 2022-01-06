@@ -15,7 +15,7 @@ namespace TfGM_API_Wrapper_Tests.TestControllers
         private const string ValidStopLoaderPath = "../../../Resources/ValidStopLoader.json";
         private StopsController? _testStopController;
         private StopsController? _defaultTestStopController;
-        
+
         [SetUp]
         public void Setup()
         {
@@ -32,7 +32,7 @@ namespace TfGM_API_Wrapper_Tests.TestControllers
         {
             _testStopController = null;
         }
-        
+
         /// <summary>
         /// Test to try and get the expected 200 result code
         /// from the GetAllStops method.
@@ -79,6 +79,21 @@ namespace TfGM_API_Wrapper_Tests.TestControllers
             List<Stop> retrievedStops = okResult.Value as List<Stop>;
             Assert.AreEqual(1, retrievedStops.Count);
         }
-        
-    }
+
+        /// <summary>
+        /// Test the number of stations retrieved from the default constructor file.
+        /// This should return 99.
+        /// </summary>
+        [Test]
+        public void TestGetExpectedStopsCountDefaultFile()
+        {
+            IActionResult result = _defaultTestStopController!.GetAllStops();
+            Assert.IsNotNull(result);
+
+            var okResult = result as OkObjectResult;
+            Assert.IsNotNull(okResult);
+            List<Stop> retrievedStops = okResult!.Value as List<Stop> ?? new List<Stop>();
+            Assert.AreEqual(99, retrievedStops.Count);
+        }
+}
 }
