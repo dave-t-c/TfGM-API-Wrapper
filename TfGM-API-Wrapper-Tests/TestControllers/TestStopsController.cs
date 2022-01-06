@@ -40,12 +40,12 @@ namespace TfGM_API_Wrapper_Tests.TestControllers
         [Test]
         public void TestGetAllStopsExpectedResultCode()
         {
-            IActionResult result = _testStopController.GetAllStops();
+            IActionResult result = _testStopController!.GetAllStops();
             Assert.IsNotNull(result);
 
             var okResult = result as OkObjectResult;
             Assert.IsNotNull(okResult);
-            Assert.AreEqual(200, okResult.StatusCode);
+            Assert.AreEqual(200, okResult!.StatusCode);
         }
 
         /// <summary>
@@ -55,12 +55,12 @@ namespace TfGM_API_Wrapper_Tests.TestControllers
         [Test]
         public void TestGetExpectedResultCodeDefaultConstructor()
         {
-            IActionResult result = _defaultTestStopController.GetAllStops();
+            IActionResult result = _defaultTestStopController!.GetAllStops();
             Assert.IsNotNull(result);
 
             var okResult = result as OkObjectResult;
             Assert.IsNotNull(okResult);
-            Assert.AreEqual(200, okResult.StatusCode);
+            Assert.AreEqual(200, okResult!.StatusCode);
         }
 
         /// <summary>
@@ -71,12 +71,12 @@ namespace TfGM_API_Wrapper_Tests.TestControllers
         [Test]
         public void TestGetExpectedStopsCount()
         {
-            IActionResult result = _testStopController.GetAllStops();
+            IActionResult result = _testStopController!.GetAllStops();
             Assert.IsNotNull(result);
 
             var okResult = result as OkObjectResult;
             Assert.IsNotNull(okResult);
-            List<Stop> retrievedStops = okResult.Value as List<Stop>;
+            List<Stop> retrievedStops = okResult!.Value as List<Stop> ?? new List<Stop>();
             Assert.AreEqual(1, retrievedStops.Count);
         }
 
