@@ -1,6 +1,6 @@
 using System.Collections.Generic;
-using System.Runtime.InteropServices;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using NUnit.Framework;
 using TfGM_API_Wrapper.Controllers;
 using TfGM_API_Wrapper.Models;
@@ -13,12 +13,19 @@ namespace TfGM_API_Wrapper_Tests.TestControllers
     public class TestStopsController
     {
         private const string ValidStopLoaderPath = "../../../Resources/ValidStopLoader.json";
+        private ResourcesConfig? _resourcesConfig;
         private StopsController? _testStopController;
+        private IOptions<ResourcesConfig>? _resourceOptions;
 
         [SetUp]
         public void Setup()
         {
-            _testStopController = new StopsController(ValidStopLoaderPath);
+            _resourcesConfig = new ResourcesConfig
+            {
+                StopResourcePath = "../../../Resources/ValidStopLoader.json"
+            };
+            _resourceOptions = Options.Create<ResourcesConfig>(_resourcesConfig);
+            _testStopController = new StopsController(_resourceOptions);
         }
 
         /// <summary>
@@ -29,6 +36,7 @@ namespace TfGM_API_Wrapper_Tests.TestControllers
         public void Teardown()
         {
             _testStopController = null;
+            _resourceOptions = null;
         }
 
         /// <summary>

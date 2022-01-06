@@ -11,6 +11,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using TfGM_API_Wrapper.Models;
+using static System.AppDomain;
 
 namespace TfGM_API_Wrapper
 {
@@ -18,7 +20,11 @@ namespace TfGM_API_Wrapper
     {
         public Startup(IConfiguration configuration)
         {
-            Configuration = configuration;
+            var builder = new ConfigurationBuilder()
+                .SetBasePath(CurrentDomain.BaseDirectory)
+                .AddJsonFile("appSettings.json", optional: true, reloadOnChange: true);
+
+            Configuration = builder.Build();
         }
 
         public IConfiguration Configuration { get; }
@@ -26,7 +32,10 @@ namespace TfGM_API_Wrapper
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddOptions();
+            services.Configure<ResourcesConfig>(Configuration.GetSection("Resources"));
             services.AddControllers();
+            
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo {Title = "TfGM API Wrapper", Version = "v1"});
