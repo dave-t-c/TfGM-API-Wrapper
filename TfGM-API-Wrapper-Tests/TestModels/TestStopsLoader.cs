@@ -18,6 +18,7 @@ namespace TfGM_API_Wrapper_Tests.TestModels
         private ResourcesConfig? _invalidStopResources;
         private ResourcesConfig? _nullStopResource;
         private ResourcesConfig? _nullStationNamesToTlarefs;
+        private ResourcesConfig? _nullTlarefsToIdsPath;
 
         [SetUp]
         public void Setup()
@@ -27,28 +28,37 @@ namespace TfGM_API_Wrapper_Tests.TestModels
             _validResourcesConfig = new ResourcesConfig
             {
                 StopResourcePath = "../../../Resources/ValidStopLoader.json",
-                StationNamesToTlarefsPath = "../../../Resources/Station_Names_to_TLAREFs.json"
+                StationNamesToTlarefsPath = "../../../Resources/Station_Names_to_TLAREFs.json",
+                TlarefsToIdsPath = "../../../Resources/TLAREFs_to_IDs.json"
             };
             
             _invalidStopResources = new ResourcesConfig
             {
                 StopResourcePath = "../../../Resources/NonExistentFile.json",
-                StationNamesToTlarefsPath = "../../../Resources/Station_Names_to_TLAREFs.json"
+                StationNamesToTlarefsPath = "../../../Resources/Station_Names_to_TLAREFs.json",
+                TlarefsToIdsPath = "../../../Resources/TLAREFs_to_IDs.json"
             };
             
             _nullStopResource = new ResourcesConfig
             {
                 StopResourcePath = null,
-                StationNamesToTlarefsPath = "../../../Resources/Station_Names_to_TLAREFs.json"
+                StationNamesToTlarefsPath = "../../../Resources/Station_Names_to_TLAREFs.json",
+                TlarefsToIdsPath = "../../../Resources/TLAREFs_to_IDs.json"
             };
 
             _nullStationNamesToTlarefs = new ResourcesConfig
             {
                 StopResourcePath = "../../../Resources/ValidStopLoader.json",
-                StationNamesToTlarefsPath = null
+                StationNamesToTlarefsPath = null,
+                TlarefsToIdsPath = "../../../Resources/TLAREFs_to_IDs.json"
             };
-
-
+            
+            _nullTlarefsToIdsPath = new ResourcesConfig
+            {
+                StopResourcePath = "../../../Resources/ValidStopLoader.json",
+                StationNamesToTlarefsPath = "../../../Resources/Station_Names_to_TLAREFs.json",
+                TlarefsToIdsPath = null
+            };
         }
 
         /// <summary>
@@ -124,6 +134,21 @@ namespace TfGM_API_Wrapper_Tests.TestModels
                 delegate
                 {
                     StopLoader stopLoader = new StopLoader(_nullStationNamesToTlarefs);
+                });
+        }
+
+        /// <summary>
+        /// Test to try and create a StopLoader with a null
+        /// TlarefsToIdsPath. This should throw a InvalidOperationException.
+        /// </summary>
+        [Test]
+        public void TestNullTlarefsToIdsPath()
+        {
+            Assert.Throws(Is.TypeOf<InvalidOperationException>().And
+                    .Message.EqualTo("TlarefsToIdsPath cannot be null"),
+                delegate
+                {
+                    StopLoader stopLoader = new StopLoader(_nullTlarefsToIdsPath);
                 });
         }
     }
