@@ -20,6 +20,7 @@ namespace TfGM_API_Wrapper_Tests.TestModels
         private ResourcesConfig? _nullStationNamesToTlarefs;
         private ResourcesConfig? _invalidStationNamesToTlarefs;
         private ResourcesConfig? _nullTlarefsToIdsPath;
+        private ResourcesConfig? _invalidTlarefsToIdsPath;
 
         [SetUp]
         public void Setup()
@@ -66,6 +67,13 @@ namespace TfGM_API_Wrapper_Tests.TestModels
                 StopResourcePath = "../../../Resources/ValidStopLoader.json",
                 StationNamesToTlarefsPath = "../../../Resources/Station_Names_to_TLAREFs.json",
                 TlarefsToIdsPath = null
+            };
+            
+            _invalidTlarefsToIdsPath = new ResourcesConfig
+            {
+                StopResourcePath = "../../../Resources/ValidStopLoader.json",
+                StationNamesToTlarefsPath = "../../../Resources/Station_Names_to_TLAREFs.json",
+                TlarefsToIdsPath = "../../../Resources/NonExistentFile.json"
             };
         }
 
@@ -146,7 +154,8 @@ namespace TfGM_API_Wrapper_Tests.TestModels
         }
         
         /// <summary>
-        /// Test to try and create a file with hte 
+        /// Test to try and create a file with a non-existent StationNamesToTlarefs
+        /// path. This should throw a FileNotFoundException.
         /// </summary>
         [Test]
         public void TestNonExistentStationNamesToTlarefs()
@@ -173,6 +182,19 @@ namespace TfGM_API_Wrapper_Tests.TestModels
                 delegate
                 {
                     StopLoader stopLoader = new StopLoader(_nullTlarefsToIdsPath);
+                });
+        }
+        
+        [Test]
+        public void TestNonExistentTlarefsToIdsPath()
+        {
+            Assert.Throws(Is.TypeOf<FileNotFoundException>().And
+                    .Message.Contains("Could not find file")
+                    .And.Message.Contains("../../../Resources/NonExistentFile.json"),
+                delegate
+                {
+                    StopLoader stopLoader = new StopLoader(_invalidTlarefsToIdsPath);
+                    stopLoader.ImportStops();
                 });
         }
     }
