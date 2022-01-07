@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.IO;
 using Newtonsoft.Json;
 using TfGM_API_Wrapper.Models.Resources;
@@ -21,8 +22,12 @@ namespace TfGM_API_Wrapper.Models
         public StopLoader(ResourcesConfig resourcesConfig)
         {
             _resourcesConfig = resourcesConfig ?? throw new ArgumentNullException(nameof(resourcesConfig));
-            //_stopsPath = resourcesConfig.StopResourcePath ?? throw new ArgumentNullException(nameof(stopsPath));
+            
+            if(_resourcesConfig.StopResourcePath is null) 
+                throw new InvalidOperationException(nameof(resourcesConfig.StopResourcePath) + " cannot be null");
             _resourcesConfig.StopResourcePath = CurrentDomain.BaseDirectory + resourcesConfig.StopResourcePath;
+            
+            
             if (!File.Exists(_resourcesConfig.StopResourcePath))
             {
                 throw new FileNotFoundException("Could not find file " + _resourcesConfig.StopResourcePath);

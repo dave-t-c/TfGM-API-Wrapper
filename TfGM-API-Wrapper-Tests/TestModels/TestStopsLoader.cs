@@ -87,7 +87,7 @@ namespace TfGM_API_Wrapper_Tests.TestModels
 
         /// <summary>
         /// Create a config with stops resource path as null.
-        /// This should throw a Argument Null Exception.
+        /// This should throw a InvalidOperationException.
         /// </summary>
         [Test]
         public void TestNullStopsResource()
