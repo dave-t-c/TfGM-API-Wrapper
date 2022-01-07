@@ -23,7 +23,8 @@ namespace TfGM_API_Wrapper_Tests.TestControllers
         {
             _resourcesConfig = new ResourcesConfig
             {
-                StopResourcePath = "../../../Resources/ValidStopLoader.json"
+                StopResourcePath = "../../../Resources/ValidStopLoader.json",
+                StationNamesToTlarefsPath = "../../../Resources/Station_Names_to_TLAREFs.json"
             };
             _resourceOptions = Options.Create<ResourcesConfig>(_resourcesConfig);
             _testStopController = new StopsController(_resourceOptions);
