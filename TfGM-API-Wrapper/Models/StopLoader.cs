@@ -27,6 +27,10 @@ namespace TfGM_API_Wrapper.Models
                 throw new InvalidOperationException(nameof(resourcesConfig.StopResourcePath) + " cannot be null");
             _resourcesConfig.StopResourcePath = CurrentDomain.BaseDirectory + resourcesConfig.StopResourcePath;
             
+            if(_resourcesConfig.StationNamesToTlarefsPath is null) 
+                throw new InvalidOperationException(nameof(resourcesConfig.StationNamesToTlarefsPath) + " cannot be null");
+            _resourcesConfig.TlarefsToIdsPath = CurrentDomain.BaseDirectory + resourcesConfig.StationNamesToTlarefsPath;
+
             
             if (!File.Exists(_resourcesConfig.StopResourcePath))
             {
