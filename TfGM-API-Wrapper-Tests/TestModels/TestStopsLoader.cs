@@ -15,7 +15,8 @@ namespace TfGM_API_Wrapper_Tests.TestModels
     public class TestStopsLoader
     {
         private ResourcesConfig? _validResourcesConfig;
-        private ResourcesConfig? _invalidResourcesConfig;
+        private ResourcesConfig? _invalidStopResources;
+        private ResourcesConfig? _nullStopResource;
 
         [SetUp]
         public void Setup()
@@ -27,10 +28,16 @@ namespace TfGM_API_Wrapper_Tests.TestModels
                 StopResourcePath = "../../../Resources/ValidStopLoader.json"
             };
             
-            _invalidResourcesConfig = new ResourcesConfig
+            _invalidStopResources = new ResourcesConfig
             {
                 StopResourcePath = "../../../Resources/NonExistentFile.json"
             };
+            
+            _nullStopResource = new ResourcesConfig
+            {
+                StopResourcePath = null
+            };
+            
 
         }
 
@@ -73,9 +80,24 @@ namespace TfGM_API_Wrapper_Tests.TestModels
                 .And.Message.Contains("../../../Resources/NonExistentFile.json"),
             delegate
             {
-                StopLoader stopLoader = new StopLoader(_invalidResourcesConfig);
+                StopLoader stopLoader = new StopLoader(_invalidStopResources);
                 stopLoader.ImportStops();
             });
+        }
+
+        /// <summary>
+        /// Create a config with stops resource path as null.
+        /// This should throw a Argument Null Exception.
+        /// </summary>
+        [Test]
+        public void TestNullStopsResource()
+        {
+            Assert.Throws(Is.TypeOf<ArgumentNullException>().And
+                    .Message.EqualTo("Value cannot be null. (Parameter 'resourcesConfig')"),
+                delegate
+                {
+                    StopLoader stopLoader = new StopLoader(_nullStopResource);
+                });
         }
     }
 }
