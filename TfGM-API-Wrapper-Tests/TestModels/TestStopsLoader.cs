@@ -18,6 +18,7 @@ namespace TfGM_API_Wrapper_Tests.TestModels
         private ResourcesConfig? _invalidStopResources;
         private ResourcesConfig? _nullStopResource;
         private ResourcesConfig? _nullStationNamesToTlarefs;
+        private ResourcesConfig? _invalidStationNamesToTlarefs;
         private ResourcesConfig? _nullTlarefsToIdsPath;
 
         [SetUp]
@@ -50,6 +51,13 @@ namespace TfGM_API_Wrapper_Tests.TestModels
             {
                 StopResourcePath = "../../../Resources/ValidStopLoader.json",
                 StationNamesToTlarefsPath = null,
+                TlarefsToIdsPath = "../../../Resources/TLAREFs_to_IDs.json"
+            };
+
+            _invalidStationNamesToTlarefs = new ResourcesConfig()
+            {
+                StopResourcePath = "../../../Resources/ValidStopLoader.json",
+                StationNamesToTlarefsPath = "../../../Resources/NonExistentFile.json",
                 TlarefsToIdsPath = "../../../Resources/TLAREFs_to_IDs.json"
             };
             
@@ -134,6 +142,22 @@ namespace TfGM_API_Wrapper_Tests.TestModels
                 delegate
                 {
                     StopLoader stopLoader = new StopLoader(_nullStationNamesToTlarefs);
+                });
+        }
+        
+        /// <summary>
+        /// Test to try and create a file with hte 
+        /// </summary>
+        [Test]
+        public void TestNonExistentStationNamesToTlarefs()
+        {
+            Assert.Throws(Is.TypeOf<FileNotFoundException>().And
+                    .Message.Contains("Could not find file")
+                    .And.Message.Contains("../../../Resources/NonExistentFile.json"),
+                delegate
+                {
+                    StopLoader stopLoader = new StopLoader(_invalidStationNamesToTlarefs);
+                    stopLoader.ImportStops();
                 });
         }
 
