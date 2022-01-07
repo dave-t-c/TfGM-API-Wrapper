@@ -4,6 +4,7 @@ using Microsoft.Extensions.Options;
 using NUnit.Framework;
 using TfGM_API_Wrapper.Controllers;
 using TfGM_API_Wrapper.Models;
+using TfGM_API_Wrapper.Models.Resources;
 
 namespace TfGM_API_Wrapper_Tests.TestControllers
 {

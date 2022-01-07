@@ -12,6 +12,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using TfGM_API_Wrapper.Models;
+using TfGM_API_Wrapper.Models.Resources;
 using static System.AppDomain;
 
 namespace TfGM_API_Wrapper

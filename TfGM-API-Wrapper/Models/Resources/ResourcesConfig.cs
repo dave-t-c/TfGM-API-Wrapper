@@ -1,4 +1,4 @@
-namespace TfGM_API_Wrapper.Models
+namespace TfGM_API_Wrapper.Models.Resources
 {
     /// <summary>
     /// POCO for Resources Information.

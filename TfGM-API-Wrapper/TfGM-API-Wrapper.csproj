@@ -14,7 +14,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Models\Resources" />
       <Folder Include="Resources" />
     </ItemGroup>
 

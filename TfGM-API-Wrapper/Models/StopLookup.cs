@@ -1,3 +1,5 @@
+using TfGM_API_Wrapper.Models.Resources;
+
 namespace TfGM_API_Wrapper.Models
 {
     /// <summary>
