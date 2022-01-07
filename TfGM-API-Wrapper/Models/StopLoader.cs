@@ -40,6 +40,11 @@ namespace TfGM_API_Wrapper.Models
             {
                 throw new FileNotFoundException("Could not find file " + _resourcesConfig.StopResourcePath);
             }
+            
+            if (!File.Exists(_resourcesConfig.StationNamesToTlarefsPath))
+            {
+                throw new FileNotFoundException("Could not find file " + _resourcesConfig.StationNamesToTlarefsPath);
+            }
         }
         
         /// <summary>
