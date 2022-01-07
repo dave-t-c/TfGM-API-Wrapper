@@ -92,8 +92,8 @@ namespace TfGM_API_Wrapper_Tests.TestModels
         [Test]
         public void TestNullStopsResource()
         {
-            Assert.Throws(Is.TypeOf<ArgumentNullException>().And
-                    .Message.EqualTo("Value cannot be null. (Parameter 'resourcesConfig')"),
+            Assert.Throws(Is.TypeOf<InvalidOperationException>().And
+                    .Message.EqualTo("StopResourcePath cannot be null"),
                 delegate
                 {
                     StopLoader stopLoader = new StopLoader(_nullStopResource);
