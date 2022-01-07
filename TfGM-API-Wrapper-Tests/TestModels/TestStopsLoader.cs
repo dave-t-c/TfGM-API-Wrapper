@@ -17,6 +17,7 @@ namespace TfGM_API_Wrapper_Tests.TestModels
         private ResourcesConfig? _validResourcesConfig;
         private ResourcesConfig? _invalidStopResources;
         private ResourcesConfig? _nullStopResource;
+        private ResourcesConfig? _nullStationNamesToTlarefs;
 
         [SetUp]
         public void Setup()
@@ -25,19 +26,28 @@ namespace TfGM_API_Wrapper_Tests.TestModels
             //the tests are run from.
             _validResourcesConfig = new ResourcesConfig
             {
-                StopResourcePath = "../../../Resources/ValidStopLoader.json"
+                StopResourcePath = "../../../Resources/ValidStopLoader.json",
+                StationNamesToTlarefsPath = "../../../Resources/Station_Names_to_TLAREFs.json"
             };
             
             _invalidStopResources = new ResourcesConfig
             {
-                StopResourcePath = "../../../Resources/NonExistentFile.json"
+                StopResourcePath = "../../../Resources/NonExistentFile.json",
+                StationNamesToTlarefsPath = "../../../Resources/Station_Names_to_TLAREFs.json"
             };
             
             _nullStopResource = new ResourcesConfig
             {
-                StopResourcePath = null
+                StopResourcePath = null,
+                StationNamesToTlarefsPath = "../../../Resources/Station_Names_to_TLAREFs.json"
             };
-            
+
+            _nullStationNamesToTlarefs = new ResourcesConfig
+            {
+                StopResourcePath = "../../../Resources/ValidStopLoader.json",
+                StationNamesToTlarefsPath = null
+            };
+
 
         }
 
@@ -97,6 +107,23 @@ namespace TfGM_API_Wrapper_Tests.TestModels
                 delegate
                 {
                     StopLoader stopLoader = new StopLoader(_nullStopResource);
+                });
+        }
+
+        /// <summary>
+        /// Test to try and create a StopLoader with a null
+        /// StationNamesToTlarefs path.
+        /// This should throw an Invalid Operation Exception similar to with a null
+        /// StopResourcePath.
+        /// </summary>
+        [Test]
+        public void TestNullStationNamesToTlarefs()
+        {
+            Assert.Throws(Is.TypeOf<InvalidOperationException>().And
+                    .Message.EqualTo("StationNamesToTlarefsPath cannot be null"),
+                delegate
+                {
+                    StopLoader stopLoader = new StopLoader(_nullStationNamesToTlarefs);
                 });
         }
     }
