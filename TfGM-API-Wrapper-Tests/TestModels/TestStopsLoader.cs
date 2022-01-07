@@ -22,6 +22,17 @@ namespace TfGM_API_Wrapper_Tests.TestModels
         private ResourcesConfig? _nullTlarefsToIdsPath;
         private ResourcesConfig? _invalidTlarefsToIdsPath;
 
+        private const string StopResourcePath = "../../../Resources/ValidStopLoader.json";
+        private const string StationNamesToTlarefsPath = "../../../Resources/Station_Names_to_TLAREFs.json";
+        private const string TlarefsToIdsPath = "../../../Resources/TLAREFs_to_IDs.json";
+        private const string InvalidFilePath = "../../../Resources/NonExistentFile.json";
+        
+
+        /// <summary>
+        /// Create the required Configs for the StopLoaders.
+        /// This uses a DeepCopy function created in the ResourceConfig class,
+        /// that then utilises the valid config and changes the fields accordingly. 
+        /// </summary>
         [SetUp]
         public void Setup()
         {
@@ -29,52 +40,28 @@ namespace TfGM_API_Wrapper_Tests.TestModels
             //the tests are run from.
             _validResourcesConfig = new ResourcesConfig
             {
-                StopResourcePath = "../../../Resources/ValidStopLoader.json",
-                StationNamesToTlarefsPath = "../../../Resources/Station_Names_to_TLAREFs.json",
-                TlarefsToIdsPath = "../../../Resources/TLAREFs_to_IDs.json"
-            };
-            
-            _invalidStopResources = new ResourcesConfig
-            {
-                StopResourcePath = "../../../Resources/NonExistentFile.json",
-                StationNamesToTlarefsPath = "../../../Resources/Station_Names_to_TLAREFs.json",
-                TlarefsToIdsPath = "../../../Resources/TLAREFs_to_IDs.json"
-            };
-            
-            _nullStopResource = new ResourcesConfig
-            {
-                StopResourcePath = null,
-                StationNamesToTlarefsPath = "../../../Resources/Station_Names_to_TLAREFs.json",
-                TlarefsToIdsPath = "../../../Resources/TLAREFs_to_IDs.json"
+                StopResourcePath = StopResourcePath,
+                StationNamesToTlarefsPath = StationNamesToTlarefsPath,
+                TlarefsToIdsPath = TlarefsToIdsPath
             };
 
-            _nullStationNamesToTlarefs = new ResourcesConfig
-            {
-                StopResourcePath = "../../../Resources/ValidStopLoader.json",
-                StationNamesToTlarefsPath = null,
-                TlarefsToIdsPath = "../../../Resources/TLAREFs_to_IDs.json"
-            };
+            _invalidStopResources = _validResourcesConfig.DeepCopy();
+            _invalidStopResources.StopResourcePath = InvalidFilePath;
 
-            _invalidStationNamesToTlarefs = new ResourcesConfig()
-            {
-                StopResourcePath = "../../../Resources/ValidStopLoader.json",
-                StationNamesToTlarefsPath = "../../../Resources/NonExistentFile.json",
-                TlarefsToIdsPath = "../../../Resources/TLAREFs_to_IDs.json"
-            };
-            
-            _nullTlarefsToIdsPath = new ResourcesConfig
-            {
-                StopResourcePath = "../../../Resources/ValidStopLoader.json",
-                StationNamesToTlarefsPath = "../../../Resources/Station_Names_to_TLAREFs.json",
-                TlarefsToIdsPath = null
-            };
-            
-            _invalidTlarefsToIdsPath = new ResourcesConfig
-            {
-                StopResourcePath = "../../../Resources/ValidStopLoader.json",
-                StationNamesToTlarefsPath = "../../../Resources/Station_Names_to_TLAREFs.json",
-                TlarefsToIdsPath = "../../../Resources/NonExistentFile.json"
-            };
+            _nullStopResource = _validResourcesConfig.DeepCopy();
+            _nullStopResource.StopResourcePath = null;
+
+            _nullStationNamesToTlarefs = _validResourcesConfig.DeepCopy();
+            _nullStationNamesToTlarefs.StationNamesToTlarefsPath = null;
+
+            _invalidStationNamesToTlarefs = _validResourcesConfig.DeepCopy();
+            _invalidStationNamesToTlarefs.StationNamesToTlarefsPath = InvalidFilePath;
+
+            _nullTlarefsToIdsPath = _invalidStopResources.DeepCopy();
+            _nullTlarefsToIdsPath.TlarefsToIdsPath = null;
+
+            _invalidTlarefsToIdsPath = _validResourcesConfig.DeepCopy();
+            _invalidTlarefsToIdsPath.TlarefsToIdsPath = InvalidFilePath;
         }
 
         /// <summary>
