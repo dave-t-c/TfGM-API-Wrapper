@@ -83,8 +83,8 @@ namespace TfGM_API_Wrapper_Tests.TestModels
         [Test]
         public void TestNullStopLoader()
         {
-            Assert.Throws(Is.TypeOf<ArgumentNullException>().And
-                    .Message.EqualTo("Value cannot be null. (Parameter 'resourcesConfig')"),
+            Assert.Throws(Is.TypeOf<ArgumentNullException>()
+                    .And.Message.EqualTo("Value cannot be null. (Parameter 'resourcesConfig')"),
                 delegate
                 {
                     StopLoader stopLoader = new StopLoader(null);
@@ -98,9 +98,9 @@ namespace TfGM_API_Wrapper_Tests.TestModels
         [Test]
         public void TestNonExistentFileStopLoader()
         {
-            Assert.Throws(Is.TypeOf<FileNotFoundException>().And
-                .Message.Contains("Could not find file")
-                .And.Message.Contains("../../../Resources/NonExistentFile.json"),
+            Assert.Throws(Is.TypeOf<FileNotFoundException>()
+                    .And.Message.Contains("Could not find file")
+                    .And.Message.Contains("../../../Resources/NonExistentFile.json"),
             delegate
             {
                 StopLoader stopLoader = new StopLoader(_invalidStopResources);
@@ -115,8 +115,8 @@ namespace TfGM_API_Wrapper_Tests.TestModels
         [Test]
         public void TestNullStopsResource()
         {
-            Assert.Throws(Is.TypeOf<InvalidOperationException>().And
-                    .Message.EqualTo("StopResourcePath cannot be null"),
+            Assert.Throws(Is.TypeOf<InvalidOperationException>()
+                    .And.Message.EqualTo("StopResourcePath cannot be null"),
                 delegate
                 {
                     StopLoader stopLoader = new StopLoader(_nullStopResource);
@@ -132,8 +132,8 @@ namespace TfGM_API_Wrapper_Tests.TestModels
         [Test]
         public void TestNullStationNamesToTlarefs()
         {
-            Assert.Throws(Is.TypeOf<InvalidOperationException>().And
-                    .Message.EqualTo("StationNamesToTlarefsPath cannot be null"),
+            Assert.Throws(Is.TypeOf<InvalidOperationException>()
+                    .And.Message.EqualTo("StationNamesToTlarefsPath cannot be null"),
                 delegate
                 {
                     StopLoader stopLoader = new StopLoader(_nullStationNamesToTlarefs);
@@ -147,8 +147,8 @@ namespace TfGM_API_Wrapper_Tests.TestModels
         [Test]
         public void TestNonExistentStationNamesToTlarefs()
         {
-            Assert.Throws(Is.TypeOf<FileNotFoundException>().And
-                    .Message.Contains("Could not find file")
+            Assert.Throws(Is.TypeOf<FileNotFoundException>()
+                    .And.Message.Contains("Could not find file")
                     .And.Message.Contains("../../../Resources/NonExistentFile.json"),
                 delegate
                 {
@@ -164,19 +164,23 @@ namespace TfGM_API_Wrapper_Tests.TestModels
         [Test]
         public void TestNullTlarefsToIdsPath()
         {
-            Assert.Throws(Is.TypeOf<InvalidOperationException>().And
-                    .Message.EqualTo("TlarefsToIdsPath cannot be null"),
+            Assert.Throws(Is.TypeOf<InvalidOperationException>()
+                    .And.Message.EqualTo("TlarefsToIdsPath cannot be null"),
                 delegate
                 {
                     StopLoader stopLoader = new StopLoader(_nullTlarefsToIdsPath);
                 });
         }
         
+        /// <summary>
+        /// Test creating a StopLoader with a non-existent TlarefsToIds file.
+        /// This should throw a file not found exception. 
+        /// </summary>
         [Test]
         public void TestNonExistentTlarefsToIdsPath()
         {
-            Assert.Throws(Is.TypeOf<FileNotFoundException>().And
-                    .Message.Contains("Could not find file")
+            Assert.Throws(Is.TypeOf<FileNotFoundException>()
+                    .And.Message.Contains("Could not find file")
                     .And.Message.Contains("../../../Resources/NonExistentFile.json"),
                 delegate
                 {
