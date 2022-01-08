@@ -22,7 +22,7 @@ namespace TfGM_API_Wrapper_Tests.TestModels
         private ResourcesConfig? _nullTlarefsToIdsPath;
         private ResourcesConfig? _invalidTlarefsToIdsPath;
 
-        private const string StopResourcePath = "../../../Resources/ValidStopLoader.json";
+        private const string StopResourcePathConst = "../../../Resources/ValidStopLoader.json";
         private const string StationNamesToTlarefsPath = "../../../Resources/Station_Names_to_TLAREFs.json";
         private const string TlarefsToIdsPath = "../../../Resources/TLAREFs_to_IDs.json";
         private const string InvalidFilePath = "../../../Resources/NonExistentFile.json";
@@ -40,7 +40,7 @@ namespace TfGM_API_Wrapper_Tests.TestModels
             //the tests are run from.
             _validResourcesConfig = new ResourcesConfig
             {
-                StopResourcePath = StopResourcePath,
+                StopResourcePath = StopResourcePathConst,
                 StationNamesToTlarefsPath = StationNamesToTlarefsPath,
                 TlarefsToIdsPath = TlarefsToIdsPath
             };
@@ -57,11 +57,27 @@ namespace TfGM_API_Wrapper_Tests.TestModels
             _invalidStationNamesToTlarefs = _validResourcesConfig.DeepCopy();
             _invalidStationNamesToTlarefs.StationNamesToTlarefsPath = InvalidFilePath;
 
-            _nullTlarefsToIdsPath = _invalidStopResources.DeepCopy();
+            _nullTlarefsToIdsPath = _validResourcesConfig.DeepCopy();
             _nullTlarefsToIdsPath.TlarefsToIdsPath = null;
 
             _invalidTlarefsToIdsPath = _validResourcesConfig.DeepCopy();
             _invalidTlarefsToIdsPath.TlarefsToIdsPath = InvalidFilePath;
+        }
+
+        /// <summary>
+        /// Set the created configs to null to ensure there is no carry through
+        /// between tests.
+        /// </summary>
+        [TearDown]
+        public void TearDown()
+        {
+            _validResourcesConfig = null;
+            _invalidStopResources = null;
+            _nullStopResource = null;
+            _nullStationNamesToTlarefs = null;
+            _invalidStationNamesToTlarefs = null;
+            _nullTlarefsToIdsPath = null;
+            _invalidTlarefsToIdsPath = null;
         }
 
         /// <summary>
