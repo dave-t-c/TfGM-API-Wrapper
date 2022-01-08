@@ -22,41 +22,45 @@ namespace TfGM_API_Wrapper.Models
         public StopLoader(ResourcesConfig resourcesConfig)
         {
             _resourcesConfig = resourcesConfig ?? throw new ArgumentNullException(nameof(resourcesConfig));
-            
-            if(_resourcesConfig.StopResourcePath is null) 
-                throw new InvalidOperationException(nameof(resourcesConfig.StopResourcePath) + " cannot be null");
-            _resourcesConfig.StopResourcePath = CurrentDomain.BaseDirectory + resourcesConfig.StopResourcePath;
-            
-            if(_resourcesConfig.StationNamesToTlarefsPath is null) 
-                throw new InvalidOperationException(nameof(resourcesConfig.StationNamesToTlarefsPath) + " cannot be null");
-            _resourcesConfig.StationNamesToTlarefsPath = CurrentDomain.BaseDirectory + resourcesConfig.StationNamesToTlarefsPath;
-            
-            if(_resourcesConfig.TlarefsToIdsPath is null) 
-                throw new InvalidOperationException(nameof(resourcesConfig.TlarefsToIdsPath) + " cannot be null");
-            _resourcesConfig.TlarefsToIdsPath = CurrentDomain.BaseDirectory + resourcesConfig.TlarefsToIdsPath;
 
+            _resourcesConfig.StopResourcePath = CheckFileRequirements(resourcesConfig.StopResourcePath,
+                nameof(resourcesConfig.StopResourcePath));
             
-            if (!File.Exists(_resourcesConfig.StopResourcePath))
-            {
-                throw new FileNotFoundException("Could not find file " + _resourcesConfig.StopResourcePath);
-            }
+            _resourcesConfig.StationNamesToTlarefsPath = CheckFileRequirements(resourcesConfig.StationNamesToTlarefsPath,
+                nameof(resourcesConfig.StationNamesToTlarefsPath));
             
-            if (!File.Exists(_resourcesConfig.StationNamesToTlarefsPath))
+            _resourcesConfig.TlarefsToIdsPath = CheckFileRequirements(resourcesConfig.TlarefsToIdsPath,
+                nameof(resourcesConfig.TlarefsToIdsPath));
+        }
+
+        /// <summary>
+        /// Checks the file requirements for a given file in a ResourceConfig
+        /// </summary>
+        /// <param name="filePath">File path to verify</param>
+        /// <param name="argName">Name of the field associated with the file path</param>
+        /// <returns>string - full file path for the resource.</returns>
+        /// <exception cref="InvalidOperationException">
+        /// Thrown when a null file path is given. StopLoaders cannot be created with null resource paths. 
+        /// </exception>
+        /// <exception cref="FileNotFoundException">
+        /// Thrown when the file cannot be found from the base directory.
+        /// </exception>
+        private static string CheckFileRequirements(string filePath, string argName)
+        {
+            if(filePath is null) 
+                throw new InvalidOperationException(argName + " cannot be null");
+            filePath = CurrentDomain.BaseDirectory + filePath;
+            if (!File.Exists(filePath))
             {
-                throw new FileNotFoundException("Could not find file " + _resourcesConfig.StationNamesToTlarefsPath);
+                throw new FileNotFoundException("Could not find file " + filePath);
             }
-            
-            if (!File.Exists(_resourcesConfig.TlarefsToIdsPath))
-            {
-                throw new FileNotFoundException("Could not find file " + _resourcesConfig.TlarefsToIdsPath);
-            }
+            return filePath;
         }
         
         /// <summary>
         /// Imports the Stops from the Stops resources file.
         /// The results from this are then returned with a GET to '/api/stops'.
         /// </summary>
-         
         public List<Stop> ImportStops()
         {
             using var reader = new StreamReader(_resourcesConfig.StopResourcePath);
