@@ -1,12 +1,10 @@
 using System;
 using System.Collections.Generic;
-using System.Data;
 using System.IO;
 using Newtonsoft.Json;
-using TfGM_API_Wrapper.Models.Resources;
 using static System.AppDomain;
 
-namespace TfGM_API_Wrapper.Models
+namespace TfGM_API_Wrapper.Models.Resources
 {
     /// <summary>
     /// Loads in the Stop data from the resources folder.
