@@ -1,11 +1,9 @@
 using System;
 using System.IO;
-using Microsoft.Extensions.Options;
 using NUnit.Framework;
-using TfGM_API_Wrapper.Models;
 using TfGM_API_Wrapper.Models.Resources;
-using static System.AppDomain;
-namespace TfGM_API_Wrapper_Tests.TestModels
+
+namespace TfGM_API_Wrapper_Tests.TestModels.TestResources
 {
     /// <summary>
     /// Tests the StopsLoader class.
