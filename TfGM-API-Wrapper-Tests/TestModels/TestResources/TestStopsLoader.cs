@@ -15,8 +15,6 @@ namespace TfGM_API_Wrapper_Tests.TestModels.TestResources
         private ResourcesConfig? _validResourcesConfig;
         private ResourcesConfig? _invalidStopResources;
         private ResourcesConfig? _nullStopResource;
-        private ResourcesConfig? _nullTlarefsToIdsPath;
-        private ResourcesConfig? _invalidTlarefsToIdsPath;
 
         private const string StopResourcePathConst = "../../../Resources/ValidStopLoader.json";
         private const string StationNamesToTlarefsPath = "../../../Resources/Station_Names_to_TLAREFs.json";
@@ -46,12 +44,6 @@ namespace TfGM_API_Wrapper_Tests.TestModels.TestResources
 
             _nullStopResource = _validResourcesConfig.DeepCopy();
             _nullStopResource.StopResourcePath = null;
-
-            _nullTlarefsToIdsPath = _validResourcesConfig.DeepCopy();
-            _nullTlarefsToIdsPath.TlarefsToIdsPath = null;
-
-            _invalidTlarefsToIdsPath = _validResourcesConfig.DeepCopy();
-            _invalidTlarefsToIdsPath.TlarefsToIdsPath = InvalidFilePath;
         }
 
         /// <summary>
@@ -64,8 +56,6 @@ namespace TfGM_API_Wrapper_Tests.TestModels.TestResources
             _validResourcesConfig = null;
             _invalidStopResources = null;
             _nullStopResource = null;
-            _nullTlarefsToIdsPath = null;
-            _invalidTlarefsToIdsPath = null;
         }
 
         /// <summary>
