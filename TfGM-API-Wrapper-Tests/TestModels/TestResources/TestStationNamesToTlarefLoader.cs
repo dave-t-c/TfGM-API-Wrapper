@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using NUnit.Framework;
 using TfGM_API_Wrapper.Models.Resources;
@@ -100,7 +101,9 @@ namespace TfGM_API_Wrapper_Tests.TestModels.TestResources
         [Test]
         public void TestImportStationNamesDict()
         {
-            Dictionary<string, string> result = _validStationNamesToTlarefLoader.ImportStationNamesToTlarefs();
+            Dictionary<string, string>? result = _validStationNamesToTlarefLoader?.ImportStationNamesToTlarefs();
+            Debug.Assert(result != null, nameof(result) + " != null");
+            Assert.NotNull(result);
             Assert.AreEqual(12, result.Count);
             Assert.AreEqual("ALT", result["Altrincham"]);
         }
