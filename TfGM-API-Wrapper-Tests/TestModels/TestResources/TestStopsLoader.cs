@@ -15,8 +15,6 @@ namespace TfGM_API_Wrapper_Tests.TestModels.TestResources
         private ResourcesConfig? _validResourcesConfig;
         private ResourcesConfig? _invalidStopResources;
         private ResourcesConfig? _nullStopResource;
-        private ResourcesConfig? _nullStationNamesToTlarefs;
-        private ResourcesConfig? _invalidStationNamesToTlarefs;
         private ResourcesConfig? _nullTlarefsToIdsPath;
         private ResourcesConfig? _invalidTlarefsToIdsPath;
 
@@ -49,12 +47,6 @@ namespace TfGM_API_Wrapper_Tests.TestModels.TestResources
             _nullStopResource = _validResourcesConfig.DeepCopy();
             _nullStopResource.StopResourcePath = null;
 
-            _nullStationNamesToTlarefs = _validResourcesConfig.DeepCopy();
-            _nullStationNamesToTlarefs.StationNamesToTlarefsPath = null;
-
-            _invalidStationNamesToTlarefs = _validResourcesConfig.DeepCopy();
-            _invalidStationNamesToTlarefs.StationNamesToTlarefsPath = InvalidFilePath;
-
             _nullTlarefsToIdsPath = _validResourcesConfig.DeepCopy();
             _nullTlarefsToIdsPath.TlarefsToIdsPath = null;
 
@@ -72,8 +64,6 @@ namespace TfGM_API_Wrapper_Tests.TestModels.TestResources
             _validResourcesConfig = null;
             _invalidStopResources = null;
             _nullStopResource = null;
-            _nullStationNamesToTlarefs = null;
-            _invalidStationNamesToTlarefs = null;
             _nullTlarefsToIdsPath = null;
             _invalidTlarefsToIdsPath = null;
         }
@@ -134,40 +124,6 @@ namespace TfGM_API_Wrapper_Tests.TestModels.TestResources
                 delegate
                 {
                     StopLoader stopLoader = new StopLoader(_nullStopResource);
-                });
-        }
-
-        /// <summary>
-        /// Test to try and create a StopLoader with a null
-        /// StationNamesToTlarefs path.
-        /// This should throw an Invalid Operation Exception similar to with a null
-        /// StopResourcePath.
-        /// </summary>
-        [Test]
-        public void TestNullStationNamesToTlarefs()
-        {
-            Assert.Throws(Is.TypeOf<InvalidOperationException>()
-                    .And.Message.EqualTo("StationNamesToTlarefsPath cannot be null"),
-                delegate
-                {
-                    StopLoader stopLoader = new StopLoader(_nullStationNamesToTlarefs);
-                });
-        }
-        
-        /// <summary>
-        /// Test to try and create a file with a non-existent StationNamesToTlarefs
-        /// path. This should throw a FileNotFoundException.
-        /// </summary>
-        [Test]
-        public void TestNonExistentStationNamesToTlarefs()
-        {
-            Assert.Throws(Is.TypeOf<FileNotFoundException>()
-                    .And.Message.Contains("Could not find file")
-                    .And.Message.Contains("../../../Resources/NonExistentFile.json"),
-                delegate
-                {
-                    StopLoader stopLoader = new StopLoader(_invalidStationNamesToTlarefs);
-                    stopLoader.ImportStops();
                 });
         }
 
