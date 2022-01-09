@@ -18,7 +18,7 @@ namespace TfGM_API_Wrapper.Models.Resources
         /// <exception cref="FileNotFoundException">
         /// Thrown when the file cannot be found from the base directory.
         /// </exception>
-        private static string CheckFileRequirements(string filePath, string argName)
+        public string CheckFileRequirements(string filePath, string argName)
         {
             if(filePath is null) 
                 throw new InvalidOperationException(argName + " cannot be null");

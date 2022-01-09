@@ -19,15 +19,17 @@ namespace TfGM_API_Wrapper.Models.Resources
         /// <param name="resourcesConfig"></param>
         public StopLoader(ResourcesConfig resourcesConfig)
         {
+            LoaderHelper loaderHelper = new LoaderHelper();
+
             _resourcesConfig = resourcesConfig ?? throw new ArgumentNullException(nameof(resourcesConfig));
 
-            _resourcesConfig.StopResourcePath = CheckFileRequirements(resourcesConfig.StopResourcePath,
+            _resourcesConfig.StopResourcePath = loaderHelper.CheckFileRequirements(resourcesConfig.StopResourcePath,
                 nameof(resourcesConfig.StopResourcePath));
             
-            _resourcesConfig.StationNamesToTlarefsPath = CheckFileRequirements(resourcesConfig.StationNamesToTlarefsPath,
+            _resourcesConfig.StationNamesToTlarefsPath = loaderHelper.CheckFileRequirements(resourcesConfig.StationNamesToTlarefsPath,
                 nameof(resourcesConfig.StationNamesToTlarefsPath));
             
-            _resourcesConfig.TlarefsToIdsPath = CheckFileRequirements(resourcesConfig.TlarefsToIdsPath,
+            _resourcesConfig.TlarefsToIdsPath = loaderHelper.CheckFileRequirements(resourcesConfig.TlarefsToIdsPath,
                 nameof(resourcesConfig.TlarefsToIdsPath));
         }
 
