@@ -25,12 +25,6 @@ namespace TfGM_API_Wrapper.Models.Resources
 
             _resourcesConfig.StopResourcePath = loaderHelper.CheckFileRequirements(resourcesConfig.StopResourcePath,
                 nameof(resourcesConfig.StopResourcePath));
-            
-            _resourcesConfig.StationNamesToTlarefsPath = loaderHelper.CheckFileRequirements(resourcesConfig.StationNamesToTlarefsPath,
-                nameof(resourcesConfig.StationNamesToTlarefsPath));
-            
-            _resourcesConfig.TlarefsToIdsPath = loaderHelper.CheckFileRequirements(resourcesConfig.TlarefsToIdsPath,
-                nameof(resourcesConfig.TlarefsToIdsPath));
         }
 
         /// <summary>

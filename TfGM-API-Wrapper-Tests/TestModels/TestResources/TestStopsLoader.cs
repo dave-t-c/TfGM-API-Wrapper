@@ -126,37 +126,5 @@ namespace TfGM_API_Wrapper_Tests.TestModels.TestResources
                     StopLoader stopLoader = new StopLoader(_nullStopResource);
                 });
         }
-
-        /// <summary>
-        /// Test to try and create a StopLoader with a null
-        /// TlarefsToIdsPath. This should throw a InvalidOperationException.
-        /// </summary>
-        [Test]
-        public void TestNullTlarefsToIdsPath()
-        {
-            Assert.Throws(Is.TypeOf<InvalidOperationException>()
-                    .And.Message.EqualTo("TlarefsToIdsPath cannot be null"),
-                delegate
-                {
-                    StopLoader stopLoader = new StopLoader(_nullTlarefsToIdsPath);
-                });
-        }
-        
-        /// <summary>
-        /// Test creating a StopLoader with a non-existent TlarefsToIds file.
-        /// This should throw a file not found exception. 
-        /// </summary>
-        [Test]
-        public void TestNonExistentTlarefsToIdsPath()
-        {
-            Assert.Throws(Is.TypeOf<FileNotFoundException>()
-                    .And.Message.Contains("Could not find file")
-                    .And.Message.Contains("../../../Resources/NonExistentFile.json"),
-                delegate
-                {
-                    StopLoader stopLoader = new StopLoader(_invalidTlarefsToIdsPath);
-                    stopLoader.ImportStops();
-                });
-        }
     }
 }
