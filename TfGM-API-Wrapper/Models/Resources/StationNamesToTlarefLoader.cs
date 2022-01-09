@@ -1,4 +1,7 @@
 using System;
+using System.Collections.Generic;
+using System.IO;
+using Newtonsoft.Json;
 
 namespace TfGM_API_Wrapper.Models.Resources
 {
@@ -23,6 +26,17 @@ namespace TfGM_API_Wrapper.Models.Resources
             
             _resourcesConfig.StationNamesToTlarefsPath = loaderHelper.CheckFileRequirements(resourcesConfig.StationNamesToTlarefsPath,
                 nameof(resourcesConfig.StationNamesToTlarefsPath));
+        }
+
+        /// <summary>
+        /// Import the Station Names to Tlarefs dict.
+        /// </summary>
+        /// <returns>StationNames to Tlarefs dict. Key is the station name.</returns>
+        public Dictionary<string, string> ImportStationNamesToTlarefs()
+        {
+            using var reader = new StreamReader(_resourcesConfig.StationNamesToTlarefsPath);
+            var jsonString = reader.ReadToEnd();
+            return JsonConvert.DeserializeObject<Dictionary<string, string>>(jsonString);;
         }
     }
 }

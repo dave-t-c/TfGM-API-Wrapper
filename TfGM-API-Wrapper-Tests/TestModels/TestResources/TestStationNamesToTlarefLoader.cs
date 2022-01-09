@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using NUnit.Framework;
 using TfGM_API_Wrapper.Models.Resources;
@@ -14,6 +15,7 @@ namespace TfGM_API_Wrapper_Tests.TestModels.TestResources
         private ResourcesConfig? _nullStationNamesToTlarefs;
         private ResourcesConfig? _invalidStationNamesToTlarefs;
 
+        private StationNamesToTlarefLoader? _validStationNamesToTlarefLoader;
         private StationNamesToTlarefLoader? _stationNamesToTlarefLoader;
         
         private const string StopResourcePathConst = "../../../Resources/ValidStopLoader.json";
@@ -35,6 +37,8 @@ namespace TfGM_API_Wrapper_Tests.TestModels.TestResources
                 StationNamesToTlarefsPath = StationNamesToTlarefsPath,
                 TlarefsToIdsPath = TlarefsToIdsPath
             };
+
+            _validStationNamesToTlarefLoader = new StationNamesToTlarefLoader(_validResourcesConfig);
             
             _nullStationNamesToTlarefs = _validResourcesConfig.DeepCopy();
             _nullStationNamesToTlarefs.StationNamesToTlarefsPath = null;
@@ -86,6 +90,18 @@ namespace TfGM_API_Wrapper_Tests.TestModels.TestResources
                 {
                     _stationNamesToTlarefLoader = new StationNamesToTlarefLoader(_invalidStationNamesToTlarefs);
                 });
+        }
+
+        /// <summary>
+        /// Test to try and import the station names to tlaref dict.
+        /// This should return a dictionary that contains 12 entries.
+        /// </summary>
+        [Test]
+        public void TestImportStationNamesDict()
+        {
+            Dictionary<string, string> result = _validStationNamesToTlarefLoader.ImportStationNamesToTlarefs();
+            Assert.AreEqual(12, result.Count);
+            Assert.AreEqual("ALT", result["Altrincham"]);
         }
     }
 }
