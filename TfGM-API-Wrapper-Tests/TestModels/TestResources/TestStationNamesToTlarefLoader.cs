@@ -48,7 +48,7 @@ namespace TfGM_API_Wrapper_Tests.TestModels.TestResources
         }
 
         /// <summary>
-        /// Clear 
+        /// Clear the created resources.
         /// </summary>
         [TearDown]
         public void TearDown()
@@ -57,6 +57,7 @@ namespace TfGM_API_Wrapper_Tests.TestModels.TestResources
             _nullStationNamesToTlarefs = null;
             _invalidStationNamesToTlarefs = null;
             _stationNamesToTlarefLoader = null;
+            _validStationNamesToTlarefLoader = null;
         }
         
         /// <summary>
