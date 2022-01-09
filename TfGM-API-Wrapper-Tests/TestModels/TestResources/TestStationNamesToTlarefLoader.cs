@@ -5,6 +5,9 @@ using TfGM_API_Wrapper.Models.Resources;
 
 namespace TfGM_API_Wrapper_Tests.TestModels.TestResources
 {
+    /// <summary>
+    /// Tests the StationNamesToTlarefLoader.
+    /// </summary>
     public class TestStationNamesToTlarefLoader
     {
         private ResourcesConfig? _validResourcesConfig;
@@ -18,6 +21,11 @@ namespace TfGM_API_Wrapper_Tests.TestModels.TestResources
         private const string TlarefsToIdsPath = "../../../Resources/TLAREFs_to_IDs.json";
         private const string InvalidFilePath = "../../../Resources/NonExistentFile.json";
         
+        /// <summary>
+        /// Sets up the required ResourceConfigs.
+        /// A valid config is created, and then modified copies with incorrect values are created using a
+        /// deep copy of the valid config.
+        /// </summary>
         [SetUp]
         public void SetUp()
         {

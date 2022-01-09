@@ -5,6 +5,10 @@ using TfGM_API_Wrapper.Models.Resources;
 
 namespace TfGM_API_Wrapper_Tests.TestModels.TestResources
 {
+    /// <summary>
+    /// Test class for TlarefToIdsLoader.
+    /// This class is responsible for importing the Tlarefs to Ids map.
+    /// </summary>
     public class TestTlarefToIdsLoader
     {
         private ResourcesConfig? _validResourcesConfig;
@@ -18,6 +22,11 @@ namespace TfGM_API_Wrapper_Tests.TestModels.TestResources
         private const string TlarefsToIdsPath = "../../../Resources/TLAREFs_to_IDs.json";
         private const string InvalidFilePath = "../../../Resources/NonExistentFile.json";
 
+        /// <summary>
+        /// Creates the required test configs.
+        /// A valid config is created, with invalid configs created with the required changed
+        /// field using deep copies of the valid config.
+        /// </summary>
         [SetUp]
         public void SetUp()
         {
