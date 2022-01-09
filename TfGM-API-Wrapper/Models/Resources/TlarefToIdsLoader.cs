@@ -1,4 +1,7 @@
 using System;
+using System.Collections.Generic;
+using System.IO;
+using Newtonsoft.Json;
 
 namespace TfGM_API_Wrapper.Models.Resources
 {
@@ -22,6 +25,13 @@ namespace TfGM_API_Wrapper.Models.Resources
             
             _resourcesConfig.TlarefsToIdsPath = loaderHelper.CheckFileRequirements(resourcesConfig.TlarefsToIdsPath,
                 nameof(resourcesConfig.TlarefsToIdsPath));
+        }
+
+        public Dictionary<string, List<int>> ImportTlarefsToIds()
+        {
+            using var reader = new StreamReader(_resourcesConfig.TlarefsToIdsPath);
+            var jsonString = reader.ReadToEnd();
+            return JsonConvert.DeserializeObject<Dictionary<string, List<int>>>(jsonString);
         }
     }
 }

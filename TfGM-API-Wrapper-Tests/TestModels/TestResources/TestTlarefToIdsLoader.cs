@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using NUnit.Framework;
 using TfGM_API_Wrapper.Models.Resources;
@@ -42,6 +44,8 @@ namespace TfGM_API_Wrapper_Tests.TestModels.TestResources
 
             _invalidTlarefsToIdsPath = _validResourcesConfig.DeepCopy();
             _invalidTlarefsToIdsPath.TlarefsToIdsPath = InvalidFilePath;
+
+            _tlarefToIdsLoader = new TlarefToIdsLoader(_validResourcesConfig);
         }
 
         [TearDown]
@@ -64,7 +68,7 @@ namespace TfGM_API_Wrapper_Tests.TestModels.TestResources
                     .And.Message.EqualTo("TlarefsToIdsPath cannot be null"),
                 delegate
                 {
-                    _tlarefToIdsLoader = new TlarefToIdsLoader(_nullTlarefsToIdsPath);
+                    new TlarefToIdsLoader(_nullTlarefsToIdsPath);
                 });
         }
         
@@ -80,8 +84,26 @@ namespace TfGM_API_Wrapper_Tests.TestModels.TestResources
                     .And.Message.Contains("../../../Resources/NonExistentFile.json"),
                 delegate
                 {
-                    _tlarefToIdsLoader = new TlarefToIdsLoader(_invalidTlarefsToIdsPath);
+                    new TlarefToIdsLoader(_invalidTlarefsToIdsPath);
                 });
+        }
+
+        /// <summary>
+        /// Test to Import the TlarefsToIds dict.
+        /// This should return a dict of length 14. 
+        /// </summary>
+        [Test]
+        public void TestImportTlarefsToIds()
+        {
+            Dictionary<string, List<int>>? result = _tlarefToIdsLoader?.ImportTlarefsToIds();
+            List<int> expectedList = new List<int>
+            {
+                728,
+                729
+            };
+            Debug.Assert(result != null, nameof(result) + " != null");
+            Assert.AreEqual(14, result.Count);
+            Assert.AreEqual(expectedList, result["ALT"]);
         }
     }
 }
