@@ -2,6 +2,9 @@ using System.Collections.Generic;
 
 namespace TfGM_API_Wrapper.Models.Resources
 {
+    /// <summary>
+    /// Loads the file resources for the system using the file loaders.
+    /// </summary>
     public class ResourceLoader
     {
         private readonly ResourcesConfig _resourcesConfig;
@@ -17,6 +20,10 @@ namespace TfGM_API_Wrapper.Models.Resources
             _tlarefToIdsLoader = new TlarefToIdsLoader(resourcesConfig);
         }
         
+        /// <summary>
+        /// Loads the system resources into a ImportedResources object.
+        /// </summary>
+        /// <returns>ImportedResources for the system</returns>
         public ImportedResources ImportResources()
         {
             return new ImportedResources
