@@ -8,10 +8,11 @@ namespace TfGM_API_Wrapper.Models.Resources
     public class ImportedResources
     {
         public List<Stop> ImportedStops { get; set; }
-
+        public Dictionary<string, string> StationNamesToTlaref { get; set; }
         public ImportedResources()
         {
             ImportedStops = new List<Stop>();
+            StationNamesToTlaref = new Dictionary<string, string>();
         }
     }
 }

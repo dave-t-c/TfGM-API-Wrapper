@@ -31,5 +31,17 @@ namespace TfGM_API_Wrapper_Tests.TestModels.TestResources
             Assert.IsNotNull(importedResources.ImportedStops);
             Assert.AreEqual(0, importedResources.ImportedStops.Count);
         }
+
+        /// <summary>
+        /// Test to try and get the StationNamesToTlarefs dict.
+        /// This should not be null and should be empty.
+        /// </summary>
+        [Test]
+        public void TestCreateEmptyStationNamesToTlarefs()
+        {
+            ImportedResources importedResources = new ImportedResources();
+            Assert.IsNotNull(importedResources.StationNamesToTlaref);
+            Assert.AreEqual(0, importedResources.StationNamesToTlaref.Count);
+        }
     }
 }
