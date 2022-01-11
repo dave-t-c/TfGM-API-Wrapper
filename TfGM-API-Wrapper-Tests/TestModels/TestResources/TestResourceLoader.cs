@@ -54,5 +54,19 @@ namespace TfGM_API_Wrapper_Tests.TestModels.TestResources
             Debug.Assert(importedResources != null, nameof(importedResources) + " != null");
             Assert.AreEqual(1, importedResources.ImportedStops.Count);
         }
+
+        /// <summary>
+        /// Test to import the StationNamesToTlarefs using resource loaders
+        /// Import resources method.
+        /// This should return a dict of length 12.
+        /// </summary>
+        [Test]
+        public void TestImportResourcesImportedNamesToTlarefs()
+        {
+            ImportedResources? importedResources = _resourceLoader?.ImportResources();
+            Assert.NotNull(importedResources);
+            Debug.Assert(importedResources != null, nameof(importedResources) + " != null");
+            Assert.AreEqual(12, importedResources.StationNamesToTlaref.Count);
+        }
     }
 }
