@@ -68,5 +68,19 @@ namespace TfGM_API_Wrapper_Tests.TestModels.TestResources
             Debug.Assert(importedResources != null, nameof(importedResources) + " != null");
             Assert.AreEqual(12, importedResources.StationNamesToTlaref.Count);
         }
+
+        /// <summary>
+        /// Test to import the TlarefToIds dict.
+        /// This should include this in the ImportedResources, which should
+        /// contain a dict of length 14.
+        /// </summary>
+        [Test]
+        public void TestImportResourcesImportTlarefToIds()
+        {
+            ImportedResources? importedResources = _resourceLoader?.ImportResources();
+            Assert.NotNull(importedResources);
+            Debug.Assert(importedResources != null, nameof(importedResources) + " != null");
+            Assert.AreEqual(14, importedResources.TlarefsToIds.Count);
+        }
     }
 }
