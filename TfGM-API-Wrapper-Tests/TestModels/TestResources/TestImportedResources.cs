@@ -8,16 +8,18 @@ namespace TfGM_API_Wrapper_Tests.TestModels.TestResources
     /// </summary>
     public class TestImportedResources
     {
+        private ImportedResources? _importedResources;
+        
         [SetUp]
         public void SetUp()
         {
-            
+            _importedResources = new ImportedResources();
         }
 
         [TearDown]
         public void TearDown()
         {
-            
+            _importedResources = null;
         }
 
         /// <summary>
@@ -27,9 +29,8 @@ namespace TfGM_API_Wrapper_Tests.TestModels.TestResources
         [Test]
         public void TestCreateEmptyImportedStops()
         {
-            ImportedResources importedResources = new ImportedResources();
-            Assert.IsNotNull(importedResources.ImportedStops);
-            Assert.AreEqual(0, importedResources.ImportedStops.Count);
+            Assert.IsNotNull(_importedResources?.ImportedStops);
+            Assert.AreEqual(0, _importedResources?.ImportedStops.Count);
         }
 
         /// <summary>
@@ -39,9 +40,8 @@ namespace TfGM_API_Wrapper_Tests.TestModels.TestResources
         [Test]
         public void TestCreateEmptyStationNamesToTlarefs()
         {
-            ImportedResources importedResources = new ImportedResources();
-            Assert.IsNotNull(importedResources.StationNamesToTlaref);
-            Assert.AreEqual(0, importedResources.StationNamesToTlaref.Count);
+            Assert.IsNotNull(_importedResources?.StationNamesToTlaref);
+            Assert.AreEqual(0, _importedResources?.StationNamesToTlaref.Count);
         }
 
         /// <summary>
@@ -52,9 +52,8 @@ namespace TfGM_API_Wrapper_Tests.TestModels.TestResources
         [Test]
         public void TestCreateEmptyTlarefsToIds()
         {
-            ImportedResources importedResources = new ImportedResources();
-            Assert.IsNotNull(importedResources.TlarefsToIds);
-            Assert.AreEqual(0, importedResources.TlarefsToIds.Count);
+            Assert.IsNotNull(_importedResources?.TlarefsToIds);
+            Assert.AreEqual(0, _importedResources?.TlarefsToIds.Count);
         }
         
     }
