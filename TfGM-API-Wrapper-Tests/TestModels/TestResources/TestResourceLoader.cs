@@ -41,19 +41,5 @@ namespace TfGM_API_Wrapper_Tests.TestModels.TestResources
             _resourceLoader = null;
         }
 
-        /// <summary>
-        /// Test to try and use the created valid stop loader, and
-        /// import the stops list.
-        /// This should return a list of length 1.
-        /// </summary>
-        [Test]
-        public void TestCreateValidStopLoader()
-        {
-            List<Stop>? returnedList = _resourceLoader?.ImportedStops;
-            Assert.NotNull(returnedList);
-            Debug.Assert(returnedList != null, nameof(returnedList) + " != null");
-            Assert.AreEqual(1, returnedList.Count);
-        }
-        
     }
 }
