@@ -41,5 +41,18 @@ namespace TfGM_API_Wrapper_Tests.TestModels.TestResources
             _resourceLoader = null;
         }
 
+        /// <summary>
+        /// Test to import resources using the ResourceLoader.
+        /// This should return a ImportedResources instance with a Stops
+        /// list of length 1.
+        /// </summary>
+        [Test]
+        public void TestImportResourcesImportedStops()
+        {
+            ImportedResources? importedResources = _resourceLoader?.ImportResources();
+            Assert.NotNull(importedResources);
+            Debug.Assert(importedResources != null, nameof(importedResources) + " != null");
+            Assert.AreEqual(1, importedResources.ImportedStops.Count);
+        }
     }
 }
