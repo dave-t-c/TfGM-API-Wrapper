@@ -43,5 +43,19 @@ namespace TfGM_API_Wrapper_Tests.TestModels.TestResources
             Assert.IsNotNull(importedResources.StationNamesToTlaref);
             Assert.AreEqual(0, importedResources.StationNamesToTlaref.Count);
         }
+
+        /// <summary>
+        /// Test to create a new ImportedResources object with an
+        /// empty TlarefsToIds dict.
+        /// This should be empty and not null.
+        /// </summary>
+        [Test]
+        public void TestCreateEmptyTlarefsToIds()
+        {
+            ImportedResources importedResources = new ImportedResources();
+            Assert.IsNotNull(importedResources.TlarefsToIds);
+            Assert.AreEqual(0, importedResources.TlarefsToIds.Count);
+        }
+        
     }
 }
