@@ -17,12 +17,11 @@ namespace TfGM_API_Wrapper.Models.Resources
         
         public ImportedResources ImportResources()
         {
-            ImportedResources importedResources = new ImportedResources
+            return new ImportedResources
             {
                 ImportedStops = _stopLoader.ImportStops(),
                 StationNamesToTlaref = _stationNamesToTlarefLoader.ImportStationNamesToTlarefs()
             };
-            return importedResources;
         }
     }
 }
