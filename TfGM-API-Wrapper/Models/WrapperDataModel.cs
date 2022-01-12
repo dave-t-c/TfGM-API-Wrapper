@@ -8,11 +8,20 @@ namespace TfGM_API_Wrapper.Models
     /// </summary>
     public class WrapperDataModel
     {
-        public readonly ResourcesConfig _resourcesConfig;
+        private readonly ResourcesConfig _resourcesConfig;
 
         public WrapperDataModel(ResourcesConfig resourcesConfig)
         {
             _resourcesConfig = resourcesConfig;
+        }
+
+        /// <summary>
+        /// Loads and imports the resources using the ResourceLoader
+        /// </summary>
+        /// <returns>Returns ImportedResources</returns>
+        public ImportedResources ImportResources()
+        {
+            return new ResourceLoader(_resourcesConfig).ImportResources();
         }
     }
 }
