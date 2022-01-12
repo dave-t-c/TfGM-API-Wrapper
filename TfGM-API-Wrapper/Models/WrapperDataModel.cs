@@ -1,20 +1,18 @@
 using System;
+using TfGM_API_Wrapper.Models.Resources;
 
 namespace TfGM_API_Wrapper.Models
 {
     /// <summary>
     /// Data model for the TfGM-API-Wrapper project.
     /// </summary>
-    public sealed class WrapperDataModel
+    public class WrapperDataModel
     {
-        private static readonly Lazy<WrapperDataModel> WrapperInstance = new Lazy<WrapperDataModel>(
-            () => new WrapperDataModel());
-        
-        public static WrapperDataModel Instance => WrapperInstance.Value;
+        public readonly ResourcesConfig _resourcesConfig;
 
-        private WrapperDataModel()
+        public WrapperDataModel(ResourcesConfig resourcesConfig)
         {
-            
+            _resourcesConfig = resourcesConfig;
         }
     }
 }
