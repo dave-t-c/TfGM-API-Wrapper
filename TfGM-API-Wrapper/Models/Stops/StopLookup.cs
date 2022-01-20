@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using TfGM_API_Wrapper.Models.Resources;
 
@@ -25,6 +26,7 @@ namespace TfGM_API_Wrapper.Models.Stops
         /// <returns>Int list of IDs for the stop</returns>
         public List<int> TlarefLookup(string tlaref)
         {
+            if (tlaref == null) throw new ArgumentNullException(nameof(tlaref));
             return _importedResources.TlarefsToIds[tlaref];
         }
         
