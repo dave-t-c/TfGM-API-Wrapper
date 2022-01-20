@@ -29,6 +29,13 @@ namespace TfGM_API_Wrapper.Models.Stops
             if (tlaref == null) throw new ArgumentNullException(nameof(tlaref));
             return _importedResources.TlarefsToIds[tlaref];
         }
+
+        public List<int> StationNameLookup(string stationName)
+        {
+            return new List<int>() {728, 729};
+        }
+        
+        
         
     }
 }
