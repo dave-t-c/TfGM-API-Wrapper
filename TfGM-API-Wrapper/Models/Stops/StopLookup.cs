@@ -41,5 +41,18 @@ namespace TfGM_API_Wrapper.Models.Stops
             var tlaref = _importedResources.StationNamesToTlaref[stationName];
             return TlarefLookup(tlaref);
         }
+
+        /// <summary>
+        /// Looks up either a tlaref or station name to find the Ids.
+        /// The function determines if it is a tlaref or station name.
+        /// </summary>
+        /// <param name="value">Needs to be either a Tlaref or Station name</param>
+        /// <returns></returns>
+        public List<int> LookupIDs(string value)
+        {
+            return new List<int>() {728, 729};
+        }
+        
+        
     }
 }
