@@ -30,12 +30,15 @@ namespace TfGM_API_Wrapper.Models.Stops
             return _importedResources.TlarefsToIds[tlaref];
         }
 
+        /// <summary>
+        /// Retrieves the IDs for a stop from a given stop name.
+        /// </summary>
+        /// <param name="stationName">Station name to retrieve, e.g. 'Ashton-Under-Lyne'</param>
+        /// <returns>Int list of IDs to use with the Metrolink API.</returns>
         public List<int> StationNameLookup(string stationName)
         {
-            return new List<int>() {728, 729};
+            var tlaref = _importedResources.StationNamesToTlaref[stationName];
+            return TlarefLookup(tlaref);
         }
-        
-        
-        
     }
 }
