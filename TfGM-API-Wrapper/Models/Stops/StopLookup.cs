@@ -16,6 +16,11 @@ namespace TfGM_API_Wrapper.Models.Stops
         {
             _importedResources = importedResources;
         }
+
+        public int[] TlarefLookup(string tlaref)
+        {
+            return new[] {728, 729};
+        }
         
     }
 }
