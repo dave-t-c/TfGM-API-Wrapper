@@ -50,18 +50,11 @@ namespace TfGM_API_Wrapper.Models.Stops
         /// <returns></returns>
         public List<int> LookupIDs(string value)
         {
-            if (_importedResources.TlarefsToIds.ContainsKey(value))
-            {
-                return TlarefLookup(value);
-            }
-            else if (_importedResources.StationNamesToTlaref.ContainsKey(value))
-            {
-                return StationNameLookup(value);
-            }
-            else
-            {
-                throw new ArgumentException("Value given is not a valid station name or TLAREF");
-            }
+            if (_importedResources.TlarefsToIds.ContainsKey(value)) return TlarefLookup(value);
+
+            if (_importedResources.StationNamesToTlaref.ContainsKey(value)) return StationNameLookup(value);
+
+            throw new ArgumentException("Value given is not a valid station name or TLAREF");
         }
     }
 }
