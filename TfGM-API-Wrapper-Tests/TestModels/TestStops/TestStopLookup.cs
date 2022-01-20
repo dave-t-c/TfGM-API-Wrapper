@@ -60,9 +60,9 @@ namespace TfGM_API_Wrapper_Tests.TestModels.TestStops
         public void TestStopLookupTlarefIDs()
         {
             const string tlaref = "ALT";
-            int[] expectedResult = new[] {728, 729};
+            List<int> expectedResult = new List<int>() {728, 729};
             Debug.Assert(_stopLookup != null, nameof(_stopLookup) + " != null");
-            int[] result = _stopLookup.TlarefLookup(tlaref);
+            List<int> result = _stopLookup.TlarefLookup(tlaref);
             Assert.NotNull(result);
             Assert.AreEqual(expectedResult, result);
         }
@@ -76,9 +76,9 @@ namespace TfGM_API_Wrapper_Tests.TestModels.TestStops
         public void TestStopLookupDifferentTlaref()
         {
             const string tlaref = "ASH";
-            int[] expectedResult = new[] {783, 784, 785, 786};
+            List<int> expectedResult = new List<int>() {783, 784, 785, 786};
             Debug.Assert(_stopLookup != null, nameof(_stopLookup) + " != null");
-            int[] result = _stopLookup.TlarefLookup(tlaref);
+            List<int> result = _stopLookup.TlarefLookup(tlaref);
             Assert.NotNull(result);
             Assert.AreEqual(expectedResult, result);
         }
