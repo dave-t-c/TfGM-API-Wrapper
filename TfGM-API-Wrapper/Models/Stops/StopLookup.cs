@@ -54,9 +54,13 @@ namespace TfGM_API_Wrapper.Models.Stops
             {
                 return TlarefLookup(value);
             }
-            else
+            else if (_importedResources.StationNamesToTlaref.ContainsKey(value))
             {
                 return StationNameLookup(value);
+            }
+            else
+            {
+                throw new ArgumentException("Value given is not a valid station name or TLAREF");
             }
         }
     }
