@@ -10,11 +10,11 @@ namespace TfGM_API_Wrapper.Models.Stops
     /// </summary>
     public class StopLookup
     {
-        private readonly ResourcesConfig _resourcesConfig;
+        private readonly ImportedResources _importedResources;
         
-        public StopLookup(ResourcesConfig resourcesConfig)
+        public StopLookup(ImportedResources importedResources)
         {
-            _resourcesConfig = resourcesConfig;
+            _importedResources = importedResources;
         }
         
     }
