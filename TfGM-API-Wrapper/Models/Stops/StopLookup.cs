@@ -50,7 +50,7 @@ namespace TfGM_API_Wrapper.Models.Stops
         /// <returns></returns>
         public List<int> LookupIDs(string value)
         {
-            return new List<int>() {728, 729};
+            return TlarefLookup(value);
         }
         
         
