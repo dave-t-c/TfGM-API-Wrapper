@@ -56,7 +56,7 @@ namespace TfGM_API_Wrapper.Models.Stops
             }
             else
             {
-                return new List<int>() {728, 729};
+                return StationNameLookup(value);
             }
         }
     }
