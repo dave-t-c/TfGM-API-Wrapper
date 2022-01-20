@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using NUnit.Framework;
@@ -81,6 +82,21 @@ namespace TfGM_API_Wrapper_Tests.TestModels.TestStops
             List<int> result = _stopLookup.TlarefLookup(tlaref);
             Assert.NotNull(result);
             Assert.AreEqual(expectedResult, result);
+        }
+
+        /// <summary>
+        /// Test to try and get the tlaref for a null value.
+        /// This should throw an illegal argument exception
+        /// </summary>
+        [Test]
+        public void TestStopLookupNullTlaref()
+        {
+            Assert.Throws(Is.TypeOf<ArgumentNullException>()
+                    .And.Message.EqualTo("Value cannot be null. (Parameter 'tlaref')"),
+                delegate
+                {
+                    _stopLookup?.TlarefLookup(null);
+                });
         }
         
     }
