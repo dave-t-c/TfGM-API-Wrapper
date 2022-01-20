@@ -144,6 +144,20 @@ namespace TfGM_API_Wrapper_Tests.TestModels.TestStops
                     _stopLookup?.StationNameLookup(null);
                 });
         }
-        
+
+        /// <summary>
+        /// Test to use the lookup Ids method with a tlaref.
+        /// This should return the expected IDs of length 2.
+        /// </summary>
+        [Test]
+        public void TestLookupIDsTlaref()
+        {
+            const string tlaref = "ALT";
+            List<int> expectedResult = new List<int>() {728, 729};
+            Debug.Assert(_stopLookup != null, nameof(_stopLookup) + " != null");
+            List<int> result = _stopLookup.LookupIDs(tlaref);
+            Assert.NotNull(result);
+            Assert.AreEqual(expectedResult, result);
+        }
     }
 }
