@@ -159,5 +159,22 @@ namespace TfGM_API_Wrapper_Tests.TestModels.TestStops
             Assert.NotNull(result);
             Assert.AreEqual(expectedResult, result);
         }
+
+
+        /// <summary>
+        /// Test to lookup the IDs for a different tlaref.
+        /// This should return a different list of length 4.
+        /// </summary>
+        [Test]
+        public void TestLookupIDsDifferentTlaref()
+        {
+            const string tlaref = "ASH";
+            List<int> expectedResult = new List<int>() {783, 784, 785, 786};
+            Debug.Assert(_stopLookup != null, nameof(_stopLookup) + " != null");
+            List<int> result = _stopLookup.LookupIDs(tlaref);
+            Assert.NotNull(result);
+            Assert.AreEqual(expectedResult, result);
+        }
+        
     }
 }
