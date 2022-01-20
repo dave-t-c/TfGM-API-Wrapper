@@ -220,5 +220,20 @@ namespace TfGM_API_Wrapper_Tests.TestModels.TestStops
                     _stopLookup?.LookupIDs("Invalid");
                 });
         }
+
+        /// <summary>
+        /// Test to lookup the IDs for the value null.
+        /// This should throw a argument null exception.
+        /// </summary>
+        [Test]
+        public void TestLookupIDsNull()
+        {
+            Assert.Throws(Is.TypeOf<ArgumentNullException>()
+                    .And.Message.EqualTo("Value cannot be null. (Parameter 'value')"),
+                delegate
+                {
+                    _stopLookup?.LookupIDs(null);
+                });
+        }
     }
 }
