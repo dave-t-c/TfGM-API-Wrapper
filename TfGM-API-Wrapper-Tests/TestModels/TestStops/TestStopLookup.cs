@@ -128,6 +128,22 @@ namespace TfGM_API_Wrapper_Tests.TestModels.TestStops
             Assert.NotNull(result);
             Assert.AreEqual(expectedResult, result);
         }
+
+
+        /// <summary>
+        /// Test to try and lookup a null stop name.
+        /// This should through a null argument exception.
+        /// </summary>
+        [Test]
+        public void TestNullStopLookup()
+        {
+            Assert.Throws(Is.TypeOf<ArgumentNullException>()
+                    .And.Message.EqualTo("Value cannot be null. (Parameter 'stationName')"),
+                delegate
+                {
+                    _stopLookup?.StationNameLookup(null);
+                });
+        }
         
     }
 }
