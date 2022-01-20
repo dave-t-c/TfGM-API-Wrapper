@@ -175,6 +175,21 @@ namespace TfGM_API_Wrapper_Tests.TestModels.TestStops
             Assert.NotNull(result);
             Assert.AreEqual(expectedResult, result);
         }
+
+        /// <summary>
+        /// Test to look up a station name using the LookUpIDs method.
+        /// This should return the values for the station name.
+        /// </summary>
+        [Test]
+        public void TestLookupIDsStationName()
+        {
+            const string stationName = "Altrincham";
+            List<int> expectedResult = new List<int>() {728, 729};
+            Debug.Assert(_stopLookup != null, nameof(_stopLookup) + " != null");
+            List<int> result = _stopLookup.LookupIDs(stationName);
+            Assert.NotNull(result);
+            Assert.AreEqual(expectedResult, result);
+        }
         
     }
 }
