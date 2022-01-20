@@ -37,6 +37,7 @@ namespace TfGM_API_Wrapper.Models.Stops
         /// <returns>Int list of IDs to use with the Metrolink API.</returns>
         public List<int> StationNameLookup(string stationName)
         {
+            if (stationName == null) throw new ArgumentNullException(nameof(stationName));
             var tlaref = _importedResources.StationNamesToTlaref[stationName];
             return TlarefLookup(tlaref);
         }
