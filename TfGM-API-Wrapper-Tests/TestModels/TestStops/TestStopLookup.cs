@@ -98,6 +98,21 @@ namespace TfGM_API_Wrapper_Tests.TestModels.TestStops
                     _stopLookup?.TlarefLookup(null);
                 });
         }
+
+        /// <summary>
+        /// Test to try and get the stops IDs from a given stop name.
+        /// This should return the expected IDs.
+        /// </summary>
+        [Test]
+        public void TestStopLookupStopName()
+        {
+            const string stationName = "Altrincham";
+            List<int> expectedResult = new List<int>() {728, 729};
+            Debug.Assert(_stopLookup != null, nameof(_stopLookup) + " != null");
+            List<int> result = _stopLookup.StationNameLookup(stationName);
+            Assert.NotNull(result);
+            Assert.AreEqual(expectedResult, result);
+        }
         
     }
 }
