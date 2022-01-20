@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using TfGM_API_Wrapper.Models.Resources;
 
 namespace TfGM_API_Wrapper.Models.Stops
@@ -17,9 +18,14 @@ namespace TfGM_API_Wrapper.Models.Stops
             _importedResources = importedResources;
         }
 
-        public int[] TlarefLookup(string tlaref)
+        /// <summary>
+        /// Returns API IDs for a given Tlaref.
+        /// </summary>
+        /// <param name="tlaref">Stop Tlaref, e.g. 'ALT'.</param>
+        /// <returns>Int list of IDs for the stop</returns>
+        public List<int> TlarefLookup(string tlaref)
         {
-            return new[] {728, 729};
+            return _importedResources.TlarefsToIds[tlaref];
         }
         
     }
