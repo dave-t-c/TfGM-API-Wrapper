@@ -205,5 +205,20 @@ namespace TfGM_API_Wrapper_Tests.TestModels.TestStops
             Assert.NotNull(result);
             Assert.AreEqual(expectedResult, result);
         }
+
+        /// <summary>
+        /// Test to lookup a value that is not either a valid tlaref or station name.
+        /// This should throw an argument exception.
+        /// </summary>
+        [Test]
+        public void TestLookupNonExistentValue()
+        {
+            Assert.Throws(Is.TypeOf<ArgumentException>()
+                    .And.Message.EqualTo("Value given is not a valid station name or TLAREF"),
+                delegate
+                {
+                    _stopLookup?.LookupIDs("Invalid");
+                });
+        }
     }
 }
