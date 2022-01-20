@@ -1,6 +1,6 @@
 using System.Collections;
 
-namespace TfGM_API_Wrapper.Models
+namespace TfGM_API_Wrapper.Models.Stops
 {
     /// <summary>
     /// Stores information about a single stop.

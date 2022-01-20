@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using TfGM_API_Wrapper.Models.Stops;
 
 namespace TfGM_API_Wrapper.Models.Resources
 {

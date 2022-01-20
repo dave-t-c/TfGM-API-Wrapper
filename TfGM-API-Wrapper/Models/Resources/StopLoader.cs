@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using Newtonsoft.Json;
+using TfGM_API_Wrapper.Models.Stops;
 using static System.AppDomain;
 
 namespace TfGM_API_Wrapper.Models.Resources

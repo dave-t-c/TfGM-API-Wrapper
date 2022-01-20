@@ -1,6 +1,6 @@
 using TfGM_API_Wrapper.Models.Resources;
 
-namespace TfGM_API_Wrapper.Models
+namespace TfGM_API_Wrapper.Models.Stops
 {
     /// <summary>
     /// Looks up the Stop Information for a
