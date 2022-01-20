@@ -13,7 +13,7 @@ namespace TfGM_API_Wrapper.Models.Stops
     public class StopLookup
     {
         private readonly ImportedResources _importedResources;
-        
+
         public StopLookup(ImportedResources importedResources)
         {
             _importedResources = importedResources;
@@ -50,9 +50,14 @@ namespace TfGM_API_Wrapper.Models.Stops
         /// <returns></returns>
         public List<int> LookupIDs(string value)
         {
-            return TlarefLookup(value);
+            if (_importedResources.TlarefsToIds.ContainsKey(value))
+            {
+                return TlarefLookup(value);
+            }
+            else
+            {
+                return new List<int>() {728, 729};
+            }
         }
-        
-        
     }
 }
