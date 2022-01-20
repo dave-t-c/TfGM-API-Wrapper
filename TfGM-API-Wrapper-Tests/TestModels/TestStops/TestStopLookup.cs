@@ -113,6 +113,21 @@ namespace TfGM_API_Wrapper_Tests.TestModels.TestStops
             Assert.NotNull(result);
             Assert.AreEqual(expectedResult, result);
         }
+
+        /// <summary>
+        /// Test to try and retrieve the IDs for a different station name.
+        /// This should return 4 IDs instead of the existing 2.
+        /// </summary>
+        [Test]
+        public void TestStopLookupDifferentStop()
+        {
+            const string stationName = "Ashton-Under-Lyne";
+            List<int> expectedResult = new List<int>() {783, 784, 785, 786};
+            Debug.Assert(_stopLookup != null, nameof(_stopLookup) + " != null");
+            List<int> result = _stopLookup.StationNameLookup(stationName);
+            Assert.NotNull(result);
+            Assert.AreEqual(expectedResult, result);
+        }
         
     }
 }
