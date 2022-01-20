@@ -50,6 +50,8 @@ namespace TfGM_API_Wrapper.Models.Stops
         /// <returns></returns>
         public List<int> LookupIDs(string value)
         {
+            if (value == null) throw new ArgumentNullException(nameof(value));
+            
             if (_importedResources.TlarefsToIds.ContainsKey(value)) return TlarefLookup(value);
 
             if (_importedResources.StationNamesToTlaref.ContainsKey(value)) return StationNameLookup(value);
