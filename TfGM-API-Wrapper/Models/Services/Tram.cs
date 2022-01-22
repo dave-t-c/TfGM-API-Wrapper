@@ -38,7 +38,7 @@ namespace TfGM_API_Wrapper.Models.Services
         //TODO Add HashCode Implementation
         public override int GetHashCode()
         {
-            return Destination.GetHashCode();
+            return HashCode.Combine(Destination, Carriages);
         }
 
     }
