@@ -34,7 +34,14 @@ namespace TfGM_API_Wrapper_Tests.TestModels.TestServices
         [TearDown]
         public void TearDown()
         {
-            
+            _destination = null;
+            _diffDestination = null;
+            _carriages = null;
+            _status = null;
+            _wait = null;
+            _tram = null;
+            _tramDiffDestination = null;
+            _formattedServices = null;
         }
 
         /// <summary>
