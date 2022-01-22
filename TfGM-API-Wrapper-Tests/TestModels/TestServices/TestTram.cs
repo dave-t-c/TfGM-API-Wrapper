@@ -51,6 +51,8 @@ namespace TfGM_API_Wrapper_Tests.TestModels.TestServices
             _diffWait = null;
 
             _tram = null;
+            _duplicateTram = null;
+            _tramDiffDest = null;
             _diffTram = null;
         }
 
