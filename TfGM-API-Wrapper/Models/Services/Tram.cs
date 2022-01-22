@@ -29,7 +29,8 @@ namespace TfGM_API_Wrapper.Models.Services
         {
             Tram tram = (Tram) obj;
             return Destination == tram?.Destination &&
-                   Carriages == tram?.Carriages;
+                   Carriages == tram?.Carriages &&
+                   Status == tram?.Status;
         }
         
         //TODO Add HashCode Implementation
