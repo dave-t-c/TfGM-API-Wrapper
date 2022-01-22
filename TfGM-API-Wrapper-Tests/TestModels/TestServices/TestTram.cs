@@ -101,5 +101,20 @@ namespace TfGM_API_Wrapper_Tests.TestModels.TestServices
                     Tram tram = new Tram(_destination, null, _status, _wait);
                 });
         }
+
+        /// <summary>
+        /// Creates a tram with a null status.
+        /// This should throw an arg null exception
+        /// </summary>
+        [Test]
+        public void TestTramNullStatus()
+        {
+            Assert.Throws(Is.TypeOf<ArgumentNullException>()
+                    .And.Message.EqualTo("Value cannot be null. (Parameter 'status')"),
+                delegate
+                {
+                    Tram tram = new Tram(_destination, _carriages, null, _wait);
+                });
+        }
     }
 }
