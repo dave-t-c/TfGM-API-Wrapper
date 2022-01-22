@@ -14,6 +14,9 @@ namespace TfGM_API_Wrapper_Tests.TestModels.TestServices
         private string? _diffStatus;
         private string? _wait;
         private string? _diffWait;
+
+        private Tram? _tram;
+        private Tram? _diffTram;
         
         [SetUp]
         public void SetUp()
@@ -26,6 +29,9 @@ namespace TfGM_API_Wrapper_Tests.TestModels.TestServices
             _diffStatus = "Departing";
             _wait = "9";
             _diffWait = "0";
+            
+            _tram = new Tram(_destination, _carriages, _status, _wait);
+            _diffTram = new Tram(_diffDestination, _diffCarriages, _diffStatus, _diffWait);
         }
 
         [TearDown]
@@ -39,6 +45,9 @@ namespace TfGM_API_Wrapper_Tests.TestModels.TestServices
             _diffStatus = null;
             _wait = null;
             _diffWait = null;
+
+            _tram = null;
+            _diffTram = null;
         }
 
         /// <summary>
@@ -48,12 +57,11 @@ namespace TfGM_API_Wrapper_Tests.TestModels.TestServices
         [Test]
         public void TestCreateNewTram()
         {
-            Tram testTram = new Tram(_destination, _carriages, _status, _wait);
-            Assert.NotNull(testTram);
-            Assert.AreEqual(_destination, testTram.Destination);
-            Assert.AreEqual(_carriages, testTram.Carriages);
-            Assert.AreEqual(_status, testTram.Status);
-            Assert.AreEqual(_wait, testTram.Wait);
+            Assert.NotNull(_tram);
+            Assert.AreEqual(_destination, _tram?.Destination);
+            Assert.AreEqual(_carriages, _tram?.Carriages);
+            Assert.AreEqual(_status, _tram?.Status);
+            Assert.AreEqual(_wait, _tram?.Wait);
         }
 
         /// <summary>
@@ -64,12 +72,11 @@ namespace TfGM_API_Wrapper_Tests.TestModels.TestServices
         [Test]
         public void TestCreateDifferentTram()
         {
-            Tram testTram = new Tram(_diffDestination, _diffCarriages, _diffStatus, _diffWait);
-            Assert.NotNull(testTram);
-            Assert.AreEqual(_diffDestination, testTram.Destination);
-            Assert.AreEqual(_diffCarriages, testTram.Carriages);
-            Assert.AreEqual(_diffStatus, testTram.Status);
-            Assert.AreEqual(_diffWait, testTram.Wait);
+            Assert.NotNull(_diffTram);
+            Assert.AreEqual(_diffDestination, _diffTram?.Destination);
+            Assert.AreEqual(_diffCarriages, _diffTram?.Carriages);
+            Assert.AreEqual(_diffStatus, _diffTram?.Status);
+            Assert.AreEqual(_diffWait, _diffTram?.Wait);
         }
 
         /// <summary>
