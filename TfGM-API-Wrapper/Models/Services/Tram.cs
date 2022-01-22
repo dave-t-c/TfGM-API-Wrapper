@@ -28,7 +28,8 @@ namespace TfGM_API_Wrapper.Models.Services
         public override bool Equals(object obj)
         {
             Tram tram = (Tram) obj;
-            return Destination == tram?.Destination;
+            return Destination == tram?.Destination &&
+                   Carriages == tram?.Carriages;
         }
         
         //TODO Add HashCode Implementation
