@@ -1,3 +1,4 @@
+using System;
 using NUnit.Framework;
 using TfGM_API_Wrapper.Models.Services;
 
@@ -69,6 +70,21 @@ namespace TfGM_API_Wrapper_Tests.TestModels.TestServices
             Assert.AreEqual(_diffCarriages, testTram.Carriages);
             Assert.AreEqual(_diffStatus, testTram.Status);
             Assert.AreEqual(_diffWait, testTram.Wait);
+        }
+
+        /// <summary>
+        /// Create a tram with a null destination
+        /// This should throw an null args exception
+        /// </summary>
+        [Test]
+        public void TestTramNullDest()
+        {
+            Assert.Throws(Is.TypeOf<ArgumentNullException>()
+                    .And.Message.EqualTo("Value cannot be null. (Parameter 'destination')"),
+                delegate
+                {
+                    Tram tram = new Tram(null, _carriages, _status, _wait);
+                });
         }
     }
 }
