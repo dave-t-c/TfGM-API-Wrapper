@@ -20,7 +20,7 @@ namespace TfGM_API_Wrapper.Models.Services
         {
             Destination = destination ?? throw new ArgumentNullException(nameof(destination)); 
             Carriages = carriages ?? throw new ArgumentNullException(nameof(carriages));
-            this.Status = status;
+            Status = status ?? throw new ArgumentNullException(nameof(status));
             this.Wait = wait;
         }
             
