@@ -204,5 +204,15 @@ namespace TfGM_API_Wrapper_Tests.TestModels.TestServices
         {
             Assert.False(_tram?.Equals(_tramDiffWait));
         }
+        
+        /// <summary>
+        /// Test to determine if a different object type
+        /// is equal.
+        /// This should return false.
+        /// </summary>
+        [Test]
+        public void TestStringEquals(){
+            Assert.False(_tram?.Equals("Test"));
+        }
     }
 }
