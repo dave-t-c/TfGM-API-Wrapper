@@ -1,3 +1,5 @@
+using System;
+
 namespace TfGM_API_Wrapper.Models.Services
 {
     /// <summary>
@@ -16,7 +18,7 @@ namespace TfGM_API_Wrapper.Models.Services
 
         public Tram(string destination, string carriages, string status, string wait)
         {
-            this.Destination = destination;
+            Destination = destination ?? throw new ArgumentNullException(nameof(destination));
             this.Carriages = carriages;
             this.Status = status;
             this.Wait = wait;
