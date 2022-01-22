@@ -244,5 +244,15 @@ namespace TfGM_API_Wrapper_Tests.TestModels.TestServices
         {
             Assert.AreNotEqual(_tram?.GetHashCode(), _tramDiffDest?.GetHashCode());
         }
+
+        /// <summary>
+        /// Compare hash codes for trams with different carriage values.
+        /// These should be different values.
+        /// </summary>
+        [Test]
+        public void TestHashCodeDiffCarriages()
+        {
+            Assert.AreNotEqual(_tram?.GetHashCode(), _tramDiffCarriages?.GetHashCode());
+        }
     }
 }
