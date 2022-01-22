@@ -234,5 +234,15 @@ namespace TfGM_API_Wrapper_Tests.TestModels.TestServices
         {
             Assert.AreEqual(_tram?.GetHashCode(), _duplicateTram?.GetHashCode());
         }
+
+        /// <summary>
+        /// Test to get a different hash code for trams with
+        /// different destinations
+        /// </summary>
+        [Test]
+        public void TestHashCodeDiffDestination()
+        {
+            Assert.AreNotEqual(_tram?.GetHashCode(), _tramDiffDest?.GetHashCode());
+        }
     }
 }
