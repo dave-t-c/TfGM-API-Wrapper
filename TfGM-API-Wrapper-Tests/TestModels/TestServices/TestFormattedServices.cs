@@ -10,20 +10,24 @@ namespace TfGM_API_Wrapper_Tests.TestModels.TestServices
     public class TestFormattedServices
     {
         private string? _destination;
+        private string? _diffDestination;
         private string? _carriages;
         private string? _status;
         private string? _wait;
         private Tram? _tram;
+        private Tram? _tramDiffDestination;
         private FormattedServices? _formattedServices;
 
         [SetUp]
         public void SetUp()
         {
             _destination = "Example Destination";
+            _diffDestination = "Different Destination";
             _carriages = "Single";
             _status = "Due";
             _wait = "9";
             _tram = new Tram(_destination, _carriages, _status, _wait);
+            _tramDiffDestination = new Tram(_diffDestination, _carriages, _status, _wait);
             _formattedServices = new FormattedServices();
         }
 
@@ -51,6 +55,25 @@ namespace TfGM_API_Wrapper_Tests.TestModels.TestServices
             Assert.IsTrue(trams?.Count == 1);
             Assert.IsTrue(trams?.Contains(_tram));
             
+        }
+
+        /// <summary>
+        /// Test to add a tram with a different destination.
+        /// This should mean the dict still contains 1 item, but contains
+        /// the different key.
+        /// </summary>
+        [Test]
+        public void TestAddDifferentDestination()
+        {
+            _formattedServices?.AddService(_tramDiffDestination);
+            Dictionary<string, SortedSet<Tram?>?>? result = _formattedServices?.Destinations;
+            Assert.NotNull(result);
+            Debug.Assert(_diffDestination != null, nameof(_diffDestination) + " != null");
+            Assert.IsTrue(result?.ContainsKey(_diffDestination));
+            SortedSet<Tram?>? trams = result?[_diffDestination];
+            Assert.IsNotNull(trams);
+            Assert.IsTrue(trams?.Count == 1);
+            Assert.IsTrue(trams?.Contains(_tramDiffDestination));
         }
     }
 }
