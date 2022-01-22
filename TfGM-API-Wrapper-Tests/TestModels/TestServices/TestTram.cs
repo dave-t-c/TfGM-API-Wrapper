@@ -264,5 +264,15 @@ namespace TfGM_API_Wrapper_Tests.TestModels.TestServices
         {
             Assert.AreNotEqual(_tram?.GetHashCode(), _tramDiffStatus?.GetHashCode());
         }
+
+        /// <summary>
+        /// Test to compare the hash code values for trams with only different wait values.
+        /// This should return different values.
+        /// </summary>
+        [Test]
+        public void TestHashCodeDifferentWaits()
+        {
+            Assert.AreNotEqual(_tram?.GetHashCode(), _tramDiffWait?.GetHashCode());
+        }
     }
 }
