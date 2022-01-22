@@ -34,7 +34,12 @@ namespace TfGM_API_Wrapper.Models.Services
                    Status == tram?.Status &&
                    Wait == tram?.Wait;
         }
-        
+
         //TODO Add HashCode Implementation
+        public override int GetHashCode()
+        {
+            return 10;
+        }
+
     }
 }
