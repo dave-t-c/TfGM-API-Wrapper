@@ -25,5 +25,11 @@ namespace TfGM_API_Wrapper.Models.Services
         }
             
         //TODO Add Equals Method
+        public override bool Equals(object obj)
+        {
+            return true;
+        }
+        
+        //TODO Add HashCode Implementation
     }
 }
