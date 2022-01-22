@@ -214,5 +214,15 @@ namespace TfGM_API_Wrapper_Tests.TestModels.TestServices
         public void TestStringEquals(){
             Assert.False(_tram?.Equals("Test"));
         }
+
+        /// <summary>
+        /// Test to check if null is equal to tram.
+        /// This should return false.
+        /// </summary>
+        [Test]
+        public void TestNullEquals()
+        {
+            Assert.False(_tram?.Equals(null));
+        }
     }
 }
