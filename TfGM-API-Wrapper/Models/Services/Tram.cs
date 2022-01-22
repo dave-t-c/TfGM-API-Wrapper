@@ -18,8 +18,8 @@ namespace TfGM_API_Wrapper.Models.Services
 
         public Tram(string destination, string carriages, string status, string wait)
         {
-            Destination = destination ?? throw new ArgumentNullException(nameof(destination));
-            this.Carriages = carriages;
+            Destination = destination ?? throw new ArgumentNullException(nameof(destination)); 
+            Carriages = carriages ?? throw new ArgumentNullException(nameof(carriages));
             this.Status = status;
             this.Wait = wait;
         }
