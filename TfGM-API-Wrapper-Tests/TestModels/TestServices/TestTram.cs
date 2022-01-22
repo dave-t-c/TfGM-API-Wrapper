@@ -18,6 +18,7 @@ namespace TfGM_API_Wrapper_Tests.TestModels.TestServices
         private Tram? _tram;
         private Tram? _duplicateTram;
         private Tram? _tramDiffDest;
+        private Tram? _tramDiffCarriages;
         private Tram? _diffTram;
         
         [SetUp]
@@ -35,6 +36,7 @@ namespace TfGM_API_Wrapper_Tests.TestModels.TestServices
             _tram = new Tram(_destination, _carriages, _status, _wait);
             _duplicateTram = new Tram(_destination, _carriages, _status, _wait);
             _tramDiffDest = new Tram(_diffDestination, _carriages, _status, _wait);
+            _tramDiffCarriages = new Tram(_destination, _diffCarriages, _status, _wait);
             _diffTram = new Tram(_diffDestination, _diffCarriages, _diffStatus, _diffWait);
         }
 
@@ -53,6 +55,7 @@ namespace TfGM_API_Wrapper_Tests.TestModels.TestServices
             _tram = null;
             _duplicateTram = null;
             _tramDiffDest = null;
+            _tramDiffCarriages = null;
             _diffTram = null;
         }
 
@@ -164,6 +167,16 @@ namespace TfGM_API_Wrapper_Tests.TestModels.TestServices
         public void TestDiffDestTramsEqual()
         {
             Assert.False(_tram?.Equals(_tramDiffDest));
+        }
+
+        /// <summary>
+        /// Compare trams with different carriages to see if equal.
+        /// This should return false.
+        /// </summary>
+        [Test]
+        public void TestDiffCarriagesEqual()
+        {
+            Assert.False(_tram?.Equals(_tramDiffCarriages));
         }
     }
 }
