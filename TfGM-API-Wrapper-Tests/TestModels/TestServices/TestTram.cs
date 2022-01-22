@@ -182,6 +182,10 @@ namespace TfGM_API_Wrapper_Tests.TestModels.TestServices
             Assert.False(_tram?.Equals(_tramDiffCarriages));
         }
 
+        /// <summary>
+        /// Compare trams with different status values to see if equal.
+        /// This should return false.
+        /// </summary>
         [Test]
         public void TestDiffStatusEquals()
         {
