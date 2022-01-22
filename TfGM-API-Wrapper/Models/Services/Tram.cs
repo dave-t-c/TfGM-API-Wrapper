@@ -21,7 +21,7 @@ namespace TfGM_API_Wrapper.Models.Services
             Destination = destination ?? throw new ArgumentNullException(nameof(destination)); 
             Carriages = carriages ?? throw new ArgumentNullException(nameof(carriages));
             Status = status ?? throw new ArgumentNullException(nameof(status));
-            this.Wait = wait;
+            Wait = wait ?? throw new ArgumentNullException(nameof(wait));
         }
             
         //TODO Add Equals Method
