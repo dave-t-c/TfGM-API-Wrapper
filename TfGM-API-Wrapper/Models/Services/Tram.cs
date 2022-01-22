@@ -27,7 +27,7 @@ namespace TfGM_API_Wrapper.Models.Services
         //TODO Add Equals Method
         public override bool Equals(object obj)
         {
-            if (GetType() != obj.GetType()) return false;
+            if (obj == null || GetType() != obj.GetType()) return false;
             Tram tram = (Tram) obj;
             return Destination == tram?.Destination &&
                    Carriages == tram?.Carriages &&
