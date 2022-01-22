@@ -24,7 +24,12 @@ namespace TfGM_API_Wrapper.Models.Services
             Wait = wait ?? throw new ArgumentNullException(nameof(wait));
         }
             
-        //TODO Add Equals Method
+        /// <summary>
+        /// Determines if this Tram object and an other object are equal.
+        /// All fields are considered.
+        /// </summary>
+        /// <param name="obj">Object to compare</param>
+        /// <returns>boolean: True if Equal.</returns>
         public override bool Equals(object obj)
         {
             if (obj == null || GetType() != obj.GetType()) return false;
@@ -35,7 +40,11 @@ namespace TfGM_API_Wrapper.Models.Services
                    Wait == tram?.Wait;
         }
 
-        //TODO Add HashCode Implementation
+        /// <summary>
+        /// Returns a Hash Code for this Tram that combines
+        /// Hash Codes for all fields.
+        /// </summary>
+        /// <returns>int: Hash Code Generated using this Tram object.</returns>
         public override int GetHashCode()
         {
             return HashCode.Combine(Destination, Carriages, Status, Wait);
