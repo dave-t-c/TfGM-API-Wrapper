@@ -14,8 +14,10 @@ namespace TfGM_API_Wrapper_Tests.TestModels.TestServices
         private string? _carriages;
         private string? _status;
         private string? _wait;
+        private string? _diffWait;
         private Tram? _tram;
         private Tram? _tramDiffDestination;
+        private Tram? _tramSameDestinationDiffWait;
         private FormattedServices? _formattedServices;
 
         [SetUp]
@@ -26,8 +28,10 @@ namespace TfGM_API_Wrapper_Tests.TestModels.TestServices
             _carriages = "Single";
             _status = "Due";
             _wait = "9";
+            _diffWait = "1";
             _tram = new Tram(_destination, _carriages, _status, _wait);
             _tramDiffDestination = new Tram(_diffDestination, _carriages, _status, _wait);
+            _tramSameDestinationDiffWait = new Tram(_destination, _carriages, _status, _diffWait);
             _formattedServices = new FormattedServices();
         }
 
@@ -39,8 +43,10 @@ namespace TfGM_API_Wrapper_Tests.TestModels.TestServices
             _carriages = null;
             _status = null;
             _wait = null;
+            _diffWait = null;
             _tram = null;
             _tramDiffDestination = null;
+            _tramSameDestinationDiffWait = null;
             _formattedServices = null;
         }
 
@@ -81,6 +87,25 @@ namespace TfGM_API_Wrapper_Tests.TestModels.TestServices
             Assert.IsNotNull(trams);
             Assert.IsTrue(trams?.Count == 1);
             Assert.IsTrue(trams?.Contains(_tramDiffDestination));
+        }
+
+        /// <summary>
+        /// Test to add two trams with the same destination.
+        /// This should return a sorted set with two items.
+        /// </summary>
+        [Test]
+        public void TestAddTramSameDestination()
+        {
+            _formattedServices?.AddService(_tram);
+            _formattedServices?.AddService(_tramSameDestinationDiffWait);
+            Dictionary<string, SortedSet<Tram?>?>? result = _formattedServices?.Destinations;
+            Assert.NotNull(result);
+            Debug.Assert(_destination != null, nameof(_destination) + " != null");
+            Assert.IsTrue(result?.ContainsKey(_destination));
+            SortedSet<Tram?>? trams = result?[_destination];
+            Assert.AreEqual(2, trams?.Count);
+            Assert.IsTrue(trams?.Contains(_tram));
+            Assert.IsTrue(trams?.Contains(_tramSameDestinationDiffWait));
         }
     }
 }
