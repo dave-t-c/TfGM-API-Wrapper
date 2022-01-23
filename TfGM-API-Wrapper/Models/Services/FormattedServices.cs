@@ -15,7 +15,9 @@ namespace TfGM_API_Wrapper.Models.Services
 
         public void AddService(Tram tram)
         {
-            Destinations[tram.Destination] = new SortedSet<Tram>(new TramComparer());
+            if (!Destinations.ContainsKey(tram.Destination))
+                Destinations[tram.Destination] = new SortedSet<Tram>(new TramComparer());
+            
             Destinations[tram.Destination].Add(tram);
         }
     }
