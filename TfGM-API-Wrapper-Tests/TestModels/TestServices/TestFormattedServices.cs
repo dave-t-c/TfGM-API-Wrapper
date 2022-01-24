@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using Microsoft.VisualBasic.CompilerServices;
 using NUnit.Framework;
 using TfGM_API_Wrapper.Models.Services;
 
@@ -12,6 +13,7 @@ namespace TfGM_API_Wrapper_Tests.TestModels.TestServices
         private string? _destination;
         private string? _diffDestination;
         private string? _carriages;
+        private string? _diffCarriages;
         private string? _status;
         private string? _wait;
         private string? _diffWait;
@@ -26,12 +28,13 @@ namespace TfGM_API_Wrapper_Tests.TestModels.TestServices
             _destination = "Example Destination";
             _diffDestination = "Different Destination";
             _carriages = "Single";
+            _diffCarriages = "Double";
             _status = "Due";
             _wait = "9";
             _diffWait = "1";
             _tram = new Tram(_destination, _carriages, _status, _wait);
             _tramDiffDestination = new Tram(_diffDestination, _carriages, _status, _wait);
-            _tramSameDestinationDiffWait = new Tram(_destination, _carriages, _status, _diffWait);
+            _tramSameDestinationDiffWait = new Tram(_destination, _diffCarriages, _status, _diffWait);
             _formattedServices = new FormattedServices();
         }
 
@@ -41,6 +44,7 @@ namespace TfGM_API_Wrapper_Tests.TestModels.TestServices
             _destination = null;
             _diffDestination = null;
             _carriages = null;
+            _diffCarriages = null;
             _status = null;
             _wait = null;
             _diffWait = null;
@@ -106,6 +110,31 @@ namespace TfGM_API_Wrapper_Tests.TestModels.TestServices
             Assert.AreEqual(2, trams?.Count);
             Assert.IsTrue(trams?.Contains(_tram));
             Assert.IsTrue(trams?.Contains(_tramSameDestinationDiffWait));
+        }
+
+        /// <summary>
+        /// Test to validate the trams in FormattedServices are in the correct order.
+        /// They should have the lowest wait first.
+        /// </summary>
+        [Test]
+        public void TestValidateTramsOrder()
+        {
+            _formattedServices?.AddService(_tram);
+            _formattedServices?.AddService(_tramSameDestinationDiffWait);
+            Dictionary<string, SortedSet<Tram?>?>? result = _formattedServices?.Destinations;
+            Assert.NotNull(result);
+            Debug.Assert(_destination != null, nameof(_destination) + " != null");
+            Assert.IsTrue(result?.ContainsKey(_destination));
+            SortedSet<Tram?>? trams = result?[_destination];
+            Tram? first = trams?.First();
+            Assert.AreEqual("Double", first?.Carriages);
+            trams?.Remove(trams?.First());
+            Tram? second = trams?.First();
+            Debug.Assert(first?.Wait != null, "first?.Wait != null");
+            int firstWait = Int32.Parse(first.Wait);
+            Debug.Assert(second != null, nameof(second) + " != null");
+            int secondWait = Int32.Parse(second.Wait);
+            Assert.IsTrue(firstWait < secondWait);
         }
     }
 }
