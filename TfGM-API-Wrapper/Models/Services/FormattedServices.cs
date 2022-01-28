@@ -3,6 +3,9 @@ using System.Collections.Generic;
 
 namespace TfGM_API_Wrapper.Models.Services
 {
+    /// <summary>
+    /// Stores services by destination, ordered by ascending wait time. 
+    /// </summary>
     public class FormattedServices
     {
 
@@ -13,6 +16,11 @@ namespace TfGM_API_Wrapper.Models.Services
             Destinations = new Dictionary<string, SortedSet<Tram>>();
         }
 
+        /// <summary>
+        /// Adds a tram to the formatted services.
+        /// This will add it to a set for trams with the same destination. 
+        /// </summary>
+        /// <param name="tram">Tram service to add</param>
         public void AddService(Tram tram)
         {
             if (!Destinations.ContainsKey(tram.Destination))
