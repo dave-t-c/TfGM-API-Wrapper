@@ -23,6 +23,7 @@ namespace TfGM_API_Wrapper.Models.Services
         /// <param name="tram">Tram service to add</param>
         public void AddService(Tram tram)
         {
+            if (tram == null) return;
             if (!Destinations.ContainsKey(tram.Destination))
                 Destinations[tram.Destination] = new SortedSet<Tram>(new TramComparer());
             
