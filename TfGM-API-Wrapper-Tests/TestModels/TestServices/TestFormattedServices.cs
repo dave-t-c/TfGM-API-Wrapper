@@ -136,5 +136,18 @@ namespace TfGM_API_Wrapper_Tests.TestModels.TestServices
             int secondWait = Int32.Parse(second.Wait);
             Assert.IsTrue(firstWait < secondWait);
         }
+
+        /// <summary>
+        /// Test to add a null tram.
+        /// This should not be added and the dict should remain empty.
+        /// </summary>
+        [Test]
+        public void TestAddNullTram()
+        {
+            _formattedServices?.AddService(null);
+            Dictionary<string, SortedSet<Tram?>?>? result = _formattedServices?.Destinations;
+            Assert.NotNull(result);
+            Assert.AreEqual(0, result?.Keys.Count);
+        }
     }
 }
