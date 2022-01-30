@@ -11,7 +11,7 @@ namespace TfGM_API_Wrapper_Tests.TestModels.TestServices
 {
     public class TestServiceFormatter
     {
-        private const string ValidApiResponsePath = "../../../Resources/ExampleApiIResponse.json";
+        private const string ValidApiResponsePath = "../../../Resources/ExampleApiResponse.json";
         private UnformattedServices? _unformattedServices;
         private ServiceFormatter? _serviceFormatter;
         private List<UnformattedServices?>? _unformattedServicesList;
