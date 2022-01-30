@@ -23,7 +23,7 @@ namespace TfGM_API_Wrapper_Tests.TestModels.TestServices
             var jsonString = reader.ReadToEnd();
             _unformattedServices = JsonConvert.DeserializeObject<UnformattedServices>(jsonString);
             _serviceFormatter = new ServiceFormatter();
-            _unformattedServicesList = new List<UnformattedServices>();
+            _unformattedServicesList = new List<UnformattedServices?>();
              
         }
 
