@@ -10,10 +10,12 @@ namespace TfGM_API_Wrapper.Models.Services
     {
 
         public Dictionary<String, SortedSet<Tram>> Destinations { get; }
+        public HashSet<string> Messages { get; }
 
         public FormattedServices()
         {
             Destinations = new Dictionary<string, SortedSet<Tram>>();
+            Messages = new HashSet<string>();
         }
 
         /// <summary>
@@ -28,6 +30,11 @@ namespace TfGM_API_Wrapper.Models.Services
                 Destinations[tram.Destination] = new SortedSet<Tram>(new TramComparer());
             
             Destinations[tram.Destination].Add(tram);
+        }
+
+        public void AddMessage(string message)
+        {
+            Messages.Add(message);
         }
     }
 }
