@@ -149,5 +149,18 @@ namespace TfGM_API_Wrapper_Tests.TestModels.TestServices
             Assert.NotNull(result);
             Assert.AreEqual(0, result?.Keys.Count);
         }
+
+        /// <summary>
+        /// Test to add a message to the formatted services.
+        /// This should leave a set with size 1.
+        /// </summary>
+        [Test]
+        public void TestAddMessage()
+        {
+            _formattedServices?.AddMessage("Example");
+            Assert.NotNull(_formattedServices?.Messages);
+            Assert.AreEqual(1, _formattedServices?.Messages.Count);
+            Assert.IsTrue(_formattedServices?.Messages.Contains("Example"));
+        }
     }
 }
