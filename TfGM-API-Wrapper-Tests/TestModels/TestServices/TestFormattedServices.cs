@@ -162,5 +162,17 @@ namespace TfGM_API_Wrapper_Tests.TestModels.TestServices
             Assert.AreEqual(1, _formattedServices?.Messages.Count);
             Assert.IsTrue(_formattedServices?.Messages.Contains("Example"));
         }
+
+        /// <summary>
+        /// Test to add a null message to formatted services.
+        /// This should not be added to the set, and the size should remain 0.
+        /// </summary>
+        [Test]
+        public void TestAddNullMessage()
+        {
+            _formattedServices?.AddMessage(null);
+            Assert.NotNull(_formattedServices?.Messages);
+            Assert.AreEqual(0, _formattedServices?.Messages.Count);
+        }
     }
 }
