@@ -34,6 +34,7 @@ namespace TfGM_API_Wrapper.Models.Services
 
         public void AddMessage(string message)
         {
+            if (message == null) return;
             Messages.Add(message);
         }
     }
