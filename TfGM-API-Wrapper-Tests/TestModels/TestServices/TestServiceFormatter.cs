@@ -81,5 +81,20 @@ namespace TfGM_API_Wrapper_Tests.TestModels.TestServices
             Assert.AreEqual(4, destResult.Count);
             Assert.AreEqual(1, result.Messages.Count);
         }
+
+        /// <summary>
+        /// Test to format a null unformatted services
+        /// This should throw a null argument exception.
+        /// </summary>
+        [Test]
+        public void TestNullUnformattedServices()
+        {
+            Assert.Throws(Is.TypeOf<ArgumentNullException>()
+                    .And.Message.EqualTo("Value cannot be null. (Parameter 'unformattedServices')"),
+                delegate
+                {
+                    _serviceFormatter?.FormatServices(null);
+                });
+        }
     }
 }
