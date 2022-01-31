@@ -12,16 +12,18 @@ namespace TfGM_API_Wrapper_Tests.TestModels.TestServices
     public class TestServiceFormatter
     {
         private const string ValidApiResponsePath = "../../../Resources/ExampleApiResponse.json";
+        private const string ValidApiResponsePathFourServices =
+            "../../../Resources/ExampleApiResponseFourServices.json";
         private UnformattedServices? _unformattedServices;
+        private UnformattedServices? _unformattedServicesFourTrams;
         private ServiceFormatter? _serviceFormatter;
         private List<UnformattedServices?>? _unformattedServicesList;
         
         [SetUp]
         public void SetUp()
         {
-            using var reader = new StreamReader(ValidApiResponsePath);
-            var jsonString = reader.ReadToEnd();
-            _unformattedServices = JsonConvert.DeserializeObject<UnformattedServices>(jsonString);
+            _unformattedServices = ImportUnformattedServices(ValidApiResponsePath);
+            _unformattedServicesFourTrams = ImportUnformattedServices(ValidApiResponsePathFourServices);
             _serviceFormatter = new ServiceFormatter();
             _unformattedServicesList = new List<UnformattedServices?>();
              
@@ -31,8 +33,16 @@ namespace TfGM_API_Wrapper_Tests.TestModels.TestServices
         public void TearDown()
         {
             _unformattedServices = null;
+            _unformattedServicesFourTrams = null;
             _serviceFormatter = null;
             _unformattedServicesList = null;
+        }
+
+        public UnformattedServices? ImportUnformattedServices(string path)
+        {
+            using var reader = new StreamReader(path);
+            var jsonString = reader.ReadToEnd();
+            return JsonConvert.DeserializeObject<UnformattedServices>(jsonString);
         }
 
         /// <summary>
@@ -51,6 +61,24 @@ namespace TfGM_API_Wrapper_Tests.TestModels.TestServices
             SortedSet<Tram> destResult = result.Destinations["Manchester Airport"];
             Assert.NotNull(destResult);
             Assert.AreEqual(3, destResult.Count);
+            Assert.AreEqual(1, result.Messages.Count);
+        }
+        
+        /// <summary>
+        /// Test to format services with four trams.
+        /// This should return a single destination with four trams.
+        /// </summary>
+        [Test]
+        public void TestFormatServicesFourTrams()
+        {
+            _unformattedServicesList?.Add(_unformattedServicesFourTrams);
+            Debug.Assert(_serviceFormatter != null, nameof(_serviceFormatter) + " != null");
+            FormattedServices result = _serviceFormatter.FormatServices(_unformattedServicesList);
+            Assert.NotNull(result);
+            Assert.AreEqual(1, result.Destinations.Count);
+            SortedSet<Tram> destResult = result.Destinations["Manchester Airport"];
+            Assert.NotNull(destResult);
+            Assert.AreEqual(4, destResult.Count);
             Assert.AreEqual(1, result.Messages.Count);
         }
     }
