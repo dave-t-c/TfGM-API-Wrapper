@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Authentication;
 
@@ -18,6 +19,7 @@ namespace TfGM_API_Wrapper.Models.Services
         /// <returns>Formatted Services: Combined result of each of the unformatted services.</returns>
         public FormattedServices FormatServices(List<UnformattedServices> unformattedServices)
         {
+            if (unformattedServices == null) throw new ArgumentNullException(nameof(unformattedServices));
             FormattedServices formattedServices = new FormattedServices();
             foreach (UnformattedServices service in unformattedServices)
             {
