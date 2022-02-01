@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using Newtonsoft.Json;
 using NUnit.Framework;
 using TfGM_API_Wrapper.Models.Services;
@@ -14,8 +15,10 @@ namespace TfGM_API_Wrapper_Tests.TestModels.TestServices
         private const string ValidApiResponsePath = "../../../Resources/ExampleApiResponse.json";
         private const string ValidApiResponsePathFourServices =
             "../../../Resources/ExampleApiResponseFourServices.json";
+        private const string ValidApiResponseCaretChars = "../../../Resources/ApiResponseCaretCharsMessage.json";
         private UnformattedServices? _unformattedServices;
         private UnformattedServices? _unformattedServicesFourTrams;
+        private UnformattedServices? _unformattedServicesCaretCharMessage;
         private ServiceFormatter? _serviceFormatter;
         private List<UnformattedServices?>? _unformattedServicesList;
         
@@ -24,6 +27,7 @@ namespace TfGM_API_Wrapper_Tests.TestModels.TestServices
         {
             _unformattedServices = ImportUnformattedServices(ValidApiResponsePath);
             _unformattedServicesFourTrams = ImportUnformattedServices(ValidApiResponsePathFourServices);
+            _unformattedServicesCaretCharMessage = ImportUnformattedServices(ValidApiResponseCaretChars);
             _serviceFormatter = new ServiceFormatter();
             _unformattedServicesList = new List<UnformattedServices?>();
              
@@ -34,6 +38,7 @@ namespace TfGM_API_Wrapper_Tests.TestModels.TestServices
         {
             _unformattedServices = null;
             _unformattedServicesFourTrams = null;
+            _unformattedServicesCaretCharMessage = null;
             _serviceFormatter = null;
             _unformattedServicesList = null;
         }
@@ -95,6 +100,22 @@ namespace TfGM_API_Wrapper_Tests.TestModels.TestServices
                 {
                     _serviceFormatter?.FormatServices(null);
                 });
+        }
+
+        /// <summary>
+        /// Test to format services with a message that contains caret chars.
+        /// These should not be in the message added to the formatted services.
+        /// </summary>
+        [Test]
+        public void TestFormatServicesCaretMessage()
+        {
+            _unformattedServicesList?.Add(_unformattedServicesCaretCharMessage);
+            Debug.Assert(_serviceFormatter != null, nameof(_serviceFormatter) + " != null");
+            FormattedServices result = _serviceFormatter.FormatServices(_unformattedServicesList);
+            Assert.NotNull(result);
+            Assert.NotNull(result.Messages);
+            Assert.AreEqual(1, result.Messages.Count);
+            Assert.AreEqual("Next Altrincham Departures: Altrincham (Picc Gdns) dbl 5 min Altrincham (Market St) dbl 11 min", result.Messages.First());
         }
     }
 }
