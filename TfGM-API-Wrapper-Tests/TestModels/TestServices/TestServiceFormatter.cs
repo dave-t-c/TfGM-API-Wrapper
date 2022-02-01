@@ -16,9 +16,11 @@ namespace TfGM_API_Wrapper_Tests.TestModels.TestServices
         private const string ValidApiResponsePathFourServices =
             "../../../Resources/ExampleApiResponseFourServices.json";
         private const string ValidApiResponseCaretChars = "../../../Resources/ApiResponseCaretCharsMessage.json";
+        private const string ValidApiResponseEmptyMessage = "../../../Resources/ApiResponseNoMessage.json";
         private UnformattedServices? _unformattedServices;
         private UnformattedServices? _unformattedServicesFourTrams;
         private UnformattedServices? _unformattedServicesCaretCharMessage;
+        private UnformattedServices? _unformattedServicesEmptyMessage;
         private ServiceFormatter? _serviceFormatter;
         private List<UnformattedServices?>? _unformattedServicesList;
         
@@ -28,6 +30,7 @@ namespace TfGM_API_Wrapper_Tests.TestModels.TestServices
             _unformattedServices = ImportUnformattedServices(ValidApiResponsePath);
             _unformattedServicesFourTrams = ImportUnformattedServices(ValidApiResponsePathFourServices);
             _unformattedServicesCaretCharMessage = ImportUnformattedServices(ValidApiResponseCaretChars);
+            _unformattedServicesEmptyMessage = ImportUnformattedServices(ValidApiResponseEmptyMessage);
             _serviceFormatter = new ServiceFormatter();
             _unformattedServicesList = new List<UnformattedServices?>();
              
@@ -129,6 +132,21 @@ namespace TfGM_API_Wrapper_Tests.TestModels.TestServices
             Debug.Assert(_unformattedServices != null, nameof(_unformattedServices) + " != null");
             _unformattedServices.MessageBoard = null;
             _unformattedServicesList?.Add(_unformattedServices);
+            Debug.Assert(_serviceFormatter != null, nameof(_serviceFormatter) + " != null");
+            FormattedServices result = _serviceFormatter.FormatServices(_unformattedServicesList);
+            Assert.NotNull(result);
+            Assert.NotNull(result.Messages);
+            Assert.AreEqual(0, result.Messages.Count);
+        }
+
+        /// <summary>
+        /// Test to handle an empty message 
+        /// This needs to meet the empty message format given in the response
+        /// </summary>
+        [Test]
+        public void TestFormatServicesEmptyMessage()
+        {
+            _unformattedServicesList?.Add(_unformattedServicesEmptyMessage);
             Debug.Assert(_serviceFormatter != null, nameof(_serviceFormatter) + " != null");
             FormattedServices result = _serviceFormatter.FormatServices(_unformattedServicesList);
             Assert.NotNull(result);
