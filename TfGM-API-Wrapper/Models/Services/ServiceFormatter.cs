@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Authentication;
 
 namespace TfGM_API_Wrapper.Models.Services
@@ -33,7 +34,7 @@ namespace TfGM_API_Wrapper.Models.Services
                 AddTram(formattedServices, new Tram(service.Dest3, service.Carriages3, service.Status3,
                     service.Wait3));
                 
-                formattedServices.AddMessage(service.MessageBoard);
+                FormatMessage(formattedServices, service.MessageBoard);
             }
             
             return formattedServices;
@@ -50,6 +51,14 @@ namespace TfGM_API_Wrapper.Models.Services
         {
             if (string.IsNullOrEmpty(tram.Destination)) return;
             formattedServices.AddService(tram);
+        }
+
+        private static void FormatMessage(FormattedServices formattedServices, string message)
+        {
+            //Replace the caret chars with spaces for the centre.
+            //This could create an excess space at the start, so run TrimStart.
+            message = Regex.Replace(message, @"\^J\^F0|\^F0", " ").TrimStart();
+            formattedServices.AddMessage(message);
         }
     }
 }
