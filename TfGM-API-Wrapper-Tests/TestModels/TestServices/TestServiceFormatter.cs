@@ -117,5 +117,23 @@ namespace TfGM_API_Wrapper_Tests.TestModels.TestServices
             Assert.AreEqual(1, result.Messages.Count);
             Assert.AreEqual("Next Altrincham Departures: Altrincham (Picc Gdns) dbl 5 min Altrincham (Market St) dbl 11 min", result.Messages.First());
         }
+
+        /// <summary>
+        /// Test to add a null message to a formatted service.
+        /// This should not add the message to the formatted service.
+        /// The message set should instead be the empty set.
+        /// </summary>
+        [Test]
+        public void TestFormatServicesNullMessage()
+        {
+            Debug.Assert(_unformattedServices != null, nameof(_unformattedServices) + " != null");
+            _unformattedServices.MessageBoard = null;
+            _unformattedServicesList?.Add(_unformattedServices);
+            Debug.Assert(_serviceFormatter != null, nameof(_serviceFormatter) + " != null");
+            FormattedServices result = _serviceFormatter.FormatServices(_unformattedServicesList);
+            Assert.NotNull(result);
+            Assert.NotNull(result.Messages);
+            Assert.AreEqual(0, result.Messages.Count);
+        }
     }
 }
