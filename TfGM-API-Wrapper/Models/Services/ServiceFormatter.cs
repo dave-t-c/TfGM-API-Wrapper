@@ -47,6 +47,12 @@ namespace TfGM_API_Wrapper.Models.Services
             formattedServices.AddService(tram);
         }
 
+        /// <summary>
+        /// Formats the message board value from the unformatted service.
+        /// Removes expected caret chars, and ignores empty or null messages.
+        /// </summary>
+        /// <param name="formattedServices">Services to add message to</param>
+        /// <param name="message">Message to format</param>
         private static void FormatMessage(FormattedServices formattedServices, string message)
         {
             if (string.IsNullOrEmpty(message) || message == "<no message>") return;
