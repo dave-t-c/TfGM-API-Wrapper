@@ -1,17 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
-using Microsoft.AspNetCore.Authentication;
 
 namespace TfGM_API_Wrapper.Models.Services
 {
     public class ServiceFormatter
     {
-
-        public ServiceFormatter()
-        {
-            
-        }
 
         /// <summary>
         /// Converts a list of unformatted services into a Formatted services object.
