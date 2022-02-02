@@ -6,7 +6,6 @@ using System.Linq;
 using Newtonsoft.Json;
 using NUnit.Framework;
 using TfGM_API_Wrapper.Models.Services;
-using TfGM_API_Wrapper.Models.Stops;
 
 namespace TfGM_API_Wrapper_Tests.TestModels.TestServices
 {
