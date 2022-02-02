@@ -152,5 +152,22 @@ namespace TfGM_API_Wrapper_Tests.TestModels.TestServices
             Assert.NotNull(result.Messages);
             Assert.AreEqual(0, result.Messages.Count);
         }
+
+        /// <summary>
+        /// Test to handle when the message is an empty string.
+        /// This should not add the message and the messages should remain empty.
+        /// </summary>
+        [Test]
+        public void TestFormatServicesEmptyString()
+        {
+            Debug.Assert(_unformattedServices != null, nameof(_unformattedServices) + " != null");
+            _unformattedServices.MessageBoard = "";
+            _unformattedServicesList?.Add(_unformattedServices);
+            Debug.Assert(_serviceFormatter != null, nameof(_serviceFormatter) + " != null");
+            FormattedServices result = _serviceFormatter.FormatServices(_unformattedServicesList);
+            Assert.NotNull(result);
+            Assert.NotNull(result.Messages);
+            Assert.AreEqual(0, result.Messages.Count);
+        }
     }
 }
