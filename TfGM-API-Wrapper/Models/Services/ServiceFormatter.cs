@@ -55,7 +55,7 @@ namespace TfGM_API_Wrapper.Models.Services
 
         private static void FormatMessage(FormattedServices formattedServices, string message)
         {
-            if (message == null) return;
+            if (message is null or "<no message>") return;
             //Replace the caret chars with spaces for the centre.
             //This could create an excess space at the start, so run TrimStart.
             message = Regex.Replace(message, @"\^J\^F0|\^F0", " ").TrimStart();
