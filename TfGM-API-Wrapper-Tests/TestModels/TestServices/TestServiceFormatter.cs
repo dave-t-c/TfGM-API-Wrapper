@@ -169,5 +169,22 @@ namespace TfGM_API_Wrapper_Tests.TestModels.TestServices
             Assert.NotNull(result.Messages);
             Assert.AreEqual(0, result.Messages.Count);
         }
+
+        /// <summary>
+        /// Test to combine multiple unformatted services.
+        /// The result should include all destinations, 1 message and 3 destinations.
+        /// </summary>
+        [Test]
+        public void TestFormatMultipleServices()
+        {
+            _unformattedServicesList?.Add(_unformattedServices);
+            _unformattedServicesList?.Add(_unformattedServicesEmptyMessage);
+            Debug.Assert(_serviceFormatter != null, nameof(_serviceFormatter) + " != null");
+            FormattedServices result = _serviceFormatter.FormatServices(_unformattedServicesList);
+            Assert.NotNull(result);
+            Assert.NotNull(result.Messages);
+            Assert.AreEqual(1, result.Messages.Count);
+            Assert.AreEqual(3, result.Destinations.Count);
+        }
     }
 }
