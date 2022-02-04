@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace TfGM_API_Wrapper.Models.Services
 {
     /// <summary>
@@ -6,6 +8,7 @@ namespace TfGM_API_Wrapper.Models.Services
     /// </summary>
     public interface IRequester
     {
+        public List<UnformattedServices> RequestServices(List<int> ids);
         
     }
 }
