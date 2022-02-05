@@ -6,10 +6,10 @@ namespace TfGM_API_Wrapper.Models.Services
 {
     public class ServiceProcessor
     {
-        private IRequester _requester;
+        private readonly IRequester _requester;
         private ImportedResources _resources;
-        private StopLookup _stopLookup;
-        private ServiceFormatter _serviceFormatter;
+        private readonly StopLookup _stopLookup;
+        private readonly ServiceFormatter _serviceFormatter;
         
         public ServiceProcessor(IRequester requester, ImportedResources resources)
         {
