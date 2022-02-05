@@ -42,6 +42,11 @@ namespace TfGM_API_Wrapper_Tests.TestModels.TestServices
         public void TearDown()
         {
             _mockServiceRequester = null;
+            _validResourcesConfig = null;
+            _resourceLoader = null;
+            _importedResources = null;
+            _mockServiceRequester = null;
+            _serviceProcessor = null;
         }
 
 
