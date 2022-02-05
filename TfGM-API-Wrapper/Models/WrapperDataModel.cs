@@ -1,5 +1,6 @@
 using System;
 using TfGM_API_Wrapper.Models.Resources;
+using TfGM_API_Wrapper.Models.Services;
 
 namespace TfGM_API_Wrapper.Models
 {
@@ -9,10 +10,14 @@ namespace TfGM_API_Wrapper.Models
     public class WrapperDataModel
     {
         private readonly ResourcesConfig _resourcesConfig;
+        private ImportedResources _importedResources;
+        private ServiceProcessor _serviceProcessor;
 
-        public WrapperDataModel(ResourcesConfig resourcesConfig)
+        public WrapperDataModel(ResourcesConfig resourcesConfig, IRequester requester = null)
         {
             _resourcesConfig = resourcesConfig;
+            _importedResources = new ResourceLoader(_resourcesConfig).ImportResources();
+            _serviceProcessor = new ServiceProcessor(requester, _importedResources);
         }
 
         /// <summary>
@@ -21,7 +26,12 @@ namespace TfGM_API_Wrapper.Models
         /// <returns>Returns ImportedResources</returns>
         public ImportedResources ImportResources()
         {
-            return new ResourceLoader(_resourcesConfig).ImportResources();
+            return _importedResources;
+        }
+ 
+        public FormattedServices RequestServices(string stop)
+        {
+            return _serviceProcessor.RequestServices(stop);
         }
     }
 }

@@ -61,7 +61,7 @@ namespace TfGM_API_Wrapper_Tests.TestModels
         public void TestProcessService()
         {
             Debug.Assert(_wrapperDataModel != null, nameof(_wrapperDataModel) + " != null");
-            FormattedServices result = _wrapperDataModel.RequestService("BMR");
+            FormattedServices result = _wrapperDataModel.RequestServices("BMR");
             Assert.NotNull(result);
             Assert.AreEqual(1, result.Destinations.Count);
             Assert.AreEqual(1, result.Messages.Count);
