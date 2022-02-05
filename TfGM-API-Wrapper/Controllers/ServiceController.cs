@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using TfGM_API_Wrapper.Models;
+using TfGM_API_Wrapper.Models.Resources;
+using TfGM_API_Wrapper.Models.Services;
 
 namespace TfGM_API_Wrapper.Controllers
 {
@@ -15,23 +17,27 @@ namespace TfGM_API_Wrapper.Controllers
     public class ServiceController : Controller
     {
         private readonly IConfiguration _config;
+        private readonly ResourcesConfig _resourcesConfig;
+        private WrapperDataModel _dataModel;
 
         /// <summary>
         /// Secrets, such as access keys from the dotnet user-secrets storage
         /// are loaded into the IConfiguration on start up.
         /// </summary>
         /// <param name="config">Configuration loaded by </param>
-        public ServiceController(IConfiguration config)
+        public ServiceController(IConfiguration config, IOptions<ResourcesConfig> resources)
         {
             _config = config;
+            _resourcesConfig = resources.Value;
+            _dataModel = new WrapperDataModel(_resourcesConfig, new ServiceRequester(_config));
         }
 
-        [Route("/api/services")]
+        [Route("/api/services/{stop}")]
         [Produces("application/json")]
         [HttpGet]
-        public IActionResult GetService()
+        public IActionResult GetService(string stop)
         {
-            return Ok();
+            return Ok(_dataModel.RequestServices(stop));
         }
     }
 }
