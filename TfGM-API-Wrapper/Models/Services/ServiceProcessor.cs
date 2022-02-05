@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using TfGM_API_Wrapper.Models.Resources;
 using TfGM_API_Wrapper.Models.Stops;
@@ -26,6 +27,7 @@ namespace TfGM_API_Wrapper.Models.Services
         /// <returns>Formatted Services for given stop</returns>
         public FormattedServices RequestServices(string stop)
         {
+            if (stop == null) throw new ArgumentNullException(nameof(stop));
             List<int> stopIds = _stopLookup.LookupIDs(stop);
             List<UnformattedServices> unformattedServicesList = _requester.RequestServices(stopIds);
             return _serviceFormatter.FormatServices(unformattedServicesList);
