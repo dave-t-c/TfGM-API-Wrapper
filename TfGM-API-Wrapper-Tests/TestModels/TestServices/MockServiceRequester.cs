@@ -5,9 +5,24 @@ namespace TfGM_API_Wrapper_Tests.TestModels.TestServices
 {
     public class MockServiceRequester: IRequester
     {
+        private readonly ImportServicesResponse _importServices;
+        private const string ValidApiResponsePath = "../../../Resources/ExampleApiResponse.json";
+        public MockServiceRequester()
+        {
+            _importServices = new ImportServicesResponse();
+        }
+        
         public List<UnformattedServices> RequestServices(List<int> ids)
         {
-            throw new System.NotImplementedException();
+            if (ids.Contains(701))
+            {
+                return new List<UnformattedServices>(){
+                    _importServices.ImportUnformattedServices(ValidApiResponsePath) ?? new UnformattedServices()
+                    
+                };
+            }
+
+            return new List<UnformattedServices>();
         }
     }
 }
