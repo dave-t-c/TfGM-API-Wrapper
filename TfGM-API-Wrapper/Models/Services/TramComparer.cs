@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace TfGM_API_Wrapper.Models.Services
 {
@@ -7,9 +8,9 @@ namespace TfGM_API_Wrapper.Models.Services
     {
         public int Compare(Tram aTram, Tram bTram)
         {
-            // This uses ordinal comparison so strings can be used for the wait time.
-            // This is to keep consistency with the types output by the API.
-            return string.Compare(aTram?.Wait, bTram?.Wait, StringComparison.Ordinal);
+            int aTramWait = Int32.Parse(aTram?.Wait ?? "-1");
+            int bTramWait = Int32.Parse(bTram?.Wait ?? "-1");
+            return aTramWait.CompareTo(bTramWait);
         }
     }
 }
