@@ -1,3 +1,4 @@
+using System;
 using System.Diagnostics;
 using NUnit.Framework;
 using TfGM_API_Wrapper.Models.Resources;
@@ -63,6 +64,22 @@ namespace TfGM_API_Wrapper_Tests.TestModels.TestServices
             FormattedServices result = _serviceProcessor.RequestServices("BMR");
             Assert.NotNull(result);
             Assert.AreEqual(1, result.Destinations.Count);
+        }
+
+        /// <summary>
+        /// Test to use the service processor with a null stop name.
+        /// This should throw a null argument exception
+        /// </summary>
+        [Test]
+        public void TestServiceProcessorNullName()
+        {
+            Assert.Throws(Is.TypeOf<ArgumentNullException>()
+                    .And.Message.EqualTo("Value cannot be null. (Parameter 'stop')"),
+                delegate
+                {
+                    Debug.Assert(_serviceProcessor != null, nameof(_serviceProcessor) + " != null");
+                    _serviceProcessor.RequestServices(null);
+                });
         }
     }
 }
