@@ -25,6 +25,7 @@ namespace TfGM_API_Wrapper.Controllers
         /// are loaded into the IConfiguration on start up.
         /// </summary>
         /// <param name="config">Configuration loaded by </param>
+        /// <param name="resources">Resource Config for loading stop related resources.</param>
         public ServiceController(IConfiguration config, IOptions<ResourcesConfig> resources)
         {
             _config = config;
@@ -37,6 +38,7 @@ namespace TfGM_API_Wrapper.Controllers
         [HttpGet]
         public IActionResult GetService(string stop)
         {
+            // TODO Add correct handling for invalid tlarefs / names
             return Ok(_dataModel.RequestServices(stop));
         }
     }
