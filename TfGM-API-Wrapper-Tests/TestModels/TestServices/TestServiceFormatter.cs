@@ -22,14 +22,16 @@ namespace TfGM_API_Wrapper_Tests.TestModels.TestServices
         private UnformattedServices? _unformattedServicesEmptyMessage;
         private ServiceFormatter? _serviceFormatter;
         private List<UnformattedServices?>? _unformattedServicesList;
+        private ImportServicesResponse? _importServices;
         
         [SetUp]
         public void SetUp()
         {
-            _unformattedServices = ImportUnformattedServices(ValidApiResponsePath);
-            _unformattedServicesFourTrams = ImportUnformattedServices(ValidApiResponsePathFourServices);
-            _unformattedServicesCaretCharMessage = ImportUnformattedServices(ValidApiResponseCaretChars);
-            _unformattedServicesEmptyMessage = ImportUnformattedServices(ValidApiResponseEmptyMessage);
+            _importServices = new ImportServicesResponse();
+            _unformattedServices = _importServices.ImportUnformattedServices(ValidApiResponsePath);
+            _unformattedServicesFourTrams = _importServices.ImportUnformattedServices(ValidApiResponsePathFourServices);
+            _unformattedServicesCaretCharMessage = _importServices.ImportUnformattedServices(ValidApiResponseCaretChars);
+            _unformattedServicesEmptyMessage = _importServices.ImportUnformattedServices(ValidApiResponseEmptyMessage);
             _serviceFormatter = new ServiceFormatter();
             _unformattedServicesList = new List<UnformattedServices?>();
              
@@ -43,13 +45,6 @@ namespace TfGM_API_Wrapper_Tests.TestModels.TestServices
             _unformattedServicesCaretCharMessage = null;
             _serviceFormatter = null;
             _unformattedServicesList = null;
-        }
-
-        public UnformattedServices? ImportUnformattedServices(string path)
-        {
-            using var reader = new StreamReader(path);
-            var jsonString = reader.ReadToEnd();
-            return JsonConvert.DeserializeObject<UnformattedServices>(jsonString);
         }
 
         /// <summary>
