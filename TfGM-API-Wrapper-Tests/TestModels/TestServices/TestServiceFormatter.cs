@@ -16,10 +16,12 @@ namespace TfGM_API_Wrapper_Tests.TestModels.TestServices
             "../../../Resources/ExampleApiResponseFourServices.json";
         private const string ValidApiResponseCaretChars = "../../../Resources/ApiResponseCaretCharsMessage.json";
         private const string ValidApiResponseEmptyMessage = "../../../Resources/ApiResponseNoMessage.json";
+        private const string ValidApiResponseIncorrectOrder = "../../../Resources/ApiResponseIncorrectTramOrder.json";
         private UnformattedServices? _unformattedServices;
         private UnformattedServices? _unformattedServicesFourTrams;
         private UnformattedServices? _unformattedServicesCaretCharMessage;
         private UnformattedServices? _unformattedServicesEmptyMessage;
+        private UnformattedServices? _unformattedServicesIncorrectOrder;
         private ServiceFormatter? _serviceFormatter;
         private List<UnformattedServices?>? _unformattedServicesList;
         private ImportServicesResponse? _importServices;
@@ -32,6 +34,8 @@ namespace TfGM_API_Wrapper_Tests.TestModels.TestServices
             _unformattedServicesFourTrams = _importServices.ImportUnformattedServices(ValidApiResponsePathFourServices);
             _unformattedServicesCaretCharMessage = _importServices.ImportUnformattedServices(ValidApiResponseCaretChars);
             _unformattedServicesEmptyMessage = _importServices.ImportUnformattedServices(ValidApiResponseEmptyMessage);
+            _unformattedServicesIncorrectOrder =
+                _importServices.ImportUnformattedServices(ValidApiResponseIncorrectOrder);
             _serviceFormatter = new ServiceFormatter();
             _unformattedServicesList = new List<UnformattedServices?>();
              
@@ -43,6 +47,8 @@ namespace TfGM_API_Wrapper_Tests.TestModels.TestServices
             _unformattedServices = null;
             _unformattedServicesFourTrams = null;
             _unformattedServicesCaretCharMessage = null;
+            _unformattedServicesEmptyMessage = null;
+            _unformattedServicesIncorrectOrder = null;
             _serviceFormatter = null;
             _unformattedServicesList = null;
         }
@@ -180,6 +186,25 @@ namespace TfGM_API_Wrapper_Tests.TestModels.TestServices
             Assert.NotNull(result.Messages);
             Assert.AreEqual(1, result.Messages.Count);
             Assert.AreEqual(3, result.Destinations.Count);
+        }
+
+        /// <summary>
+        /// Test to ensure the returned trams are in the correct order.
+        /// This test case uses ApiResponseIncorrectTramOrder.json file as an example,
+        /// as the services shown were returned in 13 min, 25 min, then 3 mins.
+        /// </summary>
+        [Test]
+        public void TestEnsureTramsInCorrectOrder()
+        {
+            _unformattedServicesList?.Add(_unformattedServicesIncorrectOrder);
+            Debug.Assert(_serviceFormatter != null, nameof(_serviceFormatter) + " != null");
+            FormattedServices result = _serviceFormatter.FormatServices(_unformattedServicesList);
+            Assert.NotNull(result);
+            Assert.AreEqual(1, result.Destinations.Count);
+            SortedSet<Tram> trams = result.Destinations["Piccadilly"];
+            Tram firstTram = trams.First();
+            Assert.AreEqual("3", firstTram.Wait);
+
         }
     }
 }
