@@ -22,6 +22,10 @@ namespace TfGM_API_Wrapper.Models.Resources
         {
             if(filePath is null) 
                 throw new InvalidOperationException(argName + " cannot be null");
+            // The below line has been added as when check file requirements is called again, it tries to run over
+            // the already created file path. This likely requires a design improvement
+            if(filePath[0] == '/' || filePath[0] == '\\') return filePath;
+            
             filePath = CurrentDomain.BaseDirectory + filePath;
             if (!File.Exists(filePath))
             {
