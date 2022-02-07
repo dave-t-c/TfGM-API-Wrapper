@@ -1,3 +1,5 @@
+using System;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
@@ -37,7 +39,20 @@ namespace TfGM_API_Wrapper.Controllers
         public IActionResult GetService(string stop)
         {
             // TODO Add correct handling for invalid tlarefs / names
-            return Ok(_dataModel.RequestServices(stop));
+            FormattedServices result;
+            try
+            {
+                result = _dataModel.RequestServices(stop);
+            }
+            catch (ArgumentException)
+            {
+                return BadRequest();
+            }
+            catch (Exception)
+            {
+                return new StatusCodeResult(StatusCodes.Status500InternalServerError);
+            }
+            return Ok(result);
         }
     }
 }
