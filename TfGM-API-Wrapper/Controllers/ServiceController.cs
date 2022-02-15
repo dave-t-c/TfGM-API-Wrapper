@@ -38,7 +38,6 @@ namespace TfGM_API_Wrapper.Controllers
         [HttpGet]
         public IActionResult GetService(string stop)
         {
-            // TODO Add correct handling for invalid tlarefs / names
             FormattedServices result;
             try
             {
