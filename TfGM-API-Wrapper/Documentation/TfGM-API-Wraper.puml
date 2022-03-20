@@ -1,0 +1,105 @@
+@startuml TfGM-API-Wrapper
+
+'Models.Services' 
+package Models.Services {
+Models.Services.FormattedServices *-- Models.Services.Tram 
+Models.Services.FormattedServices *-- Models.Services.TramComparer 
+Models.Services.ServiceRequester "Implements" --|> Models.Services.IRequester
+Models.Services.ServiceRequester *-- Models.Services.UnformattedServices
+Models.Services.ServiceFormatter *-- Models.Services.FormattedServices
+Models.Services.ServiceProcessor *-- Models.Services.ServiceRequester
+Models.Services.ServiceProcessor *-- Models.Services.ServiceFormatter
+}
+
+class Models.Services.Tram #Yellow{
+Stores the information for a tram service, such as destination, carriages, wait
+and status
+---
++ Tram(string destination, string carriages, string status, string wait)
+---
++ Destination: string
++ Carriages: string
++ Status: string
++ Wait: string
+}
+
+class Models.Services.FormattedServices #Yellow{
+Formatted version of the services retrieved from the 
+TfGM API.
+---
++ Destinations: Dictionary<string, SortedSet<Tram>>
++ Messages: HashSet<string>
+}
+
+class Models.Services.TramComparer #Yellow {
+IComparer responsible for ensuring Trams are 
+stored in the correct order
+---
++ Compare(Tram aTram, Tram bTram): int
+}
+
+interface Models.Services.IRequester #Yellow{
+Interface for classes wanting to request services.
+---
++ RequestServices(List<int> ids)
+List<UnformattedServices> 
+}
+
+class Models.Services.UnformattedServices #Yellow {
+Object for storing result of service
+request from TfGM API. This mimics the
+returned JSON.
+---
++ Id: int
++ Line: string
++ Tlaref: string
++ Pidref: string
++ StationLocation: string
++ AtcoCode: string
++ Direction: string
++ Dest0: string
++ Carriages0: string 
++ Status0: string 
++ Wait0: string
++ Dest1: string 
++ Carriages1: string 
++ Status1: string
++ Wait1: string
++ Dest2: string
++ Carriages2: string
++ Status2: string
++ Wait2: string
++ Dest3: string
++ Carriages3: string
++ Status3: string
++ Wait3: string
++ MessageBoard: string
++ LastUpdated: string
+}
+
+class Models.Services.ServiceRequester #Yellow {
+Requests service information from the TfGM API.
+---
++ ServiceRequester(IConfiguration config = null)
+---
++ RequestServices(List<int> ids): List<UnformattedServices> 
++ RequestId(int id): Task<UnformattedServices> 
+}
+
+class Models.Services.ServiceFormatter #Yellow {
+Takes a list of unformatted services, and converts them into a 
+formatted object that is more useful for users
+---
++ FormatServices(List<UnformattedServices> unformattedServices): FormattedServices 
+- AddTram(FormattedServices formattedServices, Tram tram): void 
+- FormatMessage(FormattedServices formattedServices, string message): void
+}
+
+class Models.Services.ServiceProcessor #Yellow {
+Handles the requesting and formatting of TfGM service information 
+---
++ ServiceProcessor(IRequester requester, ImportedResources resources)
++ RequestServices(string stop): FormattedServices 
+} 
+
+@enduml
