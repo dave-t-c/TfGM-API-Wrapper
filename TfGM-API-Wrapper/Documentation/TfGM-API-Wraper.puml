@@ -1,4 +1,5 @@
 @startuml TfGM-API-Wrapper
+skinparam classFontColor automatic
 
 'Models.Services' 
 package Models.Services {
@@ -131,6 +132,69 @@ POCO for storing Stop information
 + RoadCrossing: string
 + Line: string
 + StopZone: string
+}
+
+'Models.Resources'
+package Models.Resources {
+Models.Resources.StopLoader "Uses" <--- Models.Resources.LoaderHelper
+Models.Resources.StationNamesToTlarefLoader "Uses" <--- Models.Resources.LoaderHelper
+Models.Resources.TlarefToIdsLoader "Uses" <--- Models.Resources.LoaderHelper
+Models.Resources.StopLoader "Uses" <--- Models.Stops.Stop
+Models.Resources.ResourceLoader *-- Models.Resources.ImportedResources
+Models.Resources.ResourceLoader *-- Models.Resources.StopLoader
+Models.Resources.ResourceLoader *-- Models.Resources.StationNamesToTlarefLoader
+Models.Resources.ResourceLoader *-- Models.Resources.TlarefToIdsLoader
+Models.Resources.ResourceLoader *-- Models.Resources.ResourcesConfig
+
+}
+
+class Models.Resources.LoaderHelper #LightSkyBlue {
+Checks file requirements of resource files when loaded
+---
++ CheckFileRequirements(string filePath, string argName): string
+}
+
+class Models.Resources.ImportedResources #LightSkyBlue {
+Stores resources that have been loaded into the program
+---
++ ImportedStops: List<Stop>
++ StationNamesToTlaref: Dictionary<string, string> 
++ TlarefsToIds: Dictionary<string, List<int>> 
+}
+
+class Models.Resources.TlarefToIdsLoader #LightSkyBlue {
+Loads the TlarefsToIds Dictionary
+---
++ TlarefToIdsLoader(ResourcesConfig resourcesConfig)
++ Dictionary<string, List<int>> ImportTlarefsToIds(): Dictionary<string, List<int>> 
+}
+
+class Models.Resources.StationNamesToTlarefLoader #LightSkyBlue {
+Loads the Station names to Tlarefs dictionary
+---
++ StationNamesToTlarefLoader(ResourcesConfig resourcesConfig)
++ ImportStationNamesToTlarefs(): Dictionary<string, string> 
+}
+
+class Models.Resources.StopLoader #LightSkyBlue {
+Loads stored data about stops
+---
++ StopLoader(ResourcesConfig resourcesConfig)
++ ImportStops(): List<Stop> ImportStops()
+} 
+
+class Models.Resources.ResourceLoader #LightSkyBlue {
+Loads the file resources for the system using the file loaders
+---
++ ResourceLoader(ResourcesConfig resourcesConfig)
++ ImportResources(): ImportedResources
+}
+
+class Models.Resources.ResourcesConfig #LightSkyBlue {
++ StopResourcePath: string
++ StationNamesToTlarefsPath: string
++ TlarefsToIdsPath: string
++ DeepCopy(): ResourcesConfig
 }
 
 @enduml
