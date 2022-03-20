@@ -4,6 +4,8 @@ using Microsoft.Extensions.Options;
 using NUnit.Framework;
 using TfGM_API_Wrapper.Controllers;
 using TfGM_API_Wrapper.Models;
+using TfGM_API_Wrapper.Models.Resources;
+using TfGM_API_Wrapper.Models.Stops;
 
 namespace TfGM_API_Wrapper_Tests.TestControllers
 {
@@ -22,7 +24,9 @@ namespace TfGM_API_Wrapper_Tests.TestControllers
         {
             _resourcesConfig = new ResourcesConfig
             {
-                StopResourcePath = "../../../Resources/ValidStopLoader.json"
+                StopResourcePath = "../../../Resources/ValidStopLoader.json",
+                StationNamesToTlarefsPath = "../../../Resources/Station_Names_to_TLAREFs.json",
+                TlarefsToIdsPath = "../../../Resources/TLAREFs_to_IDs.json"
             };
             _resourceOptions = Options.Create<ResourcesConfig>(_resourcesConfig);
             _testStopController = new StopsController(_resourceOptions);

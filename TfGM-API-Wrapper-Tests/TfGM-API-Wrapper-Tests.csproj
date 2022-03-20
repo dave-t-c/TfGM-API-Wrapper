@@ -20,4 +20,17 @@
       <ProjectReference Include="..\TfGM-API-Wrapper\TfGM-API-Wrapper.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Content Include="Resources\Station_Names_to_TLAREFs.json">
+        <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      </Content>
+      <Content Include="Resources\TLAREFs_to_IDs.json">
+        <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      </Content>
+    </ItemGroup>
+
 </Project>

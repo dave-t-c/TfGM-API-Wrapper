@@ -1,8 +1,11 @@
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
+using System.Runtime.Versioning;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using TfGM_API_Wrapper.Models;
+using TfGM_API_Wrapper.Models.Resources;
 
 namespace TfGM_API_Wrapper.Controllers
 {
@@ -10,8 +13,9 @@ namespace TfGM_API_Wrapper.Controllers
     [ApiController]
     public class StopsController : Controller
     {
-        private readonly List<Stop> _stops;
-        private const string DefaultStopsPath = "Resources/Stops.json";
+        private readonly ImportedResources _importedResources;
+        private readonly WrapperDataModel _wrapperDataModel;
+        private readonly ResourcesConfig _resourceConfig;
 
         /// <summary>
         /// Controller Constructor that allows for custom stops path file location.
@@ -23,8 +27,9 @@ namespace TfGM_API_Wrapper.Controllers
         /// <param name="config">ResourcesConfig - Configuration for resources location</param>
         public StopsController(IOptions<ResourcesConfig> config)
         {
-            StopLoader stopLoader = new StopLoader(config.Value.StopResourcePath);
-            _stops = stopLoader.ImportStops();
+            _resourceConfig = config.Value;
+            _wrapperDataModel = new WrapperDataModel(_resourceConfig);
+            _importedResources = _wrapperDataModel.ImportResources();
         }
         
         /// <summary>
@@ -36,7 +41,7 @@ namespace TfGM_API_Wrapper.Controllers
         [HttpGet]
         public IActionResult GetAllStops()
         {
-            return Ok(_stops);
+            return Ok(_importedResources.ImportedStops);
         }
 
         
