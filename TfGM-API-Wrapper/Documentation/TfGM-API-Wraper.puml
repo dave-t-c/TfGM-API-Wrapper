@@ -197,4 +197,38 @@ class Models.Resources.ResourcesConfig #LightSkyBlue {
 + DeepCopy(): ResourcesConfig
 }
 
+'Models'
+package Models{
+Models.WrapperDataModel <-- Models.Resources.ResourceLoader
+Models.WrapperDataModel <-- Models.Services.ServiceProcessor
+}
+
+class Models.WrapperDataModel #Lavender{
+Main data model for the TfGM-API-Wrapper project
+---
++ WrapperDataModel(ResourcesConfig resourcesConfig, IRequester requester = null)
++ ImportResources(): ImportedResources 
++ RequestServices(string stop): FormattedServices
+}
+
+'Controllers
+package Controllers {
+Controllers.StopsController "Uses" <-- Models.WrapperDataModel
+Controllers.ServiceController "Uses" <-- Models.WrapperDataModel
+}
+
+class Controllers.ServiceController #HoneyDew{
+Controller for handling requests for service information
+---
++ ServiceController(IConfiguration config, IOptions<ResourcesConfig> resources)
++ GetService(string stop): IActionResult 
+}
+
+class Controllers.StopsController #HoneyDew {
+Controller for handling requests for stop information
+---
++ StopsController(IOptions<ResourcesConfig> config)
++ GetAllStops(): IActionResult 
+}
+
 @enduml
