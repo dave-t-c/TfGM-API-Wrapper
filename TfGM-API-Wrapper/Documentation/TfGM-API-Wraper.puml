@@ -9,6 +9,7 @@ Models.Services.ServiceRequester *-- Models.Services.UnformattedServices
 Models.Services.ServiceFormatter *-- Models.Services.FormattedServices
 Models.Services.ServiceProcessor *-- Models.Services.ServiceRequester
 Models.Services.ServiceProcessor *-- Models.Services.ServiceFormatter
+Models.Services.ServiceProcessor *-- Models.Stops.StopLookup
 }
 
 class Models.Services.Tram #Yellow{
@@ -101,5 +102,35 @@ Handles the requesting and formatting of TfGM service information
 + ServiceProcessor(IRequester requester, ImportedResources resources)
 + RequestServices(string stop): FormattedServices 
 } 
+
+'Models.Stops'
+package Models.Stops {
+Models.Stops.StopLookup *-- Models.Stops.Stop
+}
+
+class Models.Stops.StopLookup #Orange {
+Looks up the Stop Information for a given stop name 
+or TLAREF.
+---
++ StopLookup(ImportedResources importedResources)
++ TlarefLookup(string tlaref): List<int> 
++ StationNameLookup(string stationName): List<int> 
++ LookupIDs(string value): List<int> 
+}
+
+class Models.Stops.Stop #Orange{
+POCO for storing Stop information 
+---
++ StopName: string
++ Tlaref: string
++ Ids: ArrayList
++ AtcoCode: string
++ Latitude: string
++ Longitude: string
++ Street: string
++ RoadCrossing: string
++ Line: string
++ StopZone: string
+}
 
 @enduml
