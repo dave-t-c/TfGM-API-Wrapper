@@ -45,7 +45,7 @@ namespace TfGM_API_Wrapper.Controllers
             }
             catch (ArgumentException)
             {
-                return BadRequest();
+                return StatusCode(StatusCodes.Status400BadRequest, new { message = "Invalid Stop Name or TLAREF" });
             }
             catch (Exception)
             {
