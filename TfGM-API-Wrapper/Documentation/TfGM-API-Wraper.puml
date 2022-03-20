@@ -1,0 +1,234 @@
+@startuml TfGM-API-Wrapper
+skinparam classFontColor automatic
+
+'Models.Services' 
+package Models.Services {
+Models.Services.FormattedServices *-- Models.Services.Tram 
+Models.Services.FormattedServices *-- Models.Services.TramComparer 
+Models.Services.ServiceRequester "Implements" --|> Models.Services.IRequester
+Models.Services.ServiceRequester *-- Models.Services.UnformattedServices
+Models.Services.ServiceFormatter *-- Models.Services.FormattedServices
+Models.Services.ServiceProcessor *-- Models.Services.ServiceRequester
+Models.Services.ServiceProcessor *-- Models.Services.ServiceFormatter
+Models.Services.ServiceProcessor *-- Models.Stops.StopLookup
+}
+
+class Models.Services.Tram #Yellow{
+Stores the information for a tram service, such as destination, carriages, wait
+and status
+---
++ Tram(string destination, string carriages, string status, string wait)
+---
++ Destination: string
++ Carriages: string
++ Status: string
++ Wait: string
+}
+
+class Models.Services.FormattedServices #Yellow{
+Formatted version of the services retrieved from the 
+TfGM API.
+---
++ Destinations: Dictionary<string, SortedSet<Tram>>
++ Messages: HashSet<string>
+}
+
+class Models.Services.TramComparer #Yellow {
+IComparer responsible for ensuring Trams are 
+stored in the correct order
+---
++ Compare(Tram aTram, Tram bTram): int
+}
+
+interface Models.Services.IRequester #Yellow{
+Interface for classes wanting to request services.
+---
++ RequestServices(List<int> ids)
+List<UnformattedServices> 
+}
+
+class Models.Services.UnformattedServices #Yellow {
+Object for storing result of service
+request from TfGM API. This mimics the
+returned JSON.
+---
++ Id: int
++ Line: string
++ Tlaref: string
++ Pidref: string
++ StationLocation: string
++ AtcoCode: string
++ Direction: string
++ Dest0: string
++ Carriages0: string 
++ Status0: string 
++ Wait0: string
++ Dest1: string 
++ Carriages1: string 
++ Status1: string
++ Wait1: string
++ Dest2: string
++ Carriages2: string
++ Status2: string
++ Wait2: string
++ Dest3: string
++ Carriages3: string
++ Status3: string
++ Wait3: string
++ MessageBoard: string
++ LastUpdated: string
+}
+
+class Models.Services.ServiceRequester #Yellow {
+Requests service information from the TfGM API.
+---
++ ServiceRequester(IConfiguration config = null)
+---
++ RequestServices(List<int> ids): List<UnformattedServices> 
++ RequestId(int id): Task<UnformattedServices> 
+}
+
+class Models.Services.ServiceFormatter #Yellow {
+Takes a list of unformatted services, and converts them into a 
+formatted object that is more useful for users
+---
++ FormatServices(List<UnformattedServices> unformattedServices): FormattedServices 
+- AddTram(FormattedServices formattedServices, Tram tram): void 
+- FormatMessage(FormattedServices formattedServices, string message): void
+}
+
+class Models.Services.ServiceProcessor #Yellow {
+Handles the requesting and formatting of TfGM service information 
+---
++ ServiceProcessor(IRequester requester, ImportedResources resources)
++ RequestServices(string stop): FormattedServices 
+} 
+
+'Models.Stops'
+package Models.Stops {
+Models.Stops.StopLookup *-- Models.Stops.Stop
+}
+
+class Models.Stops.StopLookup #Orange {
+Looks up the Stop Information for a given stop name 
+or TLAREF.
+---
++ StopLookup(ImportedResources importedResources)
++ TlarefLookup(string tlaref): List<int> 
++ StationNameLookup(string stationName): List<int> 
++ LookupIDs(string value): List<int> 
+}
+
+class Models.Stops.Stop #Orange{
+POCO for storing Stop information 
+---
++ StopName: string
++ Tlaref: string
++ Ids: ArrayList
++ AtcoCode: string
++ Latitude: string
++ Longitude: string
++ Street: string
++ RoadCrossing: string
++ Line: string
++ StopZone: string
+}
+
+'Models.Resources'
+package Models.Resources {
+Models.Resources.StopLoader "Uses" <--- Models.Resources.LoaderHelper
+Models.Resources.StationNamesToTlarefLoader "Uses" <--- Models.Resources.LoaderHelper
+Models.Resources.TlarefToIdsLoader "Uses" <--- Models.Resources.LoaderHelper
+Models.Resources.StopLoader "Uses" <--- Models.Stops.Stop
+Models.Resources.ResourceLoader *-- Models.Resources.ImportedResources
+Models.Resources.ResourceLoader *-- Models.Resources.StopLoader
+Models.Resources.ResourceLoader *-- Models.Resources.StationNamesToTlarefLoader
+Models.Resources.ResourceLoader *-- Models.Resources.TlarefToIdsLoader
+Models.Resources.ResourceLoader *-- Models.Resources.ResourcesConfig
+
+}
+
+class Models.Resources.LoaderHelper #LightSkyBlue {
+Checks file requirements of resource files when loaded
+---
++ CheckFileRequirements(string filePath, string argName): string
+}
+
+class Models.Resources.ImportedResources #LightSkyBlue {
+Stores resources that have been loaded into the program
+---
++ ImportedStops: List<Stop>
++ StationNamesToTlaref: Dictionary<string, string> 
++ TlarefsToIds: Dictionary<string, List<int>> 
+}
+
+class Models.Resources.TlarefToIdsLoader #LightSkyBlue {
+Loads the TlarefsToIds Dictionary
+---
++ TlarefToIdsLoader(ResourcesConfig resourcesConfig)
++ Dictionary<string, List<int>> ImportTlarefsToIds(): Dictionary<string, List<int>> 
+}
+
+class Models.Resources.StationNamesToTlarefLoader #LightSkyBlue {
+Loads the Station names to Tlarefs dictionary
+---
++ StationNamesToTlarefLoader(ResourcesConfig resourcesConfig)
++ ImportStationNamesToTlarefs(): Dictionary<string, string> 
+}
+
+class Models.Resources.StopLoader #LightSkyBlue {
+Loads stored data about stops
+---
++ StopLoader(ResourcesConfig resourcesConfig)
++ ImportStops(): List<Stop> ImportStops()
+} 
+
+class Models.Resources.ResourceLoader #LightSkyBlue {
+Loads the file resources for the system using the file loaders
+---
++ ResourceLoader(ResourcesConfig resourcesConfig)
++ ImportResources(): ImportedResources
+}
+
+class Models.Resources.ResourcesConfig #LightSkyBlue {
++ StopResourcePath: string
++ StationNamesToTlarefsPath: string
++ TlarefsToIdsPath: string
++ DeepCopy(): ResourcesConfig
+}
+
+'Models'
+package Models{
+Models.WrapperDataModel <-- Models.Resources.ResourceLoader
+Models.WrapperDataModel <-- Models.Services.ServiceProcessor
+}
+
+class Models.WrapperDataModel #Lavender{
+Main data model for the TfGM-API-Wrapper project
+---
++ WrapperDataModel(ResourcesConfig resourcesConfig, IRequester requester = null)
++ ImportResources(): ImportedResources 
++ RequestServices(string stop): FormattedServices
+}
+
+'Controllers
+package Controllers {
+Controllers.StopsController "Uses" <-- Models.WrapperDataModel
+Controllers.ServiceController "Uses" <-- Models.WrapperDataModel
+}
+
+class Controllers.ServiceController #HoneyDew{
+Controller for handling requests for service information
+---
++ ServiceController(IConfiguration config, IOptions<ResourcesConfig> resources)
++ GetService(string stop): IActionResult 
+}
+
+class Controllers.StopsController #HoneyDew {
+Controller for handling requests for stop information
+---
++ StopsController(IOptions<ResourcesConfig> config)
++ GetAllStops(): IActionResult 
+}
+
+@enduml
