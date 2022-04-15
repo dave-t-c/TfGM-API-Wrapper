@@ -4,7 +4,7 @@
         <TargetFramework>net6.0</TargetFramework>
         <RootNamespace>TfGM_API_Wrapper_Tests</RootNamespace>
         <Nullable>enable</Nullable>
-
+        <IsPublishable>false</IsPublishable>
         <IsPackable>false</IsPackable>
     </PropertyGroup>
 
