@@ -18,7 +18,6 @@ public class TestStationNamesToTlarefLoader
     private const string InvalidFilePath = "../../../Resources/NonExistentFile.json";
     private ResourcesConfig? _invalidStationNamesToTlarefs;
     private ResourcesConfig? _nullStationNamesToTlarefs;
-    private StationNamesToTlarefLoader? _stationNamesToTlarefLoader;
     private ResourcesConfig? _validResourcesConfig;
 
     private StationNamesToTlarefLoader? _validStationNamesToTlarefLoader;
@@ -56,7 +55,6 @@ public class TestStationNamesToTlarefLoader
         _validResourcesConfig = null;
         _nullStationNamesToTlarefs = null;
         _invalidStationNamesToTlarefs = null;
-        _stationNamesToTlarefLoader = null;
         _validStationNamesToTlarefLoader = null;
     }
 
@@ -71,7 +69,7 @@ public class TestStationNamesToTlarefLoader
     {
         Assert.Throws(Is.TypeOf<InvalidOperationException>()
                 .And.Message.EqualTo("StationNamesToTlarefsPath cannot be null"),
-            delegate { _stationNamesToTlarefLoader = new StationNamesToTlarefLoader(_nullStationNamesToTlarefs); });
+            delegate { var unused = new StationNamesToTlarefLoader(_nullStationNamesToTlarefs); });
     }
 
     /// <summary>
@@ -84,7 +82,7 @@ public class TestStationNamesToTlarefLoader
         Assert.Throws(Is.TypeOf<FileNotFoundException>()
                 .And.Message.Contains("Could not find file")
                 .And.Message.Contains("../../../Resources/NonExistentFile.json"),
-            delegate { _stationNamesToTlarefLoader = new StationNamesToTlarefLoader(_invalidStationNamesToTlarefs); });
+            delegate { var unused = new StationNamesToTlarefLoader(_invalidStationNamesToTlarefs); });
     }
 
     /// <summary>

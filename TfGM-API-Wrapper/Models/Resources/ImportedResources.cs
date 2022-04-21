@@ -15,7 +15,7 @@ public class ImportedResources
         TlarefsToIds = new Dictionary<string, List<int>>();
     }
 
-    public List<Stop> ImportedStops { get; set; }
-    public Dictionary<string, string> StationNamesToTlaref { get; set; }
-    public Dictionary<string, List<int>> TlarefsToIds { get; set; }
+    public List<Stop> ImportedStops { get; init; }
+    public Dictionary<string, string> StationNamesToTlaref { get; init; }
+    public Dictionary<string, List<int>> TlarefsToIds { get; init; }
 }

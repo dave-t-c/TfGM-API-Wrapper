@@ -1,3 +1,5 @@
+// ReSharper disable UnusedAutoPropertyAccessor.Global
+// ReSharper disable UnusedMember.Global
 namespace TfGM_API_Wrapper.Models.Services;
 
 /// <summary>

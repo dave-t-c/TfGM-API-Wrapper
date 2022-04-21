@@ -65,7 +65,10 @@ public class TestTlarefToIdsLoader
     {
         Assert.Throws(Is.TypeOf<InvalidOperationException>()
                 .And.Message.EqualTo("TlarefsToIdsPath cannot be null"),
-            delegate { new TlarefToIdsLoader(_nullTlarefsToIdsPath); });
+            delegate
+            {
+                var unused = new TlarefToIdsLoader(_nullTlarefsToIdsPath);
+            });
     }
 
     /// <summary>
@@ -78,7 +81,7 @@ public class TestTlarefToIdsLoader
         Assert.Throws(Is.TypeOf<FileNotFoundException>()
                 .And.Message.Contains("Could not find file")
                 .And.Message.Contains("../../../Resources/NonExistentFile.json"),
-            delegate { new TlarefToIdsLoader(_invalidTlarefsToIdsPath); });
+            delegate { var unused = new TlarefToIdsLoader(_invalidTlarefsToIdsPath); });
     }
 
     /// <summary>

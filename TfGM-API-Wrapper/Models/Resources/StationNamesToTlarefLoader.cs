@@ -38,6 +38,5 @@ public class StationNamesToTlarefLoader
         using var reader = new StreamReader(_resourcesConfig.StationNamesToTlarefsPath);
         var jsonString = reader.ReadToEnd();
         return JsonConvert.DeserializeObject<Dictionary<string, string>>(jsonString);
-        ;
     }
 }

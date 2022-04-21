@@ -5,6 +5,8 @@ namespace TfGM_API_Wrapper.Models.Stops;
 /// <summary>
 ///     Stores information about a single stop.
 /// </summary>
+// ReSharper disable once ClassNeverInstantiated.Global
+// ReSharper disable UnusedMember.Global
 public class Stop
 {
     public string StopName { get; set; }

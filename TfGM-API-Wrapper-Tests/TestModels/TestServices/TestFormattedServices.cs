@@ -125,7 +125,7 @@ public class TestFormattedServices
         var trams = result?[_destination];
         var first = trams?.First();
         Assert.AreEqual("Double", first?.Carriages);
-        trams?.Remove(trams?.First());
+        trams?.Remove(trams.First());
         var second = trams?.First();
         Debug.Assert(first?.Wait != null, "first?.Wait != null");
         var firstWait = int.Parse(first.Wait);

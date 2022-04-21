@@ -5,14 +5,12 @@ namespace TfGM_API_Wrapper.Models.Resources;
 /// </summary>
 public class ResourceLoader
 {
-    private readonly ResourcesConfig _resourcesConfig;
     private readonly StationNamesToTlarefLoader _stationNamesToTlarefLoader;
     private readonly StopLoader _stopLoader;
     private readonly TlarefToIdsLoader _tlarefToIdsLoader;
 
     public ResourceLoader(ResourcesConfig resourcesConfig)
     {
-        _resourcesConfig = resourcesConfig;
         _stopLoader = new StopLoader(resourcesConfig);
         _stationNamesToTlarefLoader = new StationNamesToTlarefLoader(resourcesConfig);
         _tlarefToIdsLoader = new TlarefToIdsLoader(resourcesConfig);

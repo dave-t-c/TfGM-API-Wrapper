@@ -80,7 +80,7 @@ public class TestStopsLoader
                 .And.Message.EqualTo("Value cannot be null. (Parameter 'resourcesConfig')"),
             delegate
             {
-                var stopLoader = new StopLoader(null);
+                var unused = new StopLoader(null);
             });
     }
 
@@ -112,7 +112,7 @@ public class TestStopsLoader
                 .And.Message.EqualTo("StopResourcePath cannot be null"),
             delegate
             {
-                var stopLoader = new StopLoader(_nullStopResource);
+                var unused = new StopLoader(_nullStopResource);
             });
     }
 }

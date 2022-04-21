@@ -33,10 +33,10 @@ public class Tram
     {
         if (obj == null || GetType() != obj.GetType()) return false;
         var tram = (Tram)obj;
-        return Destination == tram?.Destination &&
-               Carriages == tram?.Carriages &&
-               Status == tram?.Status &&
-               Wait == tram?.Wait;
+        return Destination == tram.Destination &&
+               Carriages == tram.Carriages &&
+               Status == tram.Status &&
+               Wait == tram.Wait;
     }
 
     /// <summary>

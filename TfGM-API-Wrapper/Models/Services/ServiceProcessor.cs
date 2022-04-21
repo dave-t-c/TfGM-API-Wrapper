@@ -9,12 +9,10 @@ public class ServiceProcessor
     private readonly IRequester _requester;
     private readonly ServiceFormatter _serviceFormatter;
     private readonly StopLookup _stopLookup;
-    private ImportedResources _resources;
 
     public ServiceProcessor(IRequester requester, ImportedResources resources)
     {
         _requester = requester;
-        _resources = resources;
         _stopLookup = new StopLookup(resources);
         _serviceFormatter = new ServiceFormatter();
     }

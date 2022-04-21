@@ -10,8 +10,6 @@ namespace TfGM_API_Wrapper.Controllers;
 public class StopsController : Controller
 {
     private readonly ImportedResources _importedResources;
-    private readonly ResourcesConfig _resourceConfig;
-    private readonly WrapperDataModel _wrapperDataModel;
 
     /// <summary>
     ///     Controller Constructor that allows for custom stops path file location.
@@ -19,13 +17,12 @@ public class StopsController : Controller
     ///     Default = Default location for stop data file. This should ideally be
     ///     extracted to the properties file.
     /// </summary>
-    /// <param name="stopsPath">Path for Stop data, relative to the the base directory.</param>
     /// <param name="config">ResourcesConfig - Configuration for resources location</param>
     public StopsController(IOptions<ResourcesConfig> config)
     {
-        _resourceConfig = config.Value;
-        _wrapperDataModel = new WrapperDataModel(_resourceConfig);
-        _importedResources = _wrapperDataModel.ImportResources();
+        var resourceConfig = config.Value;
+        var wrapperDataModel = new WrapperDataModel(resourceConfig);
+        _importedResources = wrapperDataModel.ImportResources();
     }
 
     /// <summary>

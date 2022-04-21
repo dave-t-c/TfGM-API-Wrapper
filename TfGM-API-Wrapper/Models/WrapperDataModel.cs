@@ -8,14 +8,12 @@ namespace TfGM_API_Wrapper.Models;
 /// </summary>
 public class WrapperDataModel
 {
-    private readonly ResourcesConfig _resourcesConfig;
     private readonly ImportedResources _importedResources;
     private readonly ServiceProcessor _serviceProcessor;
 
     public WrapperDataModel(ResourcesConfig resourcesConfig, IRequester requester = null)
     {
-        _resourcesConfig = resourcesConfig;
-        _importedResources = new ResourceLoader(_resourcesConfig).ImportResources();
+        _importedResources = new ResourceLoader(resourcesConfig).ImportResources();
         _serviceProcessor = new ServiceProcessor(requester, _importedResources);
     }
 

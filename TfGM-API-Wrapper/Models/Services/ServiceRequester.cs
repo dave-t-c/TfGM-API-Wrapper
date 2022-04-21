@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
-using System.Web;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 
@@ -27,7 +26,6 @@ public class ServiceRequester : IRequester
     private static async Task<UnformattedServices> RequestId(int id)
     {
         var client = new HttpClient();
-        var queryString = HttpUtility.ParseQueryString(string.Empty);
 
         // Request headers
         client.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", _config["OcpApimSubscriptionKey"]);

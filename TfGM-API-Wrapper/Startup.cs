@@ -11,7 +11,7 @@ namespace TfGM_API_Wrapper;
 
 public class Startup
 {
-    public Startup(IConfiguration configuration)
+    public Startup()
     {
         var builder = new ConfigurationBuilder()
             .SetBasePath(CurrentDomain.BaseDirectory)
@@ -20,7 +20,7 @@ public class Startup
         Configuration = builder.Build();
     }
 
-    public IConfiguration Configuration { get; }
+    private IConfiguration Configuration { get; }
 
     // This method gets called by the runtime. Use this method to add services to the container.
     public void ConfigureServices(IServiceCollection services)

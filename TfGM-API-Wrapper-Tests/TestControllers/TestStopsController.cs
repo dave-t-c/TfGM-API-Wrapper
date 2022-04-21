@@ -13,7 +13,6 @@ namespace TfGM_API_Wrapper_Tests.TestControllers;
 /// </summary>
 public class TestStopsController
 {
-    private const string ValidStopLoaderPath = "../../../Resources/ValidStopLoader.json";
     private IOptions<ResourcesConfig>? _resourceOptions;
     private ResourcesConfig? _resourcesConfig;
     private StopsController? _testStopController;

@@ -16,9 +16,7 @@ namespace TfGM_API_Wrapper.Controllers;
 [ApiController]
 public class ServiceController : Controller
 {
-    private readonly IConfiguration _config;
     private readonly WrapperDataModel _dataModel;
-    private readonly ResourcesConfig _resourcesConfig;
 
     /// <summary>
     ///     Secrets, such as access keys from the dotnet user-secrets storage
@@ -28,9 +26,8 @@ public class ServiceController : Controller
     /// <param name="resources">Resource Config for loading stop related resources.</param>
     public ServiceController(IConfiguration config, IOptions<ResourcesConfig> resources)
     {
-        _config = config;
-        _resourcesConfig = resources.Value;
-        _dataModel = new WrapperDataModel(_resourcesConfig, new ServiceRequester(_config));
+        var resourcesConfig = resources.Value;
+        _dataModel = new WrapperDataModel(resourcesConfig, new ServiceRequester(config));
     }
 
     [Route("/api/services/{stop}")]

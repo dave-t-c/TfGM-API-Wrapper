@@ -105,7 +105,7 @@ public class TestTram
                 .And.Message.EqualTo("Value cannot be null. (Parameter 'destination')"),
             delegate
             {
-                var tram = new Tram(null, _carriages, _status, _wait);
+                var unused = new Tram(null, _carriages, _status, _wait);
             });
     }
 
@@ -120,7 +120,7 @@ public class TestTram
                 .And.Message.EqualTo("Value cannot be null. (Parameter 'carriages')"),
             delegate
             {
-                var tram = new Tram(_destination, null, _status, _wait);
+                var unused = new Tram(_destination, null, _status, _wait);
             });
     }
 
@@ -135,7 +135,7 @@ public class TestTram
                 .And.Message.EqualTo("Value cannot be null. (Parameter 'status')"),
             delegate
             {
-                var tram = new Tram(_destination, _carriages, null, _wait);
+                var unused = new Tram(_destination, _carriages, null, _wait);
             });
     }
 
@@ -151,7 +151,7 @@ public class TestTram
                 .And.Message.EqualTo("Value cannot be null. (Parameter 'wait')"),
             delegate
             {
-                var tram = new Tram(_destination, _carriages, _status, null);
+                var unused = new Tram(_destination, _carriages, _status, null);
             });
     }
 
@@ -213,6 +213,7 @@ public class TestTram
     [Test]
     public void TestStringEquals()
     {
+        // ReSharper disable once SuspiciousTypeConversion.Global
         Assert.False(_tram?.Equals("Test"));
     }
 
