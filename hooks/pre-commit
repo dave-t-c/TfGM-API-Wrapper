@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+
+# If any command fails, exit immediately with that command's exit status
+set -eo pipefail
+> /dev/null 2>&1
+# Restore dotnet packages and use jetbrains to cleanup code.
+echo "Restoring dotnet packages" 
+dotnet restore >/dev/null
+
+echo "Inspecting Code"
+dotnet jb inspectcode --build TfGM-API-Wrapper.sln -o=ReSharper-Output.txt >& /dev/null
+
+issues=$(grep -c "<Issue" ReSharper-Output.txt)
+echo "Found $issues Issues"
+echo "Ok to continue?: Y/N"
+
+# Allows us to read user input below, assigns stdin to keyboard
+exec < /dev/tty
+read  -n 1 yn
+exec <&- 
+
+# Add a newline to keep terminal clean
+printf '\n'
+
+if [ "$yn" = "" ]; then
+    yn='Y'
+fi
+
+case $yn in 
+  [Yy] ) exit 0;;
+  [Nn] ) exit 1;;
+esac
