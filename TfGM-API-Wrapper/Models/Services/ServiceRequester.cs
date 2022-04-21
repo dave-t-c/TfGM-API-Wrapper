@@ -8,7 +8,7 @@ namespace TfGM_API_Wrapper.Models.Services;
 
 public class ServiceRequester : IRequester
 {
-    private static IConfiguration _config;
+    private readonly IConfiguration _config;
 
     public ServiceRequester(IConfiguration config = null)
     {
@@ -23,7 +23,7 @@ public class ServiceRequester : IRequester
         return unformattedServices;
     }
 
-    private static async Task<UnformattedServices> RequestId(int id)
+    private async Task<UnformattedServices> RequestId(int id)
     {
         var client = new HttpClient();
 
