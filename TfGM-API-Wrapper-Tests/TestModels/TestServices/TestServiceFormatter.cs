@@ -17,7 +17,6 @@ public class TestServiceFormatter
     private const string ValidApiResponseCaretChars = "../../../Resources/ApiResponseCaretCharsMessage.json";
     private const string ValidApiResponseEmptyMessage = "../../../Resources/ApiResponseNoMessage.json";
     private const string ValidApiResponseIncorrectOrder = "../../../Resources/ApiResponseIncorrectTramOrder.json";
-    private ImportServicesResponse? _importServices;
     private ServiceFormatter? _serviceFormatter;
     private UnformattedServices? _unformattedServices;
     private UnformattedServices? _unformattedServicesCaretCharMessage;
@@ -29,13 +28,12 @@ public class TestServiceFormatter
     [SetUp]
     public void SetUp()
     {
-        _importServices = new ImportServicesResponse();
-        _unformattedServices = _importServices.ImportUnformattedServices(ValidApiResponsePath);
-        _unformattedServicesFourTrams = _importServices.ImportUnformattedServices(ValidApiResponsePathFourServices);
-        _unformattedServicesCaretCharMessage = _importServices.ImportUnformattedServices(ValidApiResponseCaretChars);
-        _unformattedServicesEmptyMessage = _importServices.ImportUnformattedServices(ValidApiResponseEmptyMessage);
+        _unformattedServices = ImportServicesResponse.ImportUnformattedServices(ValidApiResponsePath);
+        _unformattedServicesFourTrams = ImportServicesResponse.ImportUnformattedServices(ValidApiResponsePathFourServices);
+        _unformattedServicesCaretCharMessage = ImportServicesResponse.ImportUnformattedServices(ValidApiResponseCaretChars);
+        _unformattedServicesEmptyMessage = ImportServicesResponse.ImportUnformattedServices(ValidApiResponseEmptyMessage);
         _unformattedServicesIncorrectOrder =
-            _importServices.ImportUnformattedServices(ValidApiResponseIncorrectOrder);
+            ImportServicesResponse.ImportUnformattedServices(ValidApiResponseIncorrectOrder);
         _serviceFormatter = new ServiceFormatter();
         _unformattedServicesList = new List<UnformattedServices?>();
     }
