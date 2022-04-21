@@ -10,7 +10,7 @@ dotnet restore >/dev/null
 echo "Inspecting Code"
 dotnet jb inspectcode --build TfGM-API-Wrapper.sln -o=ReSharper-Output.txt >& /dev/null
 
-issues=$(grep -c "<Issue" ReSharper-Output.txt)
+issues=$(grep -c "<Issue " ReSharper-Output.txt)
 echo "Found $issues Issues"
 echo "Ok to continue?: Y/N"
 
