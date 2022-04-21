@@ -35,3 +35,6 @@ Desktop.ini
 
 # Code Coverage Files
 coverage.cobertura.xml
+
+# JetBrains ReSharper Output File
+ReSharper-Output.txt
