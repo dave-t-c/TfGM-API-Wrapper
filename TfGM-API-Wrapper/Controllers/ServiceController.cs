@@ -6,6 +6,7 @@ using Microsoft.Extensions.Options;
 using TfGM_API_Wrapper.Models;
 using TfGM_API_Wrapper.Models.Resources;
 using TfGM_API_Wrapper.Models.Services;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace TfGM_API_Wrapper.Controllers;
 
@@ -32,6 +33,9 @@ public class ServiceController : Controller
 
     [Route("/api/services/{stop}")]
     [Produces("application/json")]
+    [SwaggerResponse(StatusCodes.Status200OK)]
+    [SwaggerResponse(StatusCodes.Status400BadRequest, "Invalid Stop Name or TLAREF provided")]
+    [SwaggerResponse(StatusCodes.Status500InternalServerError, "An internal server error occured")]
     [HttpGet]
     public IActionResult GetService(string stop)
     {
