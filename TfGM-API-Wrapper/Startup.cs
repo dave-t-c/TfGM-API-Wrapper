@@ -1,3 +1,6 @@
+using System;
+using System.IO;
+using System.Reflection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -9,8 +12,14 @@ using static System.AppDomain;
 
 namespace TfGM_API_Wrapper;
 
+/// <summary>
+/// Builds and configures the application
+/// </summary>
 public class Startup
 {
+    /// <summary>
+    /// Generates application builder using appSettings JSON.
+    /// </summary>
     public Startup()
     {
         var builder = new ConfigurationBuilder()
@@ -21,8 +30,11 @@ public class Startup
     }
 
     private IConfiguration Configuration { get; }
-
-    // This method gets called by the runtime. Use this method to add services to the container.
+    
+    /// <summary>
+    /// Method called by runtime, used to add services to the container
+    /// </summary>
+    /// <param name="services">Services for the Container</param>
     public void ConfigureServices(IServiceCollection services)
     {
         services.AddOptions();
@@ -32,10 +44,18 @@ public class Startup
         services.AddSwaggerGen(c =>
         {
             c.SwaggerDoc("v1", new OpenApiInfo { Title = "TfGM API Wrapper", Version = "v1" });
+            var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+            var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+            c.IncludeXmlComments(xmlPath);
+            c.EnableAnnotations();
         });
     }
-
-    // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+    
+    /// <summary>
+    /// Configures HTTP request pipeline
+    /// </summary>
+    /// <param name="app">App being built</param>
+    /// <param name="env">Host Environment being used.</param>
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
     {
         if (env.IsDevelopment())
