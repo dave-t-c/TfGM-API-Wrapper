@@ -1,10 +1,15 @@
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
+using Swashbuckle.AspNetCore.Annotations;
 using TfGM_API_Wrapper.Models;
 using TfGM_API_Wrapper.Models.Resources;
 
 namespace TfGM_API_Wrapper.Controllers;
 
+/// <summary>
+/// Controller for Stops related information
+/// </summary>
 [Route("/api/stops")]
 [ApiController]
 public class StopsController : Controller
@@ -31,6 +36,7 @@ public class StopsController : Controller
     /// <returns>JSON List -> Stop</returns>
     [Route("/api/stops")]
     [Produces("application/json")]
+    [SwaggerResponse(StatusCodes.Status200OK)]
     [HttpGet]
     public IActionResult GetAllStops()
     {
