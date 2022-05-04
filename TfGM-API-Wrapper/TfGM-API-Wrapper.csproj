@@ -4,7 +4,8 @@
         <TargetFramework>net6.0</TargetFramework>
         <RootNamespace>TfGM_API_Wrapper</RootNamespace>
         <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
-      <UserSecretsId>68bc7bfb-b0a9-4ae2-b259-a4cd2ecabd4e</UserSecretsId>
+        <UserSecretsId>68bc7bfb-b0a9-4ae2-b259-a4cd2ecabd4e</UserSecretsId>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
 
     <ItemGroup>
