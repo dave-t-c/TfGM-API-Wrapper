@@ -31,6 +31,11 @@ public class ServiceController : Controller
         _dataModel = new WrapperDataModel(resourcesConfig, new ServiceRequester(config));
     }
 
+    /// <summary>
+    /// Retrieves the services for a given stop
+    /// </summary>
+    /// <param name="stop">Stop name or Tlaref for stop</param>
+    /// <returns>FormattedServices -> Services for the specified stop</returns>
     [Route("/api/services/{stop}")]
     [Produces("application/json")]
     [SwaggerResponse(StatusCodes.Status200OK)]
