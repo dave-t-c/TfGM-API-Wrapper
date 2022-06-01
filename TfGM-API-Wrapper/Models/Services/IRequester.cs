@@ -8,5 +8,11 @@ namespace TfGM_API_Wrapper.Models.Services;
 /// </summary>
 public interface IRequester
 {
+    /// <summary>
+    /// Requests the services for a given list of IDs.
+    /// These IDs should be retrieved from an associated tlaref.
+    /// </summary>
+    /// <param name="ids">IDs to request services for</param>
+    /// <returns></returns>
     public List<UnformattedServices> RequestServices(List<int> ids);
 }
