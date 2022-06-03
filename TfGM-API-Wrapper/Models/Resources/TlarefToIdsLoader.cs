@@ -27,6 +27,10 @@ public class TlarefToIdsLoader
             nameof(resourcesConfig.TlarefsToIdsPath));
     }
 
+    /// <summary>
+    /// Imports the TlarefsToIds dict using the resources config given to the constructor
+    /// </summary>
+    /// <returns>Dict that maps Tlarefs to a list of IDs for that stop</returns>
     public Dictionary<string, List<int>> ImportTlarefsToIds()
     {
         using var reader = new StreamReader(_resourcesConfig.TlarefsToIdsPath);

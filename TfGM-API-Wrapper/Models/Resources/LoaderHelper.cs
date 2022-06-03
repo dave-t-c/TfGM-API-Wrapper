@@ -4,6 +4,9 @@ using static System.AppDomain;
 
 namespace TfGM_API_Wrapper.Models.Resources;
 
+/// <summary>
+/// Helper functions used when loading resources into the application.
+/// </summary>
 public class LoaderHelper
 {
     /// <summary>

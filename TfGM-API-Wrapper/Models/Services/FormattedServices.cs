@@ -7,13 +7,23 @@ namespace TfGM_API_Wrapper.Models.Services;
 /// </summary>
 public class FormattedServices
 {
+    /// <summary>
+    /// Creates a new, empty, formatted services object.
+    /// </summary>
     public FormattedServices()
     {
         Destinations = new Dictionary<string, SortedSet<Tram>>();
         Messages = new HashSet<string>();
     }
 
+    /// <summary>
+    /// Dict between destination and a sorted set of trams for that dest
+    /// </summary>
     public Dictionary<string, SortedSet<Tram>> Destinations { get; }
+    
+    /// <summary>
+    /// Service messages for the 
+    /// </summary>
     public HashSet<string> Messages { get; }
 
     /// <summary>
@@ -30,6 +40,10 @@ public class FormattedServices
         Destinations[tram.Destination].Add(tram);
     }
 
+    /// <summary>
+    /// Adds a message to the messages for the stop
+    /// </summary>
+    /// <param name="message"></param>
     public void AddMessage(string message)
     {
         if (message == null) return;

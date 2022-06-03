@@ -4,12 +4,21 @@ using TfGM_API_Wrapper.Models.Stops;
 
 namespace TfGM_API_Wrapper.Models.Services;
 
+/// <summary>
+/// Processes service requests
+/// </summary>
 public class ServiceProcessor
 {
     private readonly IRequester _requester;
     private readonly ServiceFormatter _serviceFormatter;
     private readonly StopLookup _stopLookup;
 
+    /// <summary>
+    /// Creates a new service processor using the imported resources and
+    /// IRequest implementation.
+    /// </summary>
+    /// <param name="requester">IRequester implementation to use</param>
+    /// <param name="resources">Imported resources for the application</param>
     public ServiceProcessor(IRequester requester, ImportedResources resources)
     {
         _requester = requester;

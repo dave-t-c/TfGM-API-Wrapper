@@ -9,6 +9,11 @@ public class ResourceLoader
     private readonly StopLoader _stopLoader;
     private readonly TlarefToIdsLoader _tlarefToIdsLoader;
 
+    /// <summary>
+    /// Creates a new resources loader using the given resources configuration.
+    /// No null checks are performed on the resource config given.
+    /// </summary>
+    /// <param name="resourcesConfig">Resource config used for importing resources</param>
     public ResourceLoader(ResourcesConfig resourcesConfig)
     {
         _stopLoader = new StopLoader(resourcesConfig);

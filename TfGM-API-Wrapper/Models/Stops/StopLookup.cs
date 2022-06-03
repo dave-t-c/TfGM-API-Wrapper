@@ -14,6 +14,11 @@ public class StopLookup
 {
     private readonly ImportedResources _importedResources;
 
+    /// <summary>
+    /// Generates a new StopLookup using the imported resources.
+    /// Imported resources may be null here.
+    /// </summary>
+    /// <param name="importedResources">ImportedResources loaded at program start</param>
     public StopLookup(ImportedResources importedResources)
     {
         _importedResources = importedResources;

@@ -4,6 +4,10 @@ using System.Text.RegularExpressions;
 
 namespace TfGM_API_Wrapper.Models.Services;
 
+/// <summary>
+/// Converts Unformatted services, into a formatted form, by removing null or empty services
+/// and re-formatting the messages to be clearer.
+/// </summary>
 public class ServiceFormatter
 {
     /// <summary>

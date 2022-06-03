@@ -6,15 +6,28 @@ using Newtonsoft.Json;
 
 namespace TfGM_API_Wrapper.Models.Services;
 
+/// <summary>
+/// Handles requests for services from the TfGM API.
+/// </summary>
 public class ServiceRequester : IRequester
 {
     private readonly IConfiguration _config;
 
+    /// <summary>
+    /// Creates a new ServiceRequester using an injected IConfiguration.
+    /// config has a default of null in case it is not injected or has not been configured.
+    /// </summary>
+    /// <param name="config"></param>
     public ServiceRequester(IConfiguration config = null)
     {
         _config = config;
     }
 
+    /// <summary>
+    /// Requests services for a list of given IDs.
+    /// </summary>
+    /// <param name="ids">List of IDs for a stop</param>
+    /// <returns>List of Unformatted Services returned from the request</returns>
     public List<UnformattedServices> RequestServices(List<int> ids)
     {
         var unformattedServices = new List<UnformattedServices>();
@@ -23,6 +36,11 @@ public class ServiceRequester : IRequester
         return unformattedServices;
     }
 
+    /// <summary>
+    /// Requests the service information from a given ID using the TfGM API.
+    /// </summary>
+    /// <param name="id">ID to request service info for</param>
+    /// <returns>Unformatted Service for the given ID</returns>
     private async Task<UnformattedServices> RequestId(int id)
     {
         var client = new HttpClient();
