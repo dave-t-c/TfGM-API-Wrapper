@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using TfGM_API_Wrapper.Models.Resources;
+using TfGM_API_Wrapper.Models.Services;
 using TfGM_API_Wrapper.Models.Stops;
 using static System.AppDomain;
 
@@ -28,6 +29,8 @@ public class Startup
             .SetBasePath(CurrentDomain.BaseDirectory)
             .AddJsonFile("appSettings.json", true, true);
 
+        builder.AddUserSecrets(Assembly.GetExecutingAssembly());
+
         Configuration = builder.Build();
     }
 
@@ -40,23 +43,27 @@ public class Startup
     /// <param name="services">Services for the Container</param>
     public void ConfigureServices(IServiceCollection services)
     {
-        services.AddOptions();
-        
+
+        services.Configure<ApiOptions>(Configuration.GetSection("ApiOptions"));
+
         // ReSharper disable once SuspiciousTypeConversion.Global
         ResourcesConfig resourceConfig = new ResourcesConfig();
         Configuration.Bind("Resources", resourceConfig);
 
+        ApiOptions apiOptions = new ApiOptions();
+        Configuration.Bind("ApiOptions", apiOptions);
+
         ResourceLoader resourceLoader = new ResourceLoader(resourceConfig);
         ImportedResources importedResources = resourceLoader.ImportResources();
-        
-        services.Configure<ResourcesConfig>(Configuration.GetSection("Resources"));
-
         services.AddSingleton(importedResources);
 
-        StopsDataModel stopsDataModel = new StopsDataModel(importedResources);
+        IStopsDataModel stopsDataModel = new StopsDataModel(importedResources);
         services.AddSingleton(stopsDataModel);
-        
 
+        IRequester serviceRequester = new ServiceRequester(apiOptions);
+        IServicesDataModel servicesDataModel = new ServicesDataModel(importedResources, serviceRequester);
+        services.AddSingleton(servicesDataModel);
+        
 
         services.AddControllers();
 
