@@ -13,7 +13,6 @@ namespace TfGM_API_Wrapper_Tests.TestControllers;
 /// </summary>
 public class TestStopsController
 {
-    private IOptions<ResourcesConfig>? _resourceOptions;
     private ResourcesConfig? _resourcesConfig;
     private ImportedResources? _importedResources;
     private IStopsDataModel? _stopsDataModel;
@@ -41,7 +40,10 @@ public class TestStopsController
     public void Teardown()
     {
         _testStopController = null;
-        _resourceOptions = null;
+        _resourcesConfig = null;
+        _importedResources = null;
+        _stopsDataModel = null;
+        _testStopController = null;
     }
 
     /// <summary>
