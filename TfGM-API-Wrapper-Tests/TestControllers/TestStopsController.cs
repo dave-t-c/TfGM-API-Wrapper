@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Options;
 using NUnit.Framework;
 using TfGM_API_Wrapper.Controllers;
 using TfGM_API_Wrapper.Models.Resources;
