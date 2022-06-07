@@ -15,7 +15,6 @@ public class StopsDataModel: IStopsDataModel
     public StopsDataModel(ImportedResources importedResources)
     {
         _importedResources = importedResources;
-        Console.WriteLine(_importedResources.ImportedStops.Count);
     }
     
     /// <summary>
