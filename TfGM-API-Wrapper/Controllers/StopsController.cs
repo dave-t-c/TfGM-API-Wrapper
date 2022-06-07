@@ -15,7 +15,7 @@ namespace TfGM_API_Wrapper.Controllers;
 [ApiController]
 public class StopsController : Controller
 {
-    private readonly StopsDataModel _stopsDataModel;
+    private readonly IStopsDataModel _stopsDataModel;
 
     /// <summary>
     ///     Controller Constructor that allows for custom stops path file location.
@@ -24,7 +24,7 @@ public class StopsController : Controller
     ///     extracted to the properties file.
     /// </summary>
     /// <param name="stopsDataModel">Data Model used for processing stops information</param>
-    public StopsController(StopsDataModel stopsDataModel)
+    public StopsController(IStopsDataModel stopsDataModel)
     {
         _stopsDataModel = stopsDataModel;
     }
