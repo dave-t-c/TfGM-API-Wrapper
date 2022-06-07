@@ -17,7 +17,7 @@ namespace TfGM_API_Wrapper.Controllers;
 [ApiController]
 public class ServiceController : Controller
 {
-    private readonly WrapperDataModel _dataModel;
+    private readonly IServicesDataModel _servicesDataModel;
 
     /// <summary>
     ///     Secrets, such as access keys from the dotnet user-secrets storage
@@ -25,10 +25,13 @@ public class ServiceController : Controller
     /// </summary>
     /// <param name="config">Configuration loaded by </param>
     /// <param name="resources">Resource Config for loading stop related resources.</param>
-    public ServiceController(IConfiguration config, IOptions<ResourcesConfig> resources)
+    public ServiceController(IServicesDataModel servicesDataModel)
     {
-        var resourcesConfig = resources.Value;
-        _dataModel = new WrapperDataModel(resourcesConfig, new ServiceRequester(config));
+        _servicesDataModel = servicesDataModel;
+        //Console.WriteLine(config["OcpApimSubscriptionKey"]);
+        //Console.WriteLine("(((((((((");
+        //var resourcesConfig = resources.Value;
+        //_dataModel = new WrapperDataModel(resourcesConfig, new ServiceRequester(apiOptions.Value, config));
     }
 
     /// <summary>
@@ -47,7 +50,7 @@ public class ServiceController : Controller
         FormattedServices result;
         try
         {
-            result = _dataModel.RequestServices(stop);
+            result = _servicesDataModel.RequestServices(stop);
         }
         catch (ArgumentException)
         {
