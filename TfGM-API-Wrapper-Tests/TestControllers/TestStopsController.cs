@@ -15,6 +15,8 @@ public class TestStopsController
 {
     private IOptions<ResourcesConfig>? _resourceOptions;
     private ResourcesConfig? _resourcesConfig;
+    private ImportedResources? _importedResources;
+    private IStopsDataModel? _stopsDataModel;
     private StopsController? _testStopController;
 
     [SetUp]
@@ -26,8 +28,9 @@ public class TestStopsController
             StationNamesToTlarefsPath = "../../../Resources/Station_Names_to_TLAREFs.json",
             TlarefsToIdsPath = "../../../Resources/TLAREFs_to_IDs.json"
         };
-        _resourceOptions = Options.Create(_resourcesConfig);
-        _testStopController = new StopsController(_resourceOptions);
+        _importedResources = new ResourceLoader(_resourcesConfig).ImportResources();
+        _stopsDataModel = new MockStopsDataModel(_importedResources);
+        _testStopController = new StopsController(_stopsDataModel);
     }
 
     /// <summary>
