@@ -27,7 +27,7 @@ public class TestStopsController
             TlarefsToIdsPath = "../../../Resources/TLAREFs_to_IDs.json"
         };
         _importedResources = new ResourceLoader(_resourcesConfig).ImportResources();
-        _stopsDataModel = new MockStopsDataModel(_importedResources);
+        _stopsDataModel = new StopsDataModel(_importedResources);
         _testStopController = new StopsController(_stopsDataModel);
     }
 
