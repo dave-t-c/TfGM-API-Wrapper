@@ -228,14 +228,16 @@ Controllers.ServiceController "Uses" <-- Models.Services.ServicesDataModel
 class Controllers.ServiceController #HoneyDew{
 Controller for handling requests for service information
 ---
-+ ServiceController(IConfiguration config, IOptions<ResourcesConfig> resources)
++ ServiceController(IServiceDataModel serviceDataModel)
+---
 + GetService(string stop): IActionResult 
 }
 
 class Controllers.StopsController #HoneyDew {
 Controller for handling requests for stop information
 ---
-+ StopsController(IOptions<ResourcesConfig> config)
++ StopsController(IStopsDataModel)
+---
 + GetAllStops(): IActionResult 
 }
 
