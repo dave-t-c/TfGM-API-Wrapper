@@ -1,3 +1,4 @@
+using System;
 using System.Diagnostics;
 using NUnit.Framework;
 using TfGM_API_Wrapper.Models.Resources;
@@ -46,5 +47,21 @@ public class TestServicesDataModel
         Assert.NotNull(result);
         Debug.Assert(result != null, nameof(result) + " != null");
         Assert.AreEqual(1, result.Destinations.Count);
+    }
+
+    /// <summary>
+    /// Request services for a null stop.
+    /// This should throw an argument null exception.
+    /// </summary>
+    [Test]
+    public void TestNullServiceLocationName()
+    {
+        Assert.Throws(Is.TypeOf<ArgumentNullException>()
+                .And.Message.EqualTo("Value cannot be null. (Parameter 'stop')"),
+            delegate
+            {
+                Debug.Assert(_servicesDataModel != null, nameof(_servicesDataModel) + " != null");
+                _servicesDataModel.RequestServices(null);
+            });
     }
 }
