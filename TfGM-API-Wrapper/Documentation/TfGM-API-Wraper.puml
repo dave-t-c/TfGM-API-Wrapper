@@ -78,7 +78,6 @@ returned JSON.
 + MessageBoard: string
 + LastUpdated: string
 }
-
 class Models.Services.ServiceRequester #Yellow {
 Requests service information from the TfGM API.
 ---
@@ -145,7 +144,13 @@ Models.Resources.ResourceLoader *-- Models.Resources.StopLoader
 Models.Resources.ResourceLoader *-- Models.Resources.StationNamesToTlarefLoader
 Models.Resources.ResourceLoader *-- Models.Resources.TlarefToIdsLoader
 Models.Resources.ResourceLoader *-- Models.Resources.ResourcesConfig
+Models.Services.ServiceRequester *-- Models.Resources.ApiOptions 
+}
 
+class Models.Resources.ApiOptions #LightSkyBlue {
+Stores API settings used when requesting data from the TfGM API.
+---
++ OcpApimSubscriptionKey: String
 }
 
 class Models.Resources.LoaderHelper #LightSkyBlue {
