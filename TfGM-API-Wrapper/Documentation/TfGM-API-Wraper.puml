@@ -117,6 +117,14 @@ package Models.Stops {
 Models.Stops.StopLookup *-- Models.Stops.Stop
 }
 
+class Models.Stops.StopsDataModel #Orange {
+Data model for processing stops related requests.
+---
++ StopsDataModel(ImportedResources importedResources)
+---
+GetStops(): List<Stop> 
+}
+
 class Models.Stops.StopLookup #Orange {
 Looks up the Stop Information for a given stop name 
 or TLAREF.
