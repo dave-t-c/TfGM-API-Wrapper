@@ -60,4 +60,18 @@ public class TestServicesController
         Assert.NotNull(returnedServices);
         Assert.AreEqual(1, returnedServices?.Destinations.Count);
     }
+
+    /// <summary>
+    /// Requests services for a non-existent stop name
+    /// This should return a 400 bad request code.
+    /// </summary>
+    [Test]
+    public void TestRequestServicesInvalidName()
+    {
+        var result = _serviceController?.GetService("AAA");
+        Assert.NotNull(result);
+        var requestObj = result as ObjectResult;
+        Assert.NotNull(requestObj);
+        Assert.AreEqual(400, requestObj?.StatusCode);
+    }
 }
