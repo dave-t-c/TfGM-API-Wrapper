@@ -11,6 +11,15 @@ Models.Services.ServiceFormatter *-- Models.Services.FormattedServices
 Models.Services.ServiceProcessor *-- Models.Services.ServiceRequester
 Models.Services.ServiceProcessor *-- Models.Services.ServiceFormatter
 Models.Services.ServiceProcessor *-- Models.Stops.StopLookup
+Models.Services.ServicesDataModel *-- Models.Services.ServiceProcessor
+}
+
+class Models.Services.ServicesDataModel #Yellow {
+Data model that handles requests for service information.
+---
++ ServicesDataModel(ImportedResources importedResources, IRequester requester)
+---
++ RequestServices(string stop): FormattedServices
 }
 
 class Models.Services.Tram #Yellow{
