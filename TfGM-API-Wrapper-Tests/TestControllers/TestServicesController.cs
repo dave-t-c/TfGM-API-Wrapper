@@ -74,4 +74,18 @@ public class TestServicesController
         Assert.NotNull(requestObj);
         Assert.AreEqual(400, requestObj?.StatusCode);
     }
+
+    /// <summary>
+    /// Request a service with a null stop name.
+    /// This should return a 400 bad request
+    /// </summary>
+    [Test]
+    public void TestRequestNullStopName()
+    {
+        var result = _serviceController?.GetService(null);
+        Assert.NotNull(result);
+        var requestObj = result as ObjectResult;
+        Assert.NotNull(requestObj);
+        Assert.AreEqual(400, requestObj?.StatusCode);
+    }
 }
