@@ -219,20 +219,6 @@ class Models.Resources.ResourcesConfig #LightSkyBlue {
 + DeepCopy(): ResourcesConfig
 }
 
-'Models'
-package Models{
-Models.WrapperDataModel <-- Models.Resources.ResourceLoader
-Models.WrapperDataModel <-- Models.Services.ServiceProcessor
-}
-
-class Models.WrapperDataModel #Lavender{
-Main data model for the TfGM-API-Wrapper project
----
-+ WrapperDataModel(ResourcesConfig resourcesConfig, IRequester requester = null)
-+ ImportResources(): ImportedResources 
-+ RequestServices(string stop): FormattedServices
-}
-
 'Controllers
 package Controllers {
 Controllers.StopsController "Uses" <-- Models.Stops.StopsDataModel
