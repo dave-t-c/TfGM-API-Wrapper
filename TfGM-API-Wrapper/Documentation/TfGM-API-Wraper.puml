@@ -235,8 +235,8 @@ Main data model for the TfGM-API-Wrapper project
 
 'Controllers
 package Controllers {
-Controllers.StopsController "Uses" <-- Models.WrapperDataModel
-Controllers.ServiceController "Uses" <-- Models.WrapperDataModel
+Controllers.StopsController "Uses" <-- Models.Stops.StopsDataModel
+Controllers.ServiceController "Uses" <-- Models.Services.ServicesDataModel
 }
 
 class Controllers.ServiceController #HoneyDew{
