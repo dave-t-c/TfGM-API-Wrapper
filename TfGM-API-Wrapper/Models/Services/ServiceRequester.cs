@@ -19,8 +19,7 @@ public class ServiceRequester : IRequester
     /// Creates a new ServiceRequester using an injected IConfiguration.
     /// config has a default of null in case it is not injected or has not been configured.
     /// </summary>
-    /// <param name="config"></param>
-    /// <param name="apiOptions"></param>
+    /// <param name="apiOptions">API Options imported on startup. These are injected</param>
     public ServiceRequester(ApiOptions apiOptions)
     {
         _apiOptions = apiOptions;
