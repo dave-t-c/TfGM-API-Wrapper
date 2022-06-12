@@ -82,10 +82,10 @@ returned JSON.
 class Models.Services.ServiceRequester #Yellow {
 Requests service information from the TfGM API.
 ---
-+ ServiceRequester(IConfiguration config = null)
++ ServiceRequester(ApiOptions apiOptions)
 ---
 + RequestServices(List<int> ids): List<UnformattedServices> 
-+ RequestId(int id): Task<UnformattedServices> 
+- RequestId(int id): Task<UnformattedServices> 
 }
 
 class Models.Services.ServiceFormatter #Yellow {
