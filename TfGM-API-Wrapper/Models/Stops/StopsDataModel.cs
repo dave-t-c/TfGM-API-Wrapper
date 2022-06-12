@@ -12,6 +12,10 @@ public class StopsDataModel: IStopsDataModel
 {
     private readonly ImportedResources _importedResources;
 
+    /// <summary>
+    /// Creates a new StopsDataModel using the Injected Imported Resources
+    /// </summary>
+    /// <param name="importedResources">Resources Injected on Program Startup</param>
     public StopsDataModel(ImportedResources importedResources)
     {
         _importedResources = importedResources;
