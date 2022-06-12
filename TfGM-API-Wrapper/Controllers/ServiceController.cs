@@ -23,15 +23,9 @@ public class ServiceController : Controller
     ///     Secrets, such as access keys from the dotnet user-secrets storage
     ///     are loaded into the IConfiguration on start up.
     /// </summary>
-    /// <param name="config">Configuration loaded by </param>
-    /// <param name="resources">Resource Config for loading stop related resources.</param>
     public ServiceController(IServicesDataModel servicesDataModel)
     {
         _servicesDataModel = servicesDataModel;
-        //Console.WriteLine(config["OcpApimSubscriptionKey"]);
-        //Console.WriteLine("(((((((((");
-        //var resourcesConfig = resources.Value;
-        //_dataModel = new WrapperDataModel(resourcesConfig, new ServiceRequester(apiOptions.Value, config));
     }
 
     /// <summary>
