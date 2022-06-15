@@ -1,4 +1,5 @@
 using System;
+using System.Data;
 using System.IO;
 using System.Reflection;
 using Microsoft.AspNetCore.Builder;
@@ -8,6 +9,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using TfGM_API_Wrapper.Models.Resources;
+using TfGM_API_Wrapper.Models.Services;
+using TfGM_API_Wrapper.Models.Stops;
 using static System.AppDomain;
 
 namespace TfGM_API_Wrapper;
@@ -26,19 +29,42 @@ public class Startup
             .SetBasePath(CurrentDomain.BaseDirectory)
             .AddJsonFile("appSettings.json", true, true);
 
+        builder.AddUserSecrets(Assembly.GetExecutingAssembly());
+
         Configuration = builder.Build();
     }
 
     private IConfiguration Configuration { get; }
     
     /// <summary>
-    /// Method called by runtime, used to add services to the container
+    /// Method called by runtime, used to add services to the container.
+    /// This adds the required resources and models to be used for the program.
     /// </summary>
     /// <param name="services">Services for the Container</param>
     public void ConfigureServices(IServiceCollection services)
     {
-        services.AddOptions();
-        services.Configure<ResourcesConfig>(Configuration.GetSection("Resources"));
+
+        services.Configure<ApiOptions>(Configuration.GetSection("ApiOptions"));
+
+        // ReSharper disable once SuspiciousTypeConversion.Global
+        ResourcesConfig resourceConfig = new ResourcesConfig();
+        Configuration.Bind("Resources", resourceConfig);
+
+        ApiOptions apiOptions = new ApiOptions();
+        Configuration.Bind("ApiOptions", apiOptions);
+
+        ResourceLoader resourceLoader = new ResourceLoader(resourceConfig);
+        ImportedResources importedResources = resourceLoader.ImportResources();
+        services.AddSingleton(importedResources);
+
+        IStopsDataModel stopsDataModel = new StopsDataModel(importedResources);
+        services.AddSingleton(stopsDataModel);
+
+        IRequester serviceRequester = new ServiceRequester(apiOptions);
+        IServicesDataModel servicesDataModel = new ServicesDataModel(importedResources, serviceRequester);
+        services.AddSingleton(servicesDataModel);
+        
+
         services.AddControllers();
 
         services.AddSwaggerGen(c =>
