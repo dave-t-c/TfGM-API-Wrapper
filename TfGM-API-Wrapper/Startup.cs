@@ -27,9 +27,9 @@ public class Startup
     {
         var builder = new ConfigurationBuilder()
             .SetBasePath(CurrentDomain.BaseDirectory)
-            .AddJsonFile("appSettings.json", true, true);
-
-        builder.AddUserSecrets(Assembly.GetExecutingAssembly());
+            .AddJsonFile("appSettings.json", true, true)
+            .AddUserSecrets<ApiOptions>()
+            .AddEnvironmentVariables();
 
         Configuration = builder.Build();
     }
@@ -50,8 +50,14 @@ public class Startup
         ResourcesConfig resourceConfig = new ResourcesConfig();
         Configuration.Bind("Resources", resourceConfig);
 
-        ApiOptions apiOptions = new ApiOptions();
-        Configuration.Bind("ApiOptions", apiOptions);
+        // This is currently imported and set manually due to problems with it
+        // working with Linux on Azure App Service, as it did not want to work
+        // with a structured json.
+        ApiOptions apiOptions = new ApiOptions
+        {
+            OcpApimSubscriptionKey = Configuration["OcpApimSubscriptionKey"]
+        };
+        services.AddSingleton(apiOptions);
 
         ResourceLoader resourceLoader = new ResourceLoader(resourceConfig);
         ImportedResources importedResources = resourceLoader.ImportResources();
